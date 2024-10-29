@@ -415,7 +415,13 @@ Last but not least, our enumerator for parking functions with restricted prefere
 \[
 	   (s - 1 + x)^{c} = \sum_{i = 0}^{c} \binom{c}{i} x(i + x)^{i - 1} (s - 1 - i)^{c - i}
 \]
-which is given by Abel's theorem with $x=x$, $y=s-c-1$, $n=c$, and $i=i$. Notably, this is very nearly recovers the complete identity! In particular, our claim is proven for all values of $x$ and all integer values of $s$ from $1$ to $c$; since both sides of our identity are polynomials of degree $c$ in the variable $s$, only one further value of $s$ needs to be verified in order to show the full theorem as a consequence.
+which is given by Abel's theorem with $x=x$, $y=s-c-1$, $n=c$, and $i=i$. Notably, this recovers the complete identity! To see this, note that the above statement is true for all values of $x$ and for the $c$ integer values of $s$ from $1$ to $c$. Subtracting $s^c$ yields on both sides a polynomial which is of degree $c-1$ in $s$ on both sides (true through expanding out each term).
+
+Two polynomials of degree $c-1$ are equal at all values if they are equal for $c$ different values. Thus we have equality for all values of $x$ and $c$; substituting $x=x,$ $s=y+c+1,$ $c=n,$ and $i=i$ gives us the initial identity.
+
+
+
+In particular, our claim is proven for all values of $x$ and all integer values of $s$ from $1$ to $c$; since both sides of our identity are polynomials of degree $c$ in the variable $s$, only one further value of $s$ needs to be verified in order to show the full theorem as a consequence.
 
 A combinatorial proof of Abel's binomial theorem, much inspired by \cite{shapiro-1991}, can be found in \cref{a:abelsbin} along with a brief description of the connections between parking functions and reluctant functions.
 
