@@ -1,0 +1,30 @@
+\section{Dormant questions}~
+
+This section contains questions that are relevant to restricted parking functions, but we put on the backburner after getting stuck.
+
+\subsection*{PIE enumeration of the number of restricted parking functions}~
+
+In the first attempted proof of \cref{thm: res-count}, we show that the union of all $A_{j} = \{ \pi \in \mathrm{PF}_{c} \mid \pi_{j} \in [c] \setminus [s], (\pi_{1}, \dots, \pi_{j - 1}, \pi_{j + 1}, \dots, \pi_{n}) \in \mathrm{PF}_{c - 1} \}$ is the set of all parking functions on $[c]$ that aren't restricted to $[s]$. Thus,
+\[
+	\# \mathrm{PF}_{c \mid [s]} = \# \mathrm{PF}_{c} - \# \bigcup_{j = 1}^{n} A_{i}.
+\]
+
+We tried to enumerate the union by PIE and found that it was slightly different from what we'd want to prove the formula for \cref{thm: res-count}. However, the equation above still holds. Can we find a nice way to enumerate $\bigcup_{j = 1}^{n} A_{i}$?
+
+\subsection*{The counting ones conjecture}~
+
+This is explained in the \hyperref[sss: no.ones]{section on it}. Basically, is there an explicit construction for \cref{cnj: counting-ones}?
+
+\pagebreak
+
+\section{Inactive questions}~
+
+This section contains questions that we've thought about, but aren't strictly relevant or helpful to our focus on restricted parking functions.
+
+\subsection*{Circular parking functions and the front/back problem}~
+
+An alternative formulation of the parking problem yields the following surprising result. The problem is described here in full generality, but there are obvious special cases (no restriction on the preference ordering, no restriction on the length of the preference ordering, as many cars as spots). \\
+
+Consider $c$ cars trying to park in $s$ spots of a circular parking lot. Each of them has a preference ordering of length $l$ on some subset $S \subset s$ of the spots. Each car drives to their first preference, and then their second, and so on until they either exhaust their preferences or reach the last slot of the parking lot. In one configuration, ``front'', if a car reaches the last slot of the parking lot they continue on to the first slot of the parking lot before any other cars have the chance to park. That is, they rejoin at the ``front'' of the line. In another configuration, ``back'', if a car reaches the last slot of the parking lot, they must wait for all the still-not-parked cars to attempt to park before they may attempt to park again. That is, they rejoin at the ``back'' of the line. \\
+
+Which configuration results in fewer cars having to go around in total?

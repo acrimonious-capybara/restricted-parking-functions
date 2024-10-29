@@ -1,0 +1,27 @@
+\section{Fall week 1}
+
+\subsection{Inclusion-exclusion proof!}
+
+\begin{theorem}
+	The number of $[s]$-restricted parking functions of length $c$ is
+	\[
+		\# \mathrm{PF}_{c \mid [s]} = \sum_{i = s}^{c} (-1)^{c - i} \binom{c}{i} (i + 1)^{i - 1} (i + 1 - s)^{c - i}
+	\]
+\end{theorem}
+
+\begin{proof}
+	
+See something like chapter 5 of Aigner's \emph{A Course in Enumeration} or Stanley volume 1, chapter 2 for a precise formulation of the inclusion-exclusion I'm using.
+
+Given a subset $I \subset [c]$ with  $\# I = i$, let $f_{=}(I)$ be the number of parking functions $\pi$ with $\pi([c] \setminus I) \subset [i + 1] \setminus [s]$ and $\pi(I) \subset [s]$. Notice that as a result $\operatorname{range} \pi \subset [i + 1]$. Clearly, $f_{=}([c])$ is just $\# \mathrm{PF}_{c \mid [s]}$.
+
+The subset function $f_{\subseteq}$ is given by
+\[
+	f_{\subseteq}(I) = \sum_{T \subset I} f_{=}(T)
+\]
+We claim that this counts all parking functions $\pi$ with $\operatorname{range} \pi \subset [i + 1]$ and $\pi([c] \setminus I) \subset [i + 1] \setminus [s]$ --- for any such function, $T$ is the pre-image of $[s]$. Notice that $f_{\subseteq}(I) = 0$ for  $\#I < s$. Then by inclusion-exclusion (ignoring the zero terms)
+\[
+	f_{=}([c]) = \sum_{I \subset [c], i \ge s} (-1)^{c - i} f_\subseteq (I).
+\]
+Now we just need to show that $f_{\subseteq}(I)$ is $(i + 1)^{i - 1}(i + 1 - s)^{c - i}$.
+\end{proof}

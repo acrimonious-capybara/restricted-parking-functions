@@ -1,0 +1,168 @@
+\section{Week 2}
+
+\begin{remark}[notation]
+	From here on, we use $c$ to denote the number of cars and $s$ (with $s < c$) to indicate the number of spots that their preferences are restricted to.
+\end{remark}
+
+\subsection*{Two and a half proofs of an enumeration of restricted parking functions}~
+
+Last week we conjectured that the number of parking functions of length $c$ with preferences restricted to $[s]$ could be given by a second formula
+\[
+	\sum_{i = s}^{c} (-1)^{c - i} \binom{c}{i} (i + 1)^{i - 1}(i - s + 1)^{c - i}.
+\]
+We found two and a half ways to prove this --- by inclusion-exclusion (but it doesn't actually work), by involution-exception, and by Abel's identity.
+
+\begin{theorem}[enumerating restricted parking functions] \label{thm: res-count}
+	The number of parking functions of length $c$ with preferences restricted to $[s]$ is
+	\[
+		\sum_{i = s}^{c} (-1)^{c - i} \binom{c}{i} (i + 1)^{i - 1}(i - s + 1)^{c - i}
+	\]
+\end{theorem}
+
+\begin{proof}[\textcolor{red}{Danger! Non-proof} by inclusion-exclusion]
+	Let $P_{n}$ be the number of parking functions of length $n$. \\
+	
+	We can enumerate the number of restricted parking functions by subtracting the number parking functions with preferences outside of $[s]$ from the total number of parking functions of length $c$, $P_{c}$. We rewrite this in the language of inclusion-exclusion as follows. \\
+
+	Let $A_{j}$ be the set of parking functions such that the $j$th car chooses a spot outside $[s]$, and the remaining cars form a parking function on the first $c - 1$ spots. That is, let $A_{j} = \{ \pi \in \operatorname{PF}_{c} \mid  \pi_{j} \in [c] \setminus [s], (\pi_{1}, \dots, \pi_{j - 1}, \pi_{j + 1}, \pi_{c}) \in \operatorname{PF}_{c - 1} \}$. We claim that these $A_{i}$ cover all of the ``bad'' parking functions that we want to exclude ---
+	
+	\begin{lemma}
+		Any parking function where some car has a preference in $[c] \setminus [s]$ can be written as an element of some $A_{j}$.
+	\end{lemma}
+	
+	\begin{proof}
+		Choose the car with the greatest preference as the car that chooses a spot outside $[s]$. The remaining cars must form a parking function on the first $c - 1$ spots. If they did not, then there would be a spot in the first $c - 1$ spots such that none of the non-chosen $c - 1$ cars want to park in it and some of the non-chosen $c - 1$ cars want to park ahead of it. Since the chosen car prefers to park in the highest spot preferred, it doesn't prefer to park in this empty spot either. This leaves a spot empty and thus, makes the preference list not a parking function.
+	\end{proof}
+	
+	Thus, the number of restricted parking functions is
+	\[
+		P_{c} - \lvert \bigcup_{i \in [c]} A_{j} \rvert.
+	\]
+	We want to enumerate the union of all $A_{j}$ by the principle of inclusion-exclusion. \\
+	
+	Note that the sum, expanded out, looks like
+	\[
+		P_{c} - \left ( d \binom{c}{1} P_{c - 1} - (d - 1)^{2} \binom{c}{2} P_{c - 2} + \dots \pm \binom{c}{s} P_{s} \right )
+	\]
+	where $d = c - s$. We claim that each term in the parentheses corresponds to a sum of the cardinalities of $k$-intersections of $A_{j}$. Specifically, we claim that
+
+	\begin{lemma}
+		\[
+		\sum_{J \subset [c], \lvert J \rvert = k} \lvert \bigcap_{j \in J} A_{j} \rvert) = (d - k + 1)^{k} \binom{c}{k} P_{c - k}
+	\]
+	for all $k \in \{ s, \dots, c \}$.
+	\end{lemma}
+
+	\begin{proof}
+		We will prove by induction that every $k$-intersection is given by the $k$ cars preferring to park in any of the first $d - k + 1$ spots after the $n$th spot and then assigning a parking function on the first $c - k$ spots to the remaining $c - k$ cars. Then enumerating these $k$-intersections is obviously given by this formula --- choose the $k$ cars in one of $\binom{c}{k}$ ways. \\
+
+		It's clear that it is true in the case of $1$-intersections $A_{k}$. Every element of $A_{j}$ can be chosen as follows. Let car $j$ park in any one of the last $d = c - s$ places in one of $d$ ways. The remaining cars must form a parking function on the first $c - 1$ spots in one of $P_{c - 1}$ ways. Thus, the sum of cardinalities of all $1$-intersections is just $d \binom{c}{1} P_{c - 1}$. \\
+
+		Suppose any single $k$-intersection $A$ is given by the $k$ cars preferring to park in the first $d - k + 1$ spots after the $n$th spot and then assigning a parking function on the first $c - k$ spots to the remaining $c - k$ cars. Any $(k + 1)$-intersection must be of the form $A_{j} \cap A$ for some $k$-intersection $A$ that doesn't include $A_{j}$. That is
+		\[
+			A = A_{j_{1}} \cap \dots \cap A_{j_{k}}
+		\]
+		where $j_{l} \neq j$ for all $l \in [k]$. \\
+
+		If $\pi \in A_{j} \cap A$, then $\pi_{j}$ must be one of the $d - k = d - (k + 1) + 1$ spots in $[c - k] \setminus [s]$ --- since $\pi \in A$ and $j$ is not one of the $k$ chosen cars, $\pi_{j}$ must be in $[c - k]$ but since $\pi \in A_{j}$, it cannot be in $[s]$. Rewriting $A_{j} \cap A$ as the intersection of $A_{j_{1}} \cap \dots A_{j_{l - 1}} \cap A \cap A_{j_{l + 1}} \cap A_{j_{n}}$ for each $j_{l}$, we see that $\pi_{j_{l}} \in [c - k] \setminus [s]$ for each $j_{l}$. \\
+		% Stuck here, need to prove that the parking function size reduces to the remaining c - (k + 1) cars on the first c - (k + 1) spots.
+		% One idea is to use the same symmetry of which is the k-intersection and which is the excluded A_j
+		
+		\textcolor{red}{This is where the proof breaks. It isn't necessarily true that the remaining cars form a parking function on the first $[c - (k + 1)]$ spots. For example, consider $\pi = (1, 2, 2, 3)$ for $c = 4$ and $s = 1$. Clearly, $\pi \in A_{2}, A_{3}, A_{4}$ and thus, is in any intersection of them. However, our enumeration doesn't count $\pi \in A_{2} \cap A_{3}$ since the non-chosen cars have preference list $\tilde{\pi} = (1, 3)$ which is not a parking function of length $2$.} \\
+
+		This might be fixed by the fact that our enumeration of $A_{2} \cap A_{3} \cap A_{4}$ doesn't count $\pi$ either. That is, there may be a \textit{sign-reversing involution} that makes everything okay. The next proof makes use of the idea of such an involution.
+	\end{proof}
+	Given the previous lemma, the sum is clearly the number of restricted parking functions ---
+	\[
+		\begin{split}
+			& \sum_{i = s}^{c} (-1)^{c - i} \binom{c}{i}(i + 1)^{i - 1}(i - s + 1)^{c - i} \\
+			& = P_{c} - \left ( d \binom{c}{1} P_{c - 1} - (d - 1)^{2} \binom{c}{2} P_{c - 2} + \dots \pm \binom{c}{s} P_{s} \right ) \\
+												     & = P_{c} - (\sum_{i \in [c]} \lvert A_{i} \rvert - \sum_{J \subset [c], \lvert J \rvert = 2} \lvert \bigcap_{j \in J} A_{j} \rvert + \dots \pm \sum_{J \subset [c], \lvert J \rvert = d} \lvert \bigcap_{j \in J} A_{j} \rvert) \\
+												     & = P_{c} - \lvert \bigcup_{i \in [c]} A_{i} \rvert.
+		\end{split}
+	\]
+\end{proof}
+
+\begin{proof}[Proof by involution-exception]
+    We \textbf{define} a subset of 2-colored parking functions on $[c]$: in particular we count parking functions with cars painted (say) indigo and red, such that the $i\ge s$ indigo cars form a parking function on the first $i$ spots, and the remaining $c-i$ red cars all have preferences in the first $i-s+1$ "forbidden" spots from $s+1$ to $i+1.$ We add these for an even number of red cars and subtract them for an odd number of red cars. The sum here is
+	\[
+		\sum_{i = s}^{c} (-1)^{c - i} \binom{c}{i} (i + 1)^{i - 1}(i - s + 1)^{c - i},
+	\] with $\binom{c}{i}$ ways to choose the indigo cars, $(i+1)^{i-1}$ ways to assign them a parking function, and $(i-s+1)^{c-i}$ ways to put the remaining $c-i$ cars in particular spots, assigned $\pm$ by the number of red cars.\\
+
+    We next create an \textbf{involution} on this set. Given any parking function, let $m$ be the largest number appearing in the preference list, and let $x$ be a car that prefers spot $m.$ Our involution will paint car $x$ red if it is indigo, and indigo if it is red. This is an involution; we claim that it is (almost) always well-defined on our set.\\
+
+    First suppose car $x$ is painted red as part of a 2-colored parking function; then all red cars including $x$ have preferences from $s+1$ to $i+1,$ and all indigo cars form a parking function on $[i].$ If we paint car $x$ indigo, then there will be $i+1$ indigo cars; we want all remaining red cars to have preferences from $s+1$ to $i+2,$ and for the new set of indigo cars to form a parking function.\\
+
+    The first claim is clearly true; removing a car must keep the remaining cars between $s+1$ and $i+2.$ The second claim is also true; $m\in[i+1],$ and adding such a preference to a parking function on $[i]$ gives a parking function as well. After all, if we were to add car $x$ to the end, it would move to spot $i+1$ and complete the function; and parking functions are permutation-invariant, so any place we add car $x$ will also work.\\
+
+    Now suppose car $x$ is painted indigo as part of a 2-colored parking function; then all red cars have preferences from $s+1$ to $i+1,$ and all indigo cars form a parking function on $[i].$ If we paint car $x$ red, then there will be $i-1$ indigo cars; we want all remaining indigo cars to form a parking function on $[i-1],$ with $i-1\ge s,$ and for the new set of red cars to have preferences from $s+1$ to $i.$\\
+    
+    The first claim is always true: a function is a parking function if and only if the $j$th-smallest preference is at most $j,$ which will still be true for the $i-1$ remaining cars when we remove the largest preference. Since $m$ is greater than or equal to every other preference in our set, removing it gives as an appropriate value. Also note that $i-1$ will still be at least $s$: if it were not, then $i=s$ would imply that none of the indigo cars are in forbidden spots, while all the red cars are, making it impossible for car $x$ to be indigo.\\
+
+    The second claim, on the other hand, is true only when $m>s.$ Since $x$ was originally indigo, it had a preference in $[i]$; since its preference is the largest of all preferences, all red cars have preferences at most $i.$ In addition, all red cars before the repainting were at least $s+1$ by definition. The only roadblock, then, is whether car $x$ prefers a spot greater than $s$; if it does, then the proof is complete.\\
+
+    This leads to our single \textbf{exception}: our involution does not work when the largest preference is at most $s.$ This occurs when all preferences are at most $s$; since red cars always choose forbidden spots, all cars are painted indigo. The number of functions here is the number of parking functions on $[c]$ with preferences restricted to $[s],$ given a positive sign since $(-1)^0=1.$ This is precisely what we are trying to count! Our involution maps positives to negatives and negatives to positives, so all terms cancel except the restricted parking functions, giving our desired bijection.
+\end{proof}
+
+\begin{proof}[Proof by Abel's binomial theorem]
+
+Abel's binomial theorem states that for any $w,m,z,$ $$\sum_{k=0}^m \binom{m}{k}(w+m-k)^{m-k-1}(z+k)^k=w^{-1}(z+w+m)^m.$$ Taking $w=1,z=s-c-1,m=c$ gives $$\sum_{k=0}^c \binom{c}{k}(1+c-k)^{c-k-1}(s-c-1+k)^k=s^c,$$ and substituting $i=c-k$ in the dummy variable gives $$\sum_{i=0}^c \binom{c}{i}(i+1)^{i-1}(s-i-1)^{c-i}=s^c.$$ Splitting the sum at $i=s$ and subtracting the lower part gives $$\sum_{i=s}^c \binom{c}{i}(i+1)^{i-1}(s-i-1)^{c-i}=s^c-\sum_{i=0}^{s-1} \binom{c}{i}(i+1)^{i-1}(s-i-1)^{c-i}.$$ The left side is our new formula for restricted parking functions (without a $(-1)^{c-i}$ factored out); the right side is our old formula (with the dummy variable shifted by 1)! Therefore, our two formulas are equivalent.
+\end{proof}
+
+Our last proof shows that our two identities are two sides of the same coin: one is a partial sum of Abel's identity, and the other is the other half of said identity. This insight is originally due to \cite{cameron-johannsen-prellberg-schweitzer-2008}; we hope to have provided combinatorial "stories" for each half.
+
+\subsection*{Hyperplane arrangements and restricted parking functions}
+
+There is a significant history to connections between regions of hyperplane arrangements and parking functions, most famously with the Shi arrangement. In $n$ dimensions, this arrangement is defined as the set of hyperplanes $x_i-x_j=0,$ $x_i-x_j=1$ for all $1\le i<j\le n.$ This divides the plane into $(n+1)^{n-1}$ regions-- the same number as the set of all parking functions of $n$! Pak and Stanley were the first to construct an explicit "natural" bijection between these two functions.\\
+
+\cite{bennett-2024} presents a variation upon the Shi arrangement: given a graph $G$ with $n$ vertices labeled from $1$ to $n,$ the $G$-Shi arrangement consists of the set of hyperplanes $x_i-x_j=0,$ $x_i-x_j=1$ for all $1\le i<j\le n$ such that there is an edge between vertices $i$ and $j.$\\
+
+One such graph is the $C_n$-Shi arrangement, corresponding to a cyclic graph with edges between 1 and 2, 2 and 3, 3 and 4,$\ldots,$ $n-1$ and $n,$ and $n$ and 1. Bennett et al. show that this arrangement has $3^n-2^n-n$ vertices in $n$ dimensions. Intriguingly, this is the same as the number of parking functions on $[n]$ in which every preference is in $[3].$ Is this a coincidence?\\
+
+We doubt it. Note, first of all, that the normal description of $C_n$-Shi is less symmetrical than it could be; projecting the arrangement onto a lower hyperplane and performing a linear transformation yields a fairly elegant description of the hyperplane arrangement, as follows: First start with an $n$-simplex; then extend each of its $n$ facets to a complete hyperplane. Finally, draw a new hyperplane through each vertex parallel to the opposite facet. Examples of this are most easily understandable in \href{https://www.desmos.com/calculator/0vsgpofrj4}{2D} and \href{https://www.desmos.com/3d/cwyqh9kied}{3D}.\\
+
+Note that there is a natural action of the symmetric group $S_n$ on this structure, namely through the rigid transformations which permute the vertices of the original tetrahedron; this acts on the regions of the arrangement as well, giving a set of orbits. For $n=3,$ these are of sizes $1+3+3+3+6=16,$ while for $n=4$ they are of size $1+4+4+4+6+6+12+12+12.$\\
+
+$[3]^n$ has a natural action upon it as well, through permuting the cars which make the choices; as it turns out, the orbits of this action (up to $n=6$ at least) coincide precisely with the orbits of $C_n$-Shi! We're still working out precisely what the bijection is; as it happens, none of the existing bijections in the literature seem to preserve this strong symmetry, so we might have to come up with new ones? \\
+
+Another interesting possibility to note is that of further generalisation of the entire class of restricted functions to hyperplane arrangements. Rows two and three of our sequence correspond to hyperplane arrangements (parking functions with preferences in $[2]^{n}$ and $[3]^n$ are enumerated by the number of regions in the $n$-Linial and $C_{n}$-Shi arrangements). So does the principal diagonal (the number of parking functions is the number of regions in the $K_{n}$-Shi arrangement). A pipe-dream is to find a nice way to associate each row to to a class of hyperplane arrangement. Perhaps the equivalence classes under permutation groups could continue to correspond as well.
+
+\subsection*{Modular restriction on preferences}
+
+Our ``story'' so far has been that people prefer to park in the first few spots, perhaps because they're closer to an entrance. But that's certainly not the only story we can be telling! Perhaps once every few spaces there's a slightly larger parking spot, or every other space has a fire hydrant. We can ask the same questions about how many parking functions there are (as long as some people still prefer the first spot!)\\
+
+Note first that this problem is equivalent to modifying our parking lot, so that all spots can be preferred but a single spot can hold multiple cars. We make this equivalence by compressing everything starting with one preferrable spot until the next one. (In fact this is a way to describe our min-defect parking functions as well: think of $s-1$ parking spots that fit one car each, then one ``parking spot'' that fits $c-s+1$ cars.)\\
+
+Blake and Konheim analyze the problem through this lens, finding general recurrence relations for the number of ways to fill a parking lot with a gap of $g$ between preferred spots. They recover from some incredibly dense generating functions and complex analysis a surprisingly nice special result:
+
+\begin{proposition}
+    The number of parking functions with a gap of $g$ between preferred spots, on $gs-1$ spots, is $s^{gs-2}.$
+\end{proposition}
+
+\begin{proof}
+    Blake and Konheim didn't have the powerful tool of the modern circle argument on their side in 1977!\\
+
+    Consider $s$ large parking spots in a circle, each of which can hold $g$ cars. Let $gs-1$ cars enter the circle, moving from their preferred spot to search in a clockwise direction if it is full; there are $s^{gs-1}$ preference functions here. All of these will be parking functions, since there are more spots than cars, and precisely one spot will not be full; this will have $g-1$ cars instead.\\
+
+    No one will have moved past the spot with $g-1$ cars, since they could have moved into it instead; thus there is no movement past a certain point, allowing us to ``cut'' the circle at that point. We can then view the lot as a linear parking function on $gs-1$ cars with precisely the properties we want.\\
+
+    Since there are $s$ ways to recover a given parking function from this circular setup, there being $s$ choices for the spot which isn't full, we divide by $s$ for a total count of $s^{gs-2}.$
+\end{proof}
+
+Interestingly, for $s=2$ (every other spot is preferred, odd number of spots) this evaluates to $g^{2g-2},$ which coincides with the number of spanning trees on a labeled graph $K_{g,g}.$ Is there a nice bijection there perhaps? Worth further exploration.
+
+We can even extend the circle argument to lower values, though the elegance of the formula suffers for it.
+
+\begin{proposition}
+    The number of parking functions with a gap of $g$ between preferred spots, on $gs-2$ spots, is $\displaystyle s^{gs-3}-\frac{1}{2}\sum_{i=1}^{s-1}\binom{gs-2}{gi-1}i^{gi-2}(s-i)^{g(s-i)-2}.$
+\end{proposition}
+
+\begin{proof}[sketch]
+    We proceed by roughly the same argument as above, putting $s$ large parking spots in a circle and letting $gs-2$ cars enter; there are $s^{gs-2}$ preference functions here. Sometimes we get one parking lot with two cars missing, which is $s$ times what we want to count; sometimes, however, two different parking spots are missing one car, which we'd like to subtract out.\\
+
+    We count these by labeling them spot A and spot B. There are $s$ ways to choose spot A, and we may proceed by casework in how many spots clockwise we need to go before reaching spot B; we call this value $i.$ The number of ways to choose $gi-1$ cars out of $gs-2$ to prefer the $i$ spots from $A$ to $B$ is $\binom{gs-2}{gi-1}$; the number of ways to assemble the two arcs between $A$ and $B$ as parking functions missing one at the end are $i^{gi-2}$ and $(s-i)^{g(s-i)-2}$ by the above proposition. Finally, we're overcounting all of this by a factor of 2 by choosing which spot is A and which spot is B.\\
+
+    Summing all this up, then, gives $\displaystyle s^{gs-2}-\frac{1}{2}s\sum_{i=1}^{s-1}\binom{gs-2}{gi-1}i^{gi-2}(s-i)^{g(s-i)-2},$ and dividing by $s$ gives $\displaystyle s^{gs-2}-\frac{1}{2}\sum_{i=1}^{s-1}\binom{gs-2}{gi-1}i^{gi-2}(s-i)^{g(s-i)-2}.$
+\end{proof}
+
+This gets significantly more complicated as we decrease the value, though it's possible to bash it out; currently suspecting that $gs-k$ cars requires $k+1$ nested sums? The other open problem worth figuring out is a nicer formula for $gs$ spots, though it seems easier to work downwards than upwards.

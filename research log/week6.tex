@@ -1,0 +1,67 @@
+\section{Week 6}
+
+\subsection*{Abel's binomial theorem}\label{ss: abel6}~
+
+Abel's binomial theorem can be written in many different equivalent ways. One form that is particularly amenable to combinatorial proof is
+\[
+	(x + y)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + kz)^{k - 1} (y - kz)^{n - k}.
+\]
+This form is particularly nice because it allows us to think of Abel's binomial theorem as giving a procedure to create a word of length $n$ from an alphabet of length $x + y$. Through some transformations, we can show this is equivalent to choosing words of length $n$ from an alphabet of length $x + y + n$. This is easier to prove, and is what we will use.
+
+\begin{restatable}[Inspired by \cite{zucker-2024}, \cite{shapiro-1991}, and conversation with Prof. Benjamin]{theorem}{abelsbin}
+	 \[
+		 (x + y)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + kz)^{k - 1} (y - kz)^{n - k}.
+	\]
+\end{restatable}
+
+\begin{proof}[\textcolor{red}{Danger! Non-proof}]
+	Note that just like the binomial theorem is equivalent to the case where $y = 1$, Abel's generalisation is equivalent to the case where $z = 1$. Specifically, if we show
+	 \[
+		 (x + y)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + k)^{k - 1} (y - k)^{n - k},
+	\]
+	then we can recover the full result by substuting $x = X/Z$ and $y = Y/Z$. Also note that we can ignore the possibility that $y - k < 0$ by noticing that the equation above is equivalent to
+	\[
+		(x + y + n)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + k)^{k - 1} (y + n - k)^{n - k}.
+	\]
+	The left hand side is the number of length $n$ words in the alphabet $\{ a_{1}, \dots, a_{x} \} \cup \{ b_{1}, \dots, b_{y} \} \cup \{ c_{1}, \dots, c_{n} \}$. We show a procedure to create words in the alphabet that is enumerated by the right hand side. \\
+	To create a word of length $n$, 
+	\begin{enumerate}[label = (\arabic*)]
+		\item Choose a subset of $S \subset [n]$ with $\# S = k$ in one of $\binom{n}{k}$ ways. The $s$th letters of the word (for $s \in S$) will come from $\{ a_{1}, \dots, a_{x} \} \cup \{ c_{1}, \dots, c_{k} \}$. 
+		\item If $S$ is nonempty, let the $\min S$th letter in the word be one of $x$ possible $a_{j}$. Otherwise, skip the next step. 
+		\item Choose freely from $\{ a_{1}, \dots, a_{x} \} \cup \{ c_{1}, \dots, c_{k} \}$ for the remaining $k - 1$ letters at positions in $S$.
+		\item Finally, choose freely from $\{ b_{1}, \dots, b_{y} \} \cup \{ c_{k + 1}, \dots, c_{n} \}$ for the $n - k$ letters at positions in $[n] \setminus S$. 
+\end{enumerate}
+There are  $x(x + k)^{k - 1} (y + n - k)^{n - k}$ ways to do this for each $k$ (even $k = 0$, where all the $x$ terms correctly cancel out to become $1$), and thus, the number of ways to do it for all $k \in [n]$ is just the sum on the right hand side above. This procedure undoubtedly gives a word of length $n$ from the correct alphabet. Now we just need to show that each word from the alphabet can be produced by this procedure. We do so with a greedy algorithm. \textcolor{red}{This breaks because if you have $1$ before the first $a_{j}$, then there is no way to get that word from the procedure above}.
+
+\end{proof}
+
+
+\subsection*{The convex hull of restricted parking functions}
+
+We may consider a parking function on $[c]$ restricted to $[s]$ as an element of $[s]^c\subseteq \mathbb{Z}^c.$ The set of all such elements is also a subset of $\mathbb{Z}^c,$ so we may consider its convex hull.\\
+
+This is a $c$-dimensional polytope; we'd like to have some idea of the shape of it; this is best seen through the vertices of the hull. All such vertices will be points in the original set, so we consider them.\\
+
+Points in the original set are points whose smallest coordinate is 1, whose second-smallest coordinate is at most 2, third-smallest at most 3, and so on, with the added restriction that all elements are at most $s.$ That is, we are looking at tuples of integers which are permutations of points which are coordinatewise at most $(1,2,3,...,s-1,s,s,...,s)$ and coordinatewise at least $(1,1,...,1).$\\
+
+A vertex of a convex polytope is a point which does not lie on a line segment connecting two other points of said polytope. In particular, for such vertices it is impossible that the $i$th-smallest coordinate of said vertex can be greater than $1$ and smaller than $\min(i,s).$ This is because one could increase and decrease that coordinate by 1 to find two points which are still coordinatewise between our bounds.\\
+
+We therefore consider only potential vertices where the $i$th-smallest element is either 1 or $\min(i,s)$; note that there must be a ``cutoff point'' below which all values are 1s and above which all values are $\min(i,s).$ Thus all vertices are permutations of the vertices $(1,2,3,...,s-1,s,s,...,s),$ $(1,1,3,...,s-1,s,s,...,s),$ $(1,1,1,4,...,s-1,s,s,...,s),...,$ $(1,1,1,...,1,s,s,...,s),...,$ $(1,1,1,...,1,s),(1,1,1,...,1,1).$\\
+
+Note that all of these are genuine vertices: another way to define a vertex of a convex polytope is as a point whose dot product with a particular vector is maximal among all points. Our vector in question is formed by replacing all coordinates of $1$ with $-1$; the negatives require minimization of appropriate coordinates, and the ordering on the remaining coordinates ensures the correct ordering is maximal. (This description is vague, but it does seem to work.)\\
+
+The number of total vertices is then the sum over all these types: $$\frac{c!}{(c-s)!}+\frac{c!}{(c-s)!2!}+\cdots+\frac{c!}{(c-s)!s!}+\cdots+\frac{c!}{(c-2)!2!}+\frac{c!}{(c-1)!1!}+\frac{c!}{c!0!},$$ or $$\binom{c}{0}+\binom{c}{1}+\binom{c}{2}+\cdots+\binom{c}{c-s}+\frac{c!}{(c-s)!}\left(1+\frac{1}{2!}+\frac{1}{3!}+\cdots+\frac{1}{(s-1)!}\right).$$
+
+It is a result of multiple papers on parking function polytopes that their parking-function convex hulls tend to be simple: in particular, a \textbf{u}-parking function where all elements of \textbf{u} are positive gives a simple polytope. (This means that the graph of edges and vertices of the polytope is a regular graph.)\\
+
+However, our situation does not lead to simple polytopes: essentially, the repeated numbers in our maximum possible value leads to edges which are collapsed into points, leading to greater degree than usual. The easiest example is for $c=3,s=2$: the set of all parking functions consists of 7 out of 8 vertices of a cube, and 3 of these vertices have degree 4 while 4 vertices have degree 3.
+
+One interesting facet of these polytopes is a literal facet: namely the one consisting of all permutations of $(1,2,3,...,s-1,s,s,...,s).$ This is not always the permutahedron, as it is when $s=c$: rather it is a quotient of points on this polytope. For $c=3,$ $s=3,2,1,$ it is respectively the truncated octahedron, truncated tetrahedron, or regular tetrahedron. Some inspection of higher values of $c$ suggests that the polytopes in question are ``multi-truncated tetrahedra" in some sense; there are likely papers out there covering this, though I can't currently find the right ones.
+
+\subsection*{(Non-decreasing) parking polytope pipe-dream}~
+
+This section is unsubstantiated conjecture on the possibilities for the convex hull of weakly increasing restricted parking functions. \\
+
+In Prof. Andr\'es' paper on generalised parking polyopes (\cite{andres-others-2023}), they consider the convex hull of the weakly increasing $\mathbf{x}$-parking functions for when $\mathbf{x}$ is an arithmetic progression $(a, a + b, \dots, a + (n - 1)b)$. These are lists of positive integers $\pi$ that give $\pi_{i} \le \sum_{j = 1}^{i} x_{j}$. It turns out the convex hull of them is \emph{integrally equivalent} to the Pitman-Stanley --- all points $\mathbf{y}$ that give $y_{i} \le \sum_{j = 1}^{i} x_{j}$. All integer points of the Pitman-Stanley polytope are then just weakly increasing parking functions. Weakly increasing parking functions are things we know how to count! Integer points of polytopes are important! \\
+
+If this result can be extended to when $\mathbf{x}$ is of the form $(1, \dots, 1, 0, \dots, 0)$ then we will have a similar result for weakly increasing restricted parking functions. Note that these correspond to orbits of regular restricted parking functions under the natural action of the symmetric group. If this symmetry is preserved by the polytope, then by understanding the weakly increasing polytope using our results on the $S_{n}$-orbits of restricted parking functions, we can understand the polytope of all restricted parking functions.

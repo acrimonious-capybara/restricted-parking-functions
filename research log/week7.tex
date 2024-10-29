@@ -1,0 +1,79 @@
+\section{Week 7}
+
+\subsection*{Abel's binomial theorem and restricted parking functions}~
+
+\hyperref[ss: abel6]{Last week} we demonstrated a greedy algorithm to uniquely divide a word of length $n$ from the alphabet $\Sigma = \{ a_{1}, \dots, a_{x} \} \cup \{ b_{1}, \dots, b_{y} \} \cup \{ 1, \dots n \}$ into two parts. Given some subset $S_{x} \subset [n]$ of size $k$, the first part contains letters from $\{ a_{1}, \dots, a_{x} \} \cup \{ c_{s} \mid s \in S_{x} \}$ and the second contains letters from $\{ b_{1}, \dots, b_{y} \} \cup \{ c_{t} \mid t \notin S_{x} \}$. \\
+
+Of course, there are many such divisions, but this one shares the unique property that if one thinks of the word as a function $f : [n] \to \Sigma$, then $f(\cdots f(i)) = a_{j}$ for some finite number of applications of $f$. In \cite{shapiro-1991}, Shapiro demonstrates a construction to reconstruct these subsets, and then uses it to prove the Hurwitz formula, a generalisation of Abel's binomial theorem. Below we restate Abel's binomial theorem and prove it . \\
+
+As an aside, note that $f$ is a \emph{reluctant function} (the extension of a function $f : S \to X$ to a function $f : S \to X \cup S$ with finite number of applications property we mentioned). We can think of Abel's binomial theorem as a sort of reluctant version of the regular binomial theorem. The theory of reluctant functions is exposited by Rota (in \cite{rota-foundations3-1970}), and has connections to enumerative results on rooted trees.
+
+\abelsbin*
+
+\begin{proof}
+	Just as the binomial theorem is equivalent to the case where $y = 1$, Abel's generalisation is equivalent to the case where $z = 1$. Specifically, if we show
+	 \[
+		 (x + y)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + k)^{k - 1} (y - k)^{n - k},
+	\]
+	then we can recover the full result by substuting $x = X/Z$ and $y = Y/Z$. Further, we can ignore the possibility that $y - k < 0$ by noticing that the equation above is equivalent to
+	\[
+		(x + y + n)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + k)^{k - 1} (y + n - k)^{n - k}.
+	\]
+	The previous equation can be recovered by substituting $x = X$ and $y = Y - n$. \\
+	
+	The left hand side is the number of length $n$ words in the alphabet $\Sigma = A \cup B \cup [n]$ where $A = \{ a_{1}, \dots, a_{x} \}$ and $B = \{ b_{1}, \dots, b_{y} \}$. These words can be thought of as functions $f : [n] \to \Sigma$. The positions of letters in any word (with corresponding function $f$) can be partitioned into two subsets $S_{x}, S_{y}$ by the following greedy algorithm.
+	\begin{enumerate}[label = (\arabic*)]
+		\item If there are no $a_{j}$ in the word, then $S_{x} = \text{\O}$.
+		\item For all $i \in [n]$, if $f(i) \in A$, then add $i$ to $S_{x}$.
+		\item For all $i \in [n]$, if $f(i) \in S_{x}$, then add $i$ to $S_{x}$.
+		\item Repeat step (3) until there are no more $i$ such that $f(i) \in S_{x}$.
+		\item $S_{y} = [n] \setminus S_{x}$
+	\end{enumerate}
+	In the digraph representation of $f$, $S_{x}$ is the tree with root at $A$. $S_{y}$ is the rest of the vertices. Note that $f^{\text{img}}(S_{x}) \subset S_{x} \cup A$ and $f^{\text{img}}(S_{y}) \subset S_{y} \cup B$. We also have that $f(\cdots f(i)) \in A$ for any $i \in S_{x}$. We call a tuple $(S_{x}, S_{y}, f)$ with the properties listed above a \emph{reluctant decomposition}. \\
+
+	We've just shown that every word corresponds is described by such a decomposition. Obviously, this decomposition is unique, since the word is uniquely characterised by $f$. Also, every decomposition gives us a function $[n] \to \Sigma$ and thus, a word. That is, we have a bijection from words to reluctant decompositions. Now we show that these decompositions are enumerated by the right hand side. \\
+
+	To construct a reluctant decomposition, we first choose $S_{x}$ to be any size $k$ subset of $[n]$ (in one of $\binom{n}{k}$ ways), and let $S_{y} = [n] \setminus S_{x}$. First, arbitrarily assign letters in $S_{y} \cup B$ to the positions in $S_{y}$ (in one of $(y + n - k)^{n - k}$ ways). Now we have $f^{\text{img}(S_{y})} \subset S_{y} \cup B$. Then assign letters in $S_{x} \cup A$ to the first $k - 1$ positions in $S_{x}$ arbitrarily (in one of $(x + k)^{k - 1}$ ways). Note that $f^{\text{img}}(S_{x}) \subset S_{x} \cup A$. Then ``unravel'' the function as in \cite{shapiro-1991} to get $f(\cdots f(i)) \in A$ for all $i \in S_{x}$. \\
+
+	That is, if there are no cycles, define $f(\max S_{x}) \in A$ (in one of $x$ ways). Else, order all of the cycles of $f$ in $S_{x}$ by the largest $i$ contained by them. Let these be $C_{i_{1}}, \dots, C_{i_{m}}$ with largest elements $i_{1} < \dots < i_{m}$. Define $f(\max S_{x}) = i_{1}$. Then, for each $i_{j}$ let $c_{i_{j}} = f^{-1}(i_{j}) \in C_{i_j}$. (That is, even though there may not be a unique  $f^{-1}(i_{j})$ in all of $S_{x}$, $c_{i_{j}}$ is the unique ``last'' element of $C_{i_{j}}$ that maps back to $i_{j}$). Change $f(c_{i_{j}})$ to be $i_{j + 1}$ instead of $i_{j}$ for all $m \in \{ 1, \dots, m - 1 \}$. Finally, set $f(c_{i_{m}}) \in A$ (in one of $x$ ways). \\
+
+	We can see that this gives us $f(\cdots f(i)) \in A$ for all $i \in S_{x}$ since all of the $i \in S_{x}$ were in a cycle, in a tree rooted at a cycle, or in a tree rooted at some point in $A$. By connecting all of the cycles into a tree rooted in $A$, we convert everything into a forest of trees rooted in $A$. Thus, each of these arbitrary choices for the first $k$ in $S_{x}$ (combined with a choice of root in $A$) gives us a reluctant decomposition. Given a reluctant decomposition, we can also recover the arbitrary choice --- just look at the path from $\max S_{x}$ to its root in $A$. Examining the $i_{j}$ between (exclusively) $\max S_{x}$ to $a \in A$, start a new cycle every time a new maximum is reached. \\
+
+	Thus, there are $x(x + k)^{k - 1}$ decompositions for $\# S_{x} = k$. Summing over all possible values of $k$ is just the right hand side of the equation. That is, the number of decompositions (and thus, also the number of words) is the right hand side of the equation. \\
+
+	Finally, throughout this proof we have assumed $x, y \in \mathbb{N}$. We can extend this to $x, y \in \mathbb{C}$ by the standard trick of noticing that
+	\[
+		(x + y + n)^{n} = \sum_{k \ge 0} \binom{n}{k} x (x + k)^{k - 1} (y + n - k)^{n - k}
+	\]
+	holds as an identity of finite-degree polynomials at all pairs of natural numbers, and thus, by combinatorial Nullstellensatz \cite{alon-1999}, at all points.
+\end{proof}
+
+This is fairly elegant, although maybe it doesn't explain the parking-function results too well? Notably, it's a decomposition into reluctant functions and not of parking functions in particular. There's perhaps a bijection between the two that helps, but said bijection has to be quite complicated. \\
+
+\subsection*{Random walks on parking functions}~
+
+Let $G$ be a digraph with positive weights assigned to each edge. If for every vertex the sum of the weights on every edge pointing outward is 1, then this can be viewed as a Markov chain: the weight on an edge is the probability that a certain vertex maps to another vertex. This is also a linear transformation of the vector space of functions on the vertex set of $G,$ which maps probability distributions to probability distributions; we will denote the corresponding matrix as $M_G$.\\
+
+We look at digraphs with the further property that the sum of the weights on every edge pointing to it is 1. This has the elegant property that a uniform distribution remains uniform when operated on by our digraph. For if every vertex starts with value of $\frac{1}{|G|},$ and the sum of weights $p_i$ towards a given vertex is $1,$ then the new probability on this vertex will be $\sum_i \frac{1}{|G|}\cdot p_i=\frac{1}{|G|}.$\\
+
+This means that the uniform distribution is an eigenvector of our digraph, with eigenvalue 1. We would like conditions on our digraph ensuring that it is the only such eigenvector, and in particular that repeating this process always leads to convergence to the uniform distribution.
+
+\begin{proposition}
+    If $G$ is connected and is a graph for a Markov chain, and $M_G$ is symmetric with no 0s along the diagonal, then repeatedly applying $M_G$ to any probability distribution repeatedly will yield convergence to the uniform distribution.
+\end{proposition}
+
+\begin{proof}
+    (Sketch) Since $M_G$ is symmetric, it is orthogonally diagonalizable and has real eigenvalues. Any eigenvalue with norm greater than 1 will be impossible: when repeated on the right distribution, it will eventually give unbounded size, which is impossible on said probability distributions. Thus the only cases we want to worry about are other eigenvectors with eigenvalues of $1$ or $-1.$ These lead to their own problems, though:\\
+
+    If we have two linearly independent eigenvectors with eigenvalue 1, then there exists another such distribution with at least one coordinate equal to 0; this contradicts connectedness, requiring that some set of vertices have probability mass completely disconnected from the rest (since the 0s are preserved).\\
+
+    If we have two linearly independent eigenvectors with eigenvalues $-1$ and $-1$, then any linear combination of these two is mapped back to itself after two applications of $M_G.$ We can in particular find two distributions $v$ and $w$ such that $M_Gv=w$ and $M_Gw=v,$ and $w$ has some coordinate equal to 0 which $v$ does not. But since there are no 0s along the diagonal, at least some probability mass from $v$ will be conserved when applying $M_G$; this is again a contradiction.\\
+
+    Thus, all but one of our eigenvalues has norm less than 1; in our orthonormal eigenbasis, applying $M_G$ repeatedly has all the corresponding coordinates approach 0, letting the entire distribution approach the uniform one.
+\end{proof}
+
+Now consider the following operation on parking functions:\\
+
+Given a parking function $\pi$ on $[c]$ restricted to $S,$ we may increment or decrement coordinate $i$ of the parking function. We do this by replacing $\pi(i)$ with the smallest value greater than $\pi(i)$ in $S$ such that the resulting function is still a parking function, or the largest such value smaller than $\pi(i).$ If we are already at the greatest/smallest such value, then we may replace it with the smallest/greatest value respectively. (Note that sometimes there is only one such value, in which case the parking function is unchanged; however, this is uncommon enough not to be a significant worry.) Importantly, this is reversible: incrementing and then decrementing leads to the original parking function again.\\
+
+We may construct a Markov chain on a set of parking functions as follows: for a given parking function, with $\frac{1}{2c+1}$ probability either leave the parking function alone or increment/decrement a random coordinate of the parking function. Since the process is reversible, this gives a symmetric matrix; since we sometimes leave the parking function alone, there are no zeroes along the diagonal; since we can decrement all the coordinates of each parking function down to $(1,1,...,1,1),$ the graph is connected. Therefore, applying this Markov chain on any distribution gives long-term behavior which is uniform; it also shouldn't be too computation-intensive.
