@@ -60,9 +60,13 @@ citecolor = blue}
 \maketitle
 \tableofcontents
 
-\todo[jayden, inline]{preference-restricted parking functions as a paradigm, something between parking functions and $\mathbf{u}$-parking functions. Maybe cut out results that are too specific to a particular restriction --- use the narrative as a guide for what to cut}
+\todo[jayden, inline]{change $c$ to $n$}
+\todo[jayden, inline]{preference-restricted parking functions as a paradigm, something between parking functions and $\mathbf{u}$-parking functions --- cut out results that are too specific to a particular restriction, use the narrative as a guide for what to cut}
 \todo[inline]{how to unify DIE proofs? Leave a comment that these are similar?}
-\todo[jayden, inline]{add your author details in alphabetical order of last name --- \LaTeX \, doesn't do it automatically}
+\todo[jayden, inline]{add lots of examples! maybe running examples}
+\todo[jayden, inline]{use align instead of split in theorems and in general}
+\todo[jayden, inline]{break proofs into lemmas, use them to break them into ideas that are more digestible}
+\todo[jayden, inline]{introduce theorems with words}
 \todo[inline]{modular asymptotics}
 
 % just set up to make sure the todo list gets printed fine at the start of the doc
@@ -72,6 +76,8 @@ citecolor = blue}
 \listoftodos\relax
 
 \section{Introduction}
+
+\todo[jayden, inline]{(for later) rephrase to highlight results we have --- write for people who know what a parking function is}
 
 Imagine $c$ cars driving down a one-way street with $c$ parking spots. Then, for $i \in [c]$, each $i$th car has a preferred parking spot $\pi_{i}$. In order, the cars try to park. Each car goes to its preferred parking spot. If the spot is unoccupied, it parks there. Else, if there are unoccupied spots further along, it parks in the next one. If not, it doesn't park at all. We say $\pi = (\pi_{1}, \dots, \pi_{c})$ is a \emph{parking function} if such a list of preferences leads to all cars parking. Naturally this definition gives rise to questions like
 \begin{itemize}
@@ -86,6 +92,8 @@ It's also only natural to ask the same questions about slightly different parkin
 Parking functions with restrictions on the cars' preferences are not just interesting for the stories they can tell; they can also be used to construct and sample from other preference lists of interest (like defect $d$ preference lists). We call these central objects \emph{preference-restricted parking functions}. We denote the set of all \emph{$S$-restricted parking functions}, parking functions of length $c$ with preferences restricted to  $S \subset [c]$, by $\mathrm{PF}_{c \mid S}$.
 
 We will show that our motivating case $S = [s]$ can be enumerated in two ways. They are connected by Abel's binomial theorem and provide combinatorial insight for the results in \cite{cameron-johannsen-prellberg-schweitzer-2008} ---
+
+\todo[jayden, inline]{old theorem, new proof --- split it into two for brevity, maybe even remove the first proof and just cite \cite{cameron-johannsen-prellberg-schweitzer-2008}}
 \begin{restatable}{theorem}{resPFcount}
 	\label{thm:resPFcount}
 	\[
@@ -114,6 +122,8 @@ In \cref{s:mod-res}, we prove \cref{thm:modPFcount} and a generalisation combina
 Finally, \cref{s:sample} details methods to sample from preference restricted parking functions and how to apply them to sample defect $d$ preference lists. We show how $[s]$-restricted parking functions can be combined with difference types of parking functions to construct defect $d$ parking functions, and thus, by sampling from $\mathrm{PF}_{c \mid [s]}$ with random walks, we can sample from defect $d$ parking functions.
        
 \section{Preliminaries} \label{s:prelim}
+
+\todo[jayden, inline]{cut this section down by citing or only mentioning things later when you need them}
 
 \subsection{How many parking functions are there?}
 
@@ -200,7 +210,7 @@ There are two reasons to consider $[s]$-restricted parking functions of length $
 
 We have two different enumerations of $[s]$-restricted parking functions. The first is a special case of the formula for car parking numbers in \cite{cameron-johannsen-prellberg-schweitzer-2008}, and the second is novel, proven using the DIE method pioneered in \cite{benjamin-quinn-2008}.
 
-\resPFcount*
+\resPFcount* \todo[jayden, inline]{again, split --- this needs to be attractive since it's the best part of the paper}
 
 \begin{proof}
 	The first count comes from eliminating all non-parking function preference lists from the $s^{c}$ possible preference lists in $[s]^{c}$. If $\pi \in [s]^{c}$ is not a parking function, then there must be an unoccupied spot somewhere among the $c$ spots. We claim further, that this unoccupied spot must be one of the first $s$ spots. This follows exactly from the argument above. Since all of the cars prefer one of the first $s$ spots, and at least $c - s$ cars will be unable to park in those first $s$ spots, at least $c - s$ cars come to the last $c - s$ spots willing to park in the first available one.
@@ -210,9 +220,9 @@ We have two different enumerations of $[s]$-restricted parking functions. The fi
 		\# \mathrm{PF}_{c \mid [s]} = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
 	\]
 
-	Another way to count $\mathrm{PF}_{c \mid [s]}$ is to start with all parking functions of length $c$ and eliminate those with cars that prefer spots in $[c] \setminus [s]$. We do so by means of an involution and alternating sum that results in us counting every parking function both positively and negatively unless it has no cars that prefer spots beyond the first $s$.
+	Another way to count $\mathrm{PF}_{c \mid [s]}$ is to start with all parking functions of length $c$ and eliminate those with cars that prefer spots in $[c] \setminus [s]$. We do so by means of an involution and alternating sum \todo[jayden]{talk about the involution principle, DIE, et c.} that results in us counting every parking function both positively and negatively unless it has no cars that prefer spots beyond the first $s$.
 
-	Suppose we choose a subset of size $i \ge s$ of our cars to be coloured indigo. These cars are to form a parking function on the first $i$ parking spots (though the parking outcome may not result in them actually parking there). The remaining $c - i$ cars are coloured red and can prefer any of the $i + 1 - s$ ``forbidden'' spots in  $[i + 1] \setminus [s]$. These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards. We count these parking functions positively when there are an even number of red cars and negatively otherwise. This count is
+	Suppose we choose a subset of size $i \ge s$ of our cars to be coloured indigo \todo[jayden]{}. These cars are to form a parking function on the first $i$ parking spots (though the parking outcome may not result in them actually parking there). The remaining $c - i$ cars are coloured red and can prefer any of the $i + 1 - s$ ``forbidden'' spots in  $[i + 1] \setminus [s]$. These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards. We count these parking functions positively when there are an even number of red cars and negatively otherwise. This count is
 	\[
 		\sum_{i = s}^{c} \binom{c}{i} (i + 1)^{i - 1} (i + 1 - s)^{c - i} (-1)^{c - i}.
 	\]
