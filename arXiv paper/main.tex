@@ -1,0 +1,80 @@
+% arXiv-friendly version of the paper
+\documentclass[12 pt]{amsart}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\usepackage[largesc]{newpxtext}
+\usepackage[varbb]{newpxmath}
+
+% wider margins just for now, so that todonotes are easily visible
+\usepackage[margin = 1.5 in]{geometry}
+\usepackage{microtype}
+
+% theorem setup
+\usepackage{amsthm, thmtools, thm-restate}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition} % definition style
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark} % remark style
+\newtheorem{remark}[theorem]{Remark}
+
+\usepackage{hyperref, cleveref}
+\hypersetup{ % make links pretty and not boxed
+colorlinks,
+linkcolor = blue,
+urlcolor = blue,
+citecolor = blue}
+
+% add your own todostyle!
+\usepackage{todonotes}
+\todostyle{jayden}{color = pink}
+\todostyle{jasper}{color = lime}
+
+\title{Preference-restricted parking functions}
+
+\author[Kappler]{Alan Kappler}
+\address[A. Kappler]{Harvey Mudd College, United States}
+\email{akappler@g.hmc.edu}
+
+\author[Thadani]{Jayden Thadani}
+\address[J. Thadani]{Harvey Mudd College, United States}
+\email{jthadani@hmc.ed.}
+
+% \author[Bown]{Jasper Bown}
+% \address[J. Bown]{Harvey Mudd College, United States}
+% \email{abown@g.hmc.edu}
+
+\begin{document}
+	
+
+\begin{abstract}
+	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subset [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights to the results in \cite{cameron-johannsen-prellberg-schweitzer-2008} and a proof of Abel's binomial theorem, an elementary proof of a difficult result of \cite{blake-konheim-1977} and a new characterisation of prime parking functions respectively.
+\end{abstract}
+
+\maketitle
+
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+% just set up to make sure the todo list gets printed fine at the start of the doc
+\makeatletter
+\providecommand\@dotsep{5}
+\makeatother
+\listoftodos\relax
+
+\pagebreak
+
+\bibliography{references}
+\bibliographystyle{alpha}
+
+\end{document}
