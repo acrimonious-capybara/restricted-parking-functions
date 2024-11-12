@@ -36,6 +36,7 @@ citecolor = blue}
 \usepackage{todonotes}
 \todostyle{jayden}{color = pink}
 \todostyle{jasper}{color = lime}
+\todostyle{alan}{color = purple}
 
 \title{Preference-restricted parking functions}
 
@@ -45,7 +46,7 @@ citecolor = blue}
 
 \author[Thadani]{Jayden Thadani}
 \address[J. Thadani]{Harvey Mudd College, United States}
-\email{jthadani@hmc.ed.}
+\email{jthadani@hmc.edu}
 
 % \author[Bown]{Jasper Bown}
 % \address[J. Bown]{Harvey Mudd College, United States}
@@ -76,5 +77,24 @@ citecolor = blue}
 
 \bibliography{references}
 \bibliographystyle{alpha}
+
+
+Begin list of theorems (reorderable as necessary):
+
+\begin{restatable}{theorem}{resPFcount}
+	\label{thm:resPFcount}
+	\[
+		\begin{split}
+			\# \mathrm{PF}_{n \mid [s]} & = n^{c} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i} \\
+				    & = \sum_{i = s}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.
+		\end{split}
+	\]
+\end{restatable}
+
+\begin{restatable}{theorem}{modPFcount}
+	\label{thm:modPFcount}
+	Let $S$ be the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$. Then the number of parking functions of length $gs - 1$ with gap $g$ between possible preferred spots is $\# \mathrm{PF}_{gs - 1 \mid S} = s^{g s - 2}$.
+\end{restatable}
+
 
 \end{document}
