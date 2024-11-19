@@ -75,7 +75,7 @@ citecolor = blue}
 
 \pagebreak
 
-Begin list of theorems (reorderable as necessary):
+\section{Introduction}
 
 \section{Initial segment restrictions}
 
@@ -96,11 +96,41 @@ Begin list of theorems (reorderable as necessary):
 
 \section{Prime parking functions}
 
+\begin{restatable}{theorem}{primeIsRes}
+	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (of length $n$). Thus,
+	\[
+		\# \mathrm{PPF}_{n} = \# \mathrm{PF}_{n \mid [n] \setminus \{ 2 \}} 
+	\]
+\end{restatable}
+
+\begin{restatable}{theorem}{resPrimeIsRes}
+	There is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (of length $n$) where
+	\[
+		T = \{ 1 \} \cup \{ i + 1 \mid i \in S, 1 < i < n \}.
+	\]
+	Thus,
+	\[
+		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
+	\]
+\end{restatable}
+
 \section{Modular restrictions}
 
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
-	Let $S$ be the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$. Then the number of parking functions of length $gs - 1$ with gap $g$ between possible preferred spots is $\# \mathrm{PF}_{gs - 1 \mid S} = s^{g s - 2}$.
+	The number of parking functions of length $gs - 1$ with gap $g$ between possible preferred spots is
+	\[
+		\# \mathrm{PF}_{gs - 1 \mid S} = s^{gs - 2}
+	\]
+	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
+\end{restatable}
+
+\begin{restatable}{theorem}{modPFcount2}
+	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
+	\[
+		\#PF_{gs - 2 \mid S} = s^{gs - 3} - \frac{1}{2} \sum_{i = 1}^{s - 1} \binom{gs - 2}{gs - 1} i^{gi - 2} (s - i)^{g(s - i) - 2}
+	\]
+	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
 \bibliography{references}
