@@ -109,18 +109,22 @@ citecolor = blue}
 
 \begin{theorem}
     \label{thm:resPPFcount1}
-    For , the number of functions $\pi:[n]\to[s]$ such that $\pi$ is a prime parking function is 
+    For $1 \le s < n,$, the number of functions $\pi:[n]\to[s]$ such that $\pi$ is a prime parking function is 
     \[s^{n} - (s - 1)^{n} - \sum_{i = 1}^{s} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}.\]
 \end{theorem}
 
 \begin{theorem}
-	\label{thm:resPPFcount}
-	\[
-		\begin{split}
-			\# \mathrm{PPF}_{c \mid [s]} & = s^{c} - (s - 1)^{c} - \sum_{i = 1}^{s} \binom{c}{i} (i - 1)^{i - 1} (s - i)^{c - i} \\
-						     & = \sum_{i = s + 1}^{c} \binom{c}{i} (i - 1)^{i - 1} (s - i)^{c - i}
-		\end{split}
-	\]
+    \label{thm:resPPFcount2}
+    The number of functions $\pi:[n]\to[s]$ such that $\pi$ is a prime parking function is also
+    \[\sum_{i = s + 1}^{n} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:res-1s-enumerator}
+    The sum over all $\pi:[n]\to[s]$ such that $\pi$ is a parking function of $x^{|\pi^{-1}(\{1\})|}$ may be expressed as
+    \[s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (x + i)^{i - 1} (s - i - 1)^{n - i},\]
+    or as
+    \[\sum_{i = s}^{n} \binom{n}{i} (x + i)^{i - 1} (s - i - 1)^{n - i}.\]
 \end{theorem}
 
 \section{Prime parking functions}
