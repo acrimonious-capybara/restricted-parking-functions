@@ -1,6 +1,5 @@
 %% Use the hmcposter class with the thesis document-class option.
 \documentclass[thesis]{hmcposter}
-
 \usepackage{graphicx}
 \usepackage{natbib}
 \usepackage{booktabs}
@@ -8,8 +7,6 @@
 \usepackage{amsmath}
 \usepackage{textcomp}
 \usepackage{url}
-
-\usepackage{classico}
 
 \usepackage{import}
 \usepackage{xifthen}
@@ -54,9 +51,17 @@
 
 \begin{poster}
 
-\section{Classical parking functions}
+\section{Introduction}
+% Note that we're not labeling sections because you shouldn't be
+% doing a lot of referring back and forth in your poster---let the
+% interested folks read your thesis or Clinic report, or ask
+% questions.
 
-Imagine $n$ cars drive down a one-way street with $n$ spots. Each car has a favourite parking spot given by $\pi:[n] \to [n]$. In order, the cars try to park: trying their favourite spot, or the next open spot. $\pi$ is a \emph{parking function} if all cars park.
+To analyze functions, we often restrict them. By restricting parking functions, we understand variants that other parking functions are built from and are intrinsically interesting too!
+
+\section{Parking functions}%
+
+$c$ cars drive down a one-way street with $c$ spots. Each car has a preferred parking spot given by $\pi:[c] \to [c]$. In order, the cars try to park: first trying their preference, then going to the first open spot. $\pi$ is a \emph{parking function} if all cars can park.
 
 \begin{figure}
     \centering
@@ -65,13 +70,18 @@ Imagine $n$ cars drive down a one-way street with $n$ spots. Each car has a favo
     \label{fig:parking-procedure}
 \end{figure}
 
+A \emph{breakpoint} in a parking function is a spot at which only one car attempts to park. The final spot $c$ is always a breakpoint; we call a parking function \emph{prime} if this is the only breakpoint.
+
 \subsection{Enumeration}
 
-Of the $n^n$ possible preference functions for $n$ cars, how many are parking functions? $(n + 1)^{n - 1}$ (magical!) Its circular symmetry proof is even more so!
+Of the $c^c$ possible preference functions for $c$ cars, how many are parking functions? The answer is $(c+1)^{c-1}$ (weird!)
+\begin{itemize}
+\item Take $c$ cars in a circular lot with $c+1$ spots; $(c+1)^c$ total
+\item Removing the empty spot gives $c$ parked cars in a line
+\item This is a parking function! Each $\pi$ is mapped to by $c+1$ preference functions. 
+\end{itemize}
 
-Is there more magic to be found in questions about parking?
-
-\section{A framework for variants}%
+\section{Encapsulating variants}%
 
 A couple variant problems, some from the literature:
 \begin{itemize}
@@ -131,40 +141,3 @@ We thank Professors Orrison and Kagey, as well as Jasper Bown '24, for their inv
 \end{poster}
 
 \end{document}
-
-
-
-% Let $\pi = (1,2,1,1)$ and ...
-% \(
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[blue] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[red] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[red] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[blue] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% \leftrightarrow
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[blue] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[blue] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[red] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% ~
-% \begin{tikzpicture}[scale=0.5,baseline=0.3em]
-%     \fill[blue] (0,0) rectangle (1,1);
-% \end{tikzpicture}
-% \)
