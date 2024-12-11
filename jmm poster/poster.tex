@@ -67,18 +67,20 @@ Imagine $n$ cars drive down a one-way street with $n$ spots. Each car has a favo
 
 Of the $n^n$ possible preference functions for $n$ cars, how many are parking functions? $(n + 1)^{n - 1}$ (magical!) Its circular symmetry proof is even more so!
 
-Is there more magic to be found in questions about parking?
+Is there magic to be found in other questions about parking?
 
 \section{A framework for variants}%
 
-A couple variant problems, some from the literature:
+There are many variants of the parking function problem:
 \begin{itemize}
 \item What if there are more cars than spots? (\cite{cameron-johannsen-prellberg-schweitzer-2008})
 \item What if spots can fit multiple cars? (\cite{blake-konheim-1977})
-\item What if all the parking functions have to be prime?
+\item The elusive \emph{prime parking functions}
 \end{itemize}
 
-These problems can all be modeled by a \emph{preference-restricted parking function}. An $S$-restricted parking function $\pi$ on $[c]$ is a parking function with $\pi([c]) \subset S \subset [c]$.
+These problems can all be modeled by a \emph{preference-restricted parking function} --- a parking function with $\pi([n]) \subset S \subset [n]$.
+
+We can use our intuition for parking functions to solve other parking problems!
 
 \section{$[s]$-restricted parking functions}
 
