@@ -86,9 +86,7 @@ Parking functions with $c > s$ cars and $s$ spots are exactly $[s]$-restricted p
 
 \subsection{Enumeration and Abel's theorem}
 
-How to count? Two restrictions, so two techniques! 
-
-Start with all preference functions $[c] \to [s]$ and subtract all those where spots are left empty ---
+How to count? One way: start with all preference functions $[c] \to [s]$ and subtract all those where spots are left empty ---
 \[
 	s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
 \]
@@ -97,6 +95,8 @@ Or, start with all parking functions and sieve out those where cars prefer spots
 \[
 	\sum_{i = s}^{c} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
 \]
+
+To show this, consider parking functions with cars colored red and indigo, where the $i$ indigo cars form a parking function of length $i$ and the remaining red cars prefer the ``forbidden" spots in $$
 
 Abel's generalization of the binomial theorem connects these with the formula, which can be recovered from parking functions:
 \[
