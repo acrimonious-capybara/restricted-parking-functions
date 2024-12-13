@@ -94,11 +94,11 @@ We can use our intuition for parking functions to solve other parking problems!
 
 \section{$[s]$-restricted parking functions}
 
-Parking functions with $n > s$ cars and $s$ spots are exactly $[s]$-restricted parking functions! All spots will be filled if and only if there are no unfilled spots in the first $s$.
+Parking functions with $n > s$ cars and $s$ spots are exactly $[s]$-restricted parking functions! Just imagine or remove the last $n - s$ slots. 
 
-\subsection{Enumeration and Abel's theorem}
+There are two ways to count $[s]$-restricted parking functions.
 
-How to count? One way: start with all preference functions $[c] \to [s]$ and subtract all those where spots are left empty ---
+Either start with all preference functions $[c] \to [s]$ and subtract all those where $i$ is the first spot left empty ---
 \[
 	s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.
 \]
@@ -108,38 +108,43 @@ Or, start with all parking functions and sieve out those where cars prefer spots
 	\sum_{i = s}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.
 \]
 
-How can we make the sieve work?
+To sieve, we color the cars in a parking function red or indigo according to certain rules. A valid coloring has $i$ indigo cars with preferences forming a parking function and the remaining red cars preferring \emph{forbidden spots} in $[i + 1] \setminus [s]$.
 
-Consider parking functions with cars colored red and indigo, where the $i$ indigo cars form a parking function of length $i$ and the remaining red cars prefer the ``forbidden" spots in $[i+1]\backslash [s]$.
+Every parking function has equally many colorings with even $i$ and odd $i$, except $[s]$-restricted parking functions --- else we can flip the color of a car with maximum preference.
 
-For $n=5,s=2,$ for example, we might color the parking function $\pi=(1,3,2,2,4)$ as
+For $n=5$, $s = 2$, the two colorings of $\pi = (1,3,2,2,4)$ with $i = 3$ are connected by recoloring car 5.
 \begin{center}
 \begin{tikzpicture}
-    \mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
+	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
+\end{tikzpicture} $\quad \longleftrightarrow \quad$
+\begin{tikzpicture}
+	\mzncar[(18,0)]{blue}{blue} \mzncar[(21,0)]{red}{red} \mzncar[(24,0)]{blue}{blue} \mzncar[(27,0)]{blue}{blue} \mzncar[(30,0)]{blue}{blue}
 \end{tikzpicture}
 \end{center}
 
-Counting $i$ even positively and $i$ odd negatively, consider recoloring a car with the largest preference available. For instance, we'd recolor the above as:
+For $s = 4$, however, there is exactly one valid coloring ---
 
 \begin{center}
 \begin{tikzpicture}
-    \mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{blue}{blue}
+	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{blue}{blue} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{blue}{blue}
 \end{tikzpicture}
 \end{center}
 
-This is nearly an involution, and the only exceptions are when all cars are indigo and have preferences within $[s]$! In our alternating sum, everything cancels except for what we want to count.
+Counting colorings with $i \equiv n \pmod 2$ positively, the rest negatively, everything cancels but the $[s]$-restricted parking functions! 
 
-These two counts are connected by Abel's generalization of the binomial theorem, which can be recovered from parking functions:
-\[
-	(x + y + n)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (y + n - i)^{n - i}.
-\]
+Our two counts are connected by Abel's generalization of the binomial theorem. We can recover Abel's binomial theorem from the enumerator for cars preferring the first spot!
+\begin{align*}
+	(x + y + n)^{n} & = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (y + n - i)^{n - i} \\
+			& \Updownarrow \\
+	(s - 1 + x)^{n} & = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (s - 1 - i)^{n - i}
+\end{align*}
 
 \newcolumn 
 \section{Other restrictions}
 
 \subsection{Modular restrictions}
 
-If $s$ spots can each hold $g$ cars, then we can think about $S$-restricted parking functions for $S = \{ i \in [c] \mid i \equiv 1 \pmod g \}$! \cite{blake-konheim-1977} used complex analysis and generating functions to show that there are $s^{gs - 2}$ ways to park $gs - 1$ cars in this set up. We used a circle argument to give a much simpler proof!
+If $s$ spots can each hold $g$ cars, then we can think about $S$-restricted parking functions for $S = \{ i \in [c] \mid i \equiv 1 \pmod g \}$! \cite{blake-konheim-1977} used complex analysis and generating functions to show that there are $s^{gs - 2}$ ways to park $gs - 1$ cars in this set up. We used a circle argument and $S$-restricted parking functions to give a much simpler proof!
 
 \subsection{Prime parking functions}
 
