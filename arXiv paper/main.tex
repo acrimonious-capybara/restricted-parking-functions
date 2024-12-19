@@ -77,6 +77,18 @@ citecolor = blue}
 
 \section{Introduction}
 
+The classical parking function problem is to describe the parking preferences cars can have that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way street with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
+
+The \emph{parking functions} $\pi : [n] \to [n]$ that take cars to a list of preferences that allows everyone to park are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
+\begin{enumerate}
+	\item What if there are fewer cars than spots? How can we minimise the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
+	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data.)
+	\item Prime parking functions.
+\end{enumerate}
+We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subset [n]$. 
+
+These reinterpretations yield more complete theories of the variants, new combinatorial insights \todo[jayden]{remove if we don't have room for any of the equivalence class results on $[s]$-restrictions}, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions and the obvious combinatorial intuition of the original parking function question.
+
 \section{Initial segment restrictions}
 
 \begin{restatable}{theorem}{resPFcount}
@@ -171,6 +183,8 @@ Abel's binomial theorem has many equivalent statements, but perhaps most common 
 	\]
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
+
+\section{Connections and conjectures}
 
 \bibliography{references}
 \bibliographystyle{alpha}
