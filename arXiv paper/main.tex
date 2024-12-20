@@ -171,6 +171,10 @@ Prime parking functions also have a characterisation in terms of $S$-restricted 
 
 \section{Modular restrictions}
 
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. \todo[jayden]{read up and add more context on this (?)} Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure. \todo[alan]{I'm writing this from memory of conversations, not anything concrete. Let me know if I've written something wrong --- Jayden}
+
+Instead of considering $s$ rows with $g$ parking spots each \todo[jayden]{except the last row (?)}, we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. This equivalent problem is a restricted parking function! Now we are able to use the circular symmetry of parking functions to enumerate these restricted parking functions, in a similar vein to Pollak's enumeration of parking functions.
+
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
 	The number of parking functions of length $gs - 1$ with gap $g$ between possible preferred spots is
@@ -180,7 +184,18 @@ Prime parking functions also have a characterisation in terms of $S$-restricted 
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
+This is really the first case of a more general result for parking functions of length $gs - k$.
+
 \begin{restatable}{theorem}{modPFcountGen}
+	The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S}$ and satisfies the relation
+	\[
+		s^{gs - k} = s \# \mathrm{PF}_{gs - k \mid S} + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vdash k, \lvert \lambda \rvert = n} \sum_{\mu \vdash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S}
+	\]
+\end{restatable}
+
+In practice, the formula above is computationally intractable for large $g, s, k$, but can be useful to show special cases of small $k$ as below.
+
+\begin{restatable}{example}{modPFcount2}
 	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
 	\[
 		\#PF_{gs - 2 \mid S} = s^{gs - 3} - \frac{1}{2} \sum_{i = 1}^{s - 1} \binom{gs - 2}{gs - 1} i^{gi - 2} (s - i)^{g(s - i) - 2}
