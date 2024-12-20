@@ -149,8 +149,10 @@ Abel's binomial theorem has many equivalent statements, but perhaps most common 
 
 \section{Prime parking functions}
 
+Prime parking functions also have a characterisation in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot.
+
 \begin{restatable}{theorem}{primeIsRes}
-	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (of length $n$). Thus,
+	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (of length $n$). That is,
 	\[
 		\# \mathrm{PPF}_{n} = \# \mathrm{PF}_{n \mid [n] \setminus \{ 2 \}} 
 	\]
@@ -161,7 +163,7 @@ Abel's binomial theorem has many equivalent statements, but perhaps most common 
 	\[
 		T = \{ 1 \} \cup \{ i + 1 \mid i \in S, 1 < i < n \}.
 	\]
-	Thus,
+	That is,
 	\[
 		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
 	\]
@@ -178,7 +180,7 @@ Abel's binomial theorem has many equivalent statements, but perhaps most common 
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
-\begin{restatable}{theorem}{modPFcount2}
+\begin{restatable}{theorem}{modPFcountGen}
 	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
 	\[
 		\#PF_{gs - 2 \mid S} = s^{gs - 3} - \frac{1}{2} \sum_{i = 1}^{s - 1} \binom{gs - 2}{gs - 1} i^{gi - 2} (s - i)^{g(s - i) - 2}
