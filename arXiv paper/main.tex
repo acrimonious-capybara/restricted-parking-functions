@@ -121,35 +121,62 @@ These reinterpretations yield more complete theories of the variants, new combin
 
 \begin{theorem}
     \label{thm:resPPFcount2}
-    For $1 \le s < n,$, the number of $[s]$-restricted parking functions which are also prime may be expressed as
+    For $1 \le s < n,$ the number of $[s]$-restricted parking functions which are also prime may be expressed as
     \[\sum_{i = s + 1}^{n} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}\]
 \end{theorem}
 
 \subsection{Abel's binomial theorem}
 
-In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two pairs 
+In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two approaches are very similar; this isn't a coincidence!
 
-Abel's binomial theorem has many equivalent statements, but perhaps most common is the following version:
+Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests. The identity has many equivalent statements, but perhaps most common is the following version:
 
 \begin{restatable}[Abel's binomial theorem]{theorem}{abelsbin}
-	\[
+	For all $n\in\mathbb{N}$ and $x,y\in\mathbb{R},$
+    \[
 		(x + y + n)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (y + n - i)^{n - i}.
 	\]
 \end{restatable}
 
+Setting \cref{thm:resPFcount1} and \cref{thm:resPFcount2} equal gives a special case of this identity:
+\begin{align*}
+    s^{n} &= \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i} + \sum_{i = s}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}\\
+    &=\sum_{i = 0}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i},
+\end{align*}
+which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, setting \cref{thm:resPPFcount1} and \cref{thm:resPPFcount2} equal gives 
+\begin{align*}
+    - (s - 1)^{n} &= -s^n + \sum_{i = 1}^{s} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i} + \sum_{i = s + 1}^{n} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}\\
+    &=\sum_{i=0}^n \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i},
+\end{align*}
+which is Abel's theorem for $x=-1,$ $y=s-n+1.$ It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
 
+These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking fucntion:
+
+\begin{lemma}
+    The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{N}.$
+\end{lemma}
+
+Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a clever construction involving a bijection with labeled trees. This gives us a rather more general form for our identity:
 
 \begin{theorem}
     \label{thm:res-1s-enumerator}
-    The sum over $[s]$-restricted parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ may be expressed as
-    \[s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (x + i)^{i - 1} (s - i - 1)^{n - i},\]
+    The sum over $[s]$-restricted length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ may be expressed as
+    \[(s-1+x)^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i},\]
     or as
-    \[\sum_{i = s}^{n} \binom{n}{i} (x + i)^{i - 1} (s - i - 1)^{n - i}.\]
+    \[\sum_{i = s}^{n} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i}.\]
 \end{theorem}
+
+\begin{proof}
+    We omit most of the details here, as they follow along lines very similar to \cref{thm:resPFcount1} and \cref{thm:resPFcount2}.
+    
+    For the first claim, $(s-1+x)^n$ is a generating function for all preference functions restricted to $[s],$ as the number of preference functions with $k$ 1s is $\binom{n}{k}1^k(s-1)^{n-k}.$ In each term of the sum we're subtracting off, $x(x+1)^{i-1}$ counts parking functions of length $i$; the $(s-i-1)^{n-i}$ represents preferences after the first gap in the parking lot, and therefore it has no 1s to account for.
+
+    The second claim proceeds similarly; $x(x+1)^{i-1}$ again counts parking functions of length $i$. Since $(s-i-1)^{n-i}$ counts red cars (which always prefer
+\end{proof}
 
 \section{Prime parking functions}
 
-Prime parking functions also have a characterisation in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot.
+Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot.
 
 \begin{restatable}{theorem}{primeIsRes}
 	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (of length $n$). That is,
