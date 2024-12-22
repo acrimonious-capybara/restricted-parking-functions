@@ -198,9 +198,9 @@ Prime parking functions also have a characterization in terms of $S$-restricted 
 
 \section{Modular restrictions}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. \todo[jayden]{read up and add more context on this (?)} Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure. \todo[alan]{I'm writing this from memory of conversations, not anything concrete. Let me know if I've written something wrong --- Jayden}
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. \todo[jayden]{read up and add more context on this (?)} Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure. \todo[jayden]{reference \cite{blake-konheim-1977} corollary 2.1}
 
-Instead of considering $s$ rows with $g$ parking spots each \todo[jayden]{except the last row (?)}, we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. This equivalent problem is a restricted parking function! Now we are able to use the circular symmetry of parking functions to enumerate these restricted parking functions, in a similar vein to Pollak's enumeration of parking functions \todo[jayden]{cite Riordan}. 
+Instead of considering $s$ rows with $g$ parking spots each, \todo[jayden]{except the last row (?)} we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. This equivalent problem is a restricted parking function! Now we can use the circular symmetry of parking functions to enumerate these restricted parking functions, in a manner similar to Pollak's enumeration of parking functions \todo[jayden]{cite Riordan}. 
 
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
@@ -218,7 +218,7 @@ This is really the first case of a more general result for parking functions of 
 	\[
 		s^{gs - k} = s \# \mathrm{PF}_{gs - k \mid S} + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vdash k, \lvert \lambda \rvert = n} \sum_{\mu \vdash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S}
 	\]
-\end{restatable}
+\end{restatable} \todo[jayden]{credit Jasper}
 
 In practice, the formula above is computationally intractable for large $g, s, k$, but can be useful to show special cases of small $k$ as below.
 
