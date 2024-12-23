@@ -212,7 +212,7 @@ Prime parking functions also have a characterization in terms of $S$-restricted 
 	\]
 \end{restatable}
 
-In fact, this generalises to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$.
+In fact, this generalises to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We just prove this more general statement.
 
 \begin{restatable}{theorem}{resPrimeIsRes}
 	There is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (of length $n$) where
@@ -224,6 +224,14 @@ In fact, this generalises to a way to enumerate $S$-restricted prime parking fun
 		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
 	\]
 \end{restatable}
+
+\begin{proof}
+	Consider the natural bijection $f : S \setminus \{ c \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f \circ \pi$.
+
+	It follows that $f^{*}$ since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
+
+	These equalities work in reverse too! For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
+\end{proof}
 
 \section{Modular restrictions}
 
