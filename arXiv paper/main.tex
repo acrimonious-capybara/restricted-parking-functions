@@ -118,12 +118,13 @@ A natural question to ask: how many $[s]$-restricted parking functions are there
 \end{restatable}
 
 \begin{proof}
-    There are $s^{c}$ possible preference lists in $[s]^{c}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{c}$ is not a parking function, then there must be an unoccupied spot somewhere among the $c$ spots; all such unoccupied spots lie in $[s],$ since least $c - s$ cars come to the last $c - s$ spots by the minimum-defect argument above, filling the whole 
+    There are $s^{c}$ possible preference lists in $[s]^{c}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{c}$ is not a parking function, then there must be an unoccupied spot somewhere among the $c$ spots; all such unoccupied spots lie in $[s],$ since least $c - s$ cars come to the last $c - s$ spots by the minimum-defect argument above, filling all spots except for (potentially) the first $s$.
 
-	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{c}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $c - i$ cars can prefer any of the first $i + 1$ spots since they would end up parking in the unoccupied spot $i + 1$. However, they each can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{c - i}$ ways. This makes for $\binom{c}{i} (i + 1)^{i - 1}(s - i - 1)^{c - i}$ preference lists in $[s]^{c}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives us the first enumeration ---
+	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{c}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $c - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{c - i}$ ways. This makes for $\binom{c}{i} (i + 1)^{i - 1}(s - i - 1)^{c - i}$ preference lists in $[s]^{c}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives
 	\[
-		\# \mathrm{PF}_{c \mid [s]} = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
+		\# \mathrm{PF}_{c \mid [s]} = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i},
 	\]
+    as desired.
 \end{proof}
 
 
