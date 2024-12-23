@@ -97,13 +97,36 @@ These reinterpretations yield more complete theories of the variants, new combin
 
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
-This type of set is closely related to a another variant on classical parking functions, when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parkings spots; there cannot be a 
+This type of set is closely related to a another variant on classical parking functions, when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the defect of the system (that is, the number of cars which are unable to park).
+
+\begin{theorem}
+    Given $1\le s\le n,$ the number of ways for $n$ cars to park in $s$ spots, with the minimum possible defect of $n-s,$ is equal to $\# \mathrm{PF}_{n \mid [s]}.$
+\end{theorem}
+
+\begin{proof}
+    We have in both situations a set of preference lists which are of length $n$ and taking values in $[s]$; we'd like to prove that they coincide. To do so, add to the end of our street of $s$ spots an ``overflow lot" of length $n-s.$ Our case with minimum defect will occur only when the overflow lot is exactly full: that is, if all cars can park in one of the $s+(n-s)=n$ spots we've constructed.
+
+    But this is exactly analogous to our parking procedure! We have $n$ cars parking in the first $s$ of $n$ spots, and a parking function only occurs when all cars can park. This gives the bijection we want.
+\end{proof}
+
+A natural question to ask: how many $[s]$-restricted parking functions are there? This is answered by \cite{cameron-johannsen-prellberg-schweitzer-2008} through a combinatorial proof, reproduced here in the language of $[s]$-restricted parking functions:
 
 \begin{restatable}{theorem}{resPFcount1}
     \label{thm:resPFcount1}
     Let $1\le s\le n.$ Then the number of $[s]$-restricted parking functions on $n$ cars is
     \[s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.\]
 \end{restatable}
+
+\begin{proof}
+    There are $s^{c}$ possible preference lists in $[s]^{c}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{c}$ is not a parking function, then there must be an unoccupied spot somewhere among the $c$ spots; all such unoccupied spots lie in $[s],$ since least $c - s$ cars come to the last $c - s$ spots by the minimum-defect argument above, filling the whole 
+
+	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{c}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $c - i$ cars can prefer any of the first $i + 1$ spots since they would end up parking in the unoccupied spot $i + 1$. However, they each can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{c - i}$ ways. This makes for $\binom{c}{i} (i + 1)^{i - 1}(s - i - 1)^{c - i}$ preference lists in $[s]^{c}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives us the first enumeration ---
+	\[
+		\# \mathrm{PF}_{c \mid [s]} = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
+	\]
+\end{proof}
+
+
 
 \begin{restatable}{theorem}{resPFcount2}
     \label{thm:resPFcount2}
@@ -174,7 +197,7 @@ Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a
 
 This means that for all $n\in\mathbb{N},$ $s\in [n],$ $x\in\mathbb{R},$
 \[(s-1+x)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i}.\]
-In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{N}$ and $x\in\mathbb{R},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values; these must then be equal since $f(s)-g(s)$ is of degree $n-1$ and has at least $n$ roots.
+In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{N}$ and $x\in\mathbb{R},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values; these must then be equal since $f(s)-g(s)$ is of degree at most $n-1$ and has at least $n$ roots.
 
 Thus the above identity is true for all $x,s\in\mathbb{R}$ and $n\in\mathbb{N}.$ Substituting $s=n+1+y$ recovers Abel's full theorem.
 
