@@ -118,16 +118,16 @@ A natural question to ask: how many $[s]$-restricted parking functions are there
 \end{restatable}
 
 \begin{proof}
-    There are $s^{c}$ possible preference lists in $[s]^{c}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{c}$ is not a parking function, then there must be an unoccupied spot somewhere among the $c$ spots; all such unoccupied spots lie in $[s],$ since least $c - s$ cars come to the last $c - s$ spots by the minimum-defect argument above, filling all spots except for (potentially) the first $s$.
+    There are $s^{n}$ possible preference lists in $[s]^{n}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{n}$ is not a parking function, then there must be an unoccupied spot somewhere among the $n$ spots; all such unoccupied spots lie in $[s],$ since least $n - s$ cars come to the last $c - s$ spots by the minimum-defect argument above, filling all spots except for (potentially) the first $s$.
 
-	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{c}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $c - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{c - i}$ ways. This makes for $\binom{c}{i} (i + 1)^{i - 1}(s - i - 1)^{c - i}$ preference lists in $[s]^{c}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives
+	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{n}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $n - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{n - i}$ ways. This makes for $\binom{n}{i} (i + 1)^{i - 1}(s - i - 1)^{n - i}$ preference lists in $[s]^{n}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives
 	\[
-		\# \mathrm{PF}_{c \mid [s]} = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i},
+		\# \mathrm{PF}_{n \mid [s]} = s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i},
 	\]
     as desired.
 \end{proof}
 
-
+This expression is one half of a sum given by Abel's binomial theorem, as noted by \cite{cameron-johannsen-prellberg-schweitzer-2008} and expanded upon below. We present a combinatorial proof corresponding to the other half of that sum, which (as far as we can tell) is novel:
 
 \begin{restatable}{theorem}{resPFcount2}
     \label{thm:resPFcount2}
@@ -135,17 +135,85 @@ A natural question to ask: how many $[s]$-restricted parking functions are there
     \[\sum_{i = s}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.\]
 \end{restatable}
 
+\begin{proof}
+    Our goal here will be to take all parking functions of length $n$ and eliminate those with cars that prefer spots in $[n] \setminus [s]$. We do so by means of an alternating sum that counts every parking function positively and negatively an equal number of times, \textit{unless} its preferences lie entirely within $[s].$
+
+	We consider 2-colored parking functions --- that is, parking functions with cars assigned one of two colors --- with a particular restriction upon them.  Suppose we choose a subset of size $i \ge s$ of our cars to be colored indigo. These cars are to form a parking function on the first $i$ parking spots (though the parking outcome may not result in them actually parking there). The remaining $n - i$ cars are colored red and can prefer any of the $i + 1 - s$ ``forbidden'' spots in  $[i + 1] \setminus [s]$.
+    
+    These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards.
+    
+    We count these parking functions positively when there are an even number of red cars and negatively otherwise. This count is
+	\[
+		\sum_{i = s}^{n} \binom{c}{i} (i + 1)^{i - 1} (i + 1 - s)^{c - i} (-1)^{c - i}.
+	\]
+	This is equal to the sum above; note that consecutive terms have opposite sign.
+
+	We now create a sign-reversing involution on these 2-colored parking functions. If $m$ is the maximum preference among all the cars, let car $x$ be the first car that prefers spot $m$ (this choice is arbitrary, but one such car must be specified). That is, for a parking function $\pi$, let \[x = \min(\pi^{-1}(m)),\] where $m=\max(\pi([n]))$. Note that $m > s$ as long as there exist any red cars, since red cars all prefer spots greater than $s$. For our involution, we recolor this car, making it red if it was indigo and vice versa. 
+
+	If car $x$ was red, then  $m\in [i + 1]$ by definition. Consider the same parking function with car $x$ painted indigo. Adding any preference in $[i + 1]$ to a parking function of length $i$ will form a parking function of length $i + 1$. To see this, consider adding the preference at the end. The first $i$ cars will park in the first $i$ spots (on which they form a parking function), and then the added car will park in the last spot. Since parking functions are permutation invariant, the list will form a parking function no matter where we add the car. Thus, with car $x$, the indigo cars form a parking function of length $i + 1$.
+    
+    Since the red cars with car $x$ formed a subset of $[i + 1] \setminus [s]$, without car $x$ they certainly form a subset of the larger $[i + 2] \setminus [s]$. Both conditions are thus satisfied for one direction of the involution.
+
+	If car $x$ was indigo, then $m \in [i]$ (since the $i$ indigo cars form a parking function). Consider the same parking function with car $x$ painted red. The remaining indigo cars will still form a parking function on $i - 1$ cars: the $j$th smallest preference will still be at most $j$ after removing the maximum preference, so the Catalan condition is still satisfied.
+    
+    Since $m \in [i]$ was the maximum preference, all red cars' preferences will be in $[i].$ No old red cars will be in $[s],$ since all were contained in $[i+1]\backslash [s]$ The new red car is the only thing to worry about: all red cars will have preferences in $[i]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
+
+	This is our exception --- we cannot recolor to have a new red car if even the maximum preference is in $[s]$. This corresponds to the the $[s]$-restricted parking functions of length $c$. They are only counted once --- positively, as a subset of the term with 0 red cars. Any other pair of 2-colored parking functions is counted positively once and negatively once in our sum, for an even and odd number of red cars respectively. Thus, the sum counts only $\#\mathrm{PF}_{c \mid [s]}$.
+\end{proof}
+
+There is an analogous result for prime parking functions as well! Recall that these are preference functions $\pi:[n]\to[n]$ that satisfy an extra-strong Catalan condition, that at least $i$ cars have preferences in $[i-1]$ for all $1<i\le n.$ These are a subset of all parking functions, and their total count is $(n-1)^{n-1}.$ This motivates the following definition:
+
+\begin{definition}
+    An $S$-restricted prime parking function on $n$ cars, is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PPF}_{n\mid S}.$
+\end{definition}
+
+We can enumerate restrictions on prime parking functions in much the same manner as we did normal parking functions:
+
 \begin{theorem}
     \label{thm:resPPFcount1}
-    For $1 \le s < n,$, the number of $[s]$-restricted parking functions on $n$ cars which are also prime is 
+    For $1 \le s < n,$ the number of $[s]$-restricted parking functions on $n$ cars which are also prime is 
     \[s^{n} - (s - 1)^{n} - \sum_{i = 1}^{s} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}.\]
 \end{theorem}
+
+\begin{proof}
+	Our goal is again to take all $s^n$ restricted preference functions and remove those which are not prime parking functions. A prime parking function must have its 1st, 2nd, 3rd, 4th, etc. smallest preferences be $1,1,2,3,\ldots$; we do casework on the first counterexample. We treat the first case separately: there are $(s-1)^n$ ways to have one's smallest preference greater than 1, as we must choose preferences from $2$ to $s$ for each car.
+    
+    Now we can assume that some $i\in [s-1]$ is the smallest value such that the $i+1$th value is greater than $i$. Since more than $j$ cars prefer the first $j$ spots for all $j < i+1$, the $i$ cars that prefer the first $i$ spots form a prime parking function on $[i]$ in one of $(i - 1)^{i - 1}$ ways. The remaining $n - i$ cars can prefer any of the remaining $s - i$ spots in $[s] \setminus [i]$ in one of $(s - i)^{n - i}$ ways. With $\binom{c}{i}$ ways to choose the $i$ cars, there are $\binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}$ preference lists in $[s]^{n}$ so that the first counterexample is $i+1$.
+
+    This means that subtracting off all possible non-prime parking functions gives
+	\[
+		\# \mathrm{PPF}_{n \mid [s]} = s^{n} - (s - 1)^{n} - \sum_{i = 1}^{s} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}
+	\]
+    as desired.
+\end{proof}
 
 \begin{theorem}
     \label{thm:resPPFcount2}
     For $1 \le s < n,$ the number of $[s]$-restricted parking functions on $n$ cars which are also prime may be expressed as
     \[\sum_{i = s + 1}^{n} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}\]
 \end{theorem}
+
+\begin{proof}
+    We proceed similarly to \cref{thm:resPFcount2}, with modifications to account for prime parking functions.
+    
+    We will now count 2-colored prime parking functions. The $i$ indigo cars are to form a prime parking function on $[i]$; the remaining $n - i$ cars are colored red and can prefer any of the $i - s$ forbidden spots in  $[i] \setminus [s]$. These preferences always form a prime parking function --- the extra-strong Catalan condition is satisfied up to spot $i-1$ by the indigo cars since they form a prime parking function, and then the red cars all prefer one of the first $i$ spots, satisfying the condition from $i$ onwards. We count these parking functions positively with an even number of red cars and negatively otherwise. This count is
+	\[
+		\sum_{i = s}^{c} \binom{c}{i} (i - 1)^{i - 1} (i - s)^{c - i} (-1)^{c - i},
+	\]
+	equal to the sum above.
+
+	We use the same involution as before: recolor car $x,$ the first car that has the maximum preference $m.$ Note that $m > s$ as long as there are some red cars, since the red cars all prefer spots greater than $s$.
+
+	If car $x$ is painted red, then  $m \in [i]$ just by definition. We can reconstruct the same parking function with car $x$ painted indigo. We can add any preference in $[i]$ to a prime parking function of length $i$ and the list will form a prime parking function of length $i + 1,$ by the same argument as above.
+    
+    Since the red cars with car $x$ formed a subset of $[i] \setminus [s]$, without car $x$ they also form a subset of the larger $[i + 1] \setminus [s]$. Thus all conditions are satisfied and our involution works in one direction.
+
+	If car $x$ is painted indigo, then $m\in [i-1]$ for the indigo cars to form a parking function. Thus, we can reconstruct the same parking function with car $x$ repainted red. The remaining indigo cars will still form a prime parking function on $i - 1$ cars --- the $j$th smallest preference will still be less than $j$ after removing the maximum preference.
+    
+    Since $m\in [i-1]$ was the maximum preference, all red cars will be in $[i-1]$. No old red cars will be in $[s],$ since all were contained in $[i]\backslash [s].$ The new red car is the only thing to worry about: all red cars will have preferences in $[i-1]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
+
+	Once again, then, we have a single exception to the involution: prime parking functions where all preferences are in $[s]$ are counted once while everything else cancels. Thus our alternating sum counts $\mathrm{PPF}_{c \mid [s]}$.
+\end{proof}
 
 \subsection{Abel's binomial theorem}
 
@@ -172,7 +240,7 @@ which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, setting \cref{thm:resPP
 \end{align*}
 which is Abel's theorem for $x=-1,$ $y=s-n+1.$ It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
 
-These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking fucntion:
+These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function:
 
 \begin{lemma}
     The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{N}.$
@@ -207,13 +275,14 @@ Thus the above identity is true for all $x,s\in\mathbb{R}$ and $n\in\mathbb{N}.$
 Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving cars' preferences'' to the left, over the second spot.
 
 \begin{restatable}{theorem}{primeIsRes}
+    \label{thm:primeIsRes}
 	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (of length $n$). That is,
 	\[
 		\# \mathrm{PPF}_{n} = \# \mathrm{PF}_{n \mid [n] \setminus \{ 2 \}} 
 	\]
 \end{restatable}
 
-In fact, this generalises to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We just prove this more general statement.
+In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement, from which \cref{thm:primeIsRes} follows:
 
 \begin{restatable}{theorem}{resPrimeIsRes}
 	There is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (of length $n$) where
