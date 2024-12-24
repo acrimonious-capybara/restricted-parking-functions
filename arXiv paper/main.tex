@@ -273,6 +273,12 @@ Thus the above identity is true for all $x,s\in\mathbb{R}$ and $n\in\mathbb{N}.$
 
 \section{Prime parking functions}
 
+Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions.
+
+\begin{definition}[prime parking functions]
+	A prime parking function of length $n$ is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
+\end{definition}
+
 Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving cars' preferences'' to the left, over the second spot.
 
 \begin{restatable}{theorem}{primeIsRes}
