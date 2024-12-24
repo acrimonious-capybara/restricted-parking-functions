@@ -11,6 +11,7 @@
 % wider margins just for now, so that todonotes are easily visible
 \usepackage[margin = 1.5 in]{geometry}
 \usepackage{microtype}
+\usepackage[indent]{parskip}
 
 % theorem setup
 \usepackage{amsthm, thmtools, thm-restate}
@@ -305,7 +306,7 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 
 \section{Modular restrictions}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure (in corollary 2.1 of the paper).
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure (in corollary 2.1 of the paper). We obtain the same enumeration by more elementary means that provided a simpler generalization corresponding
 
 Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. We can use the circular symmetry of parking functions to enumerate these restricted parking functions, in a manner similar to Pollak's enumeration of parking functions as recounted by Riordan in \cite{riordan-1969}.
 
@@ -318,6 +319,20 @@ Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parki
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
+\begin{proof}z
+	Imagine a circular parking lot with $gs$ spots and only permit cars to prefer the $s$ spots $1, g + 1, 2g + 1, \dots$ in $S$. The $gs - 1$ cars perform the regular parking procedure --- they drive to their preferred spot, attempt to park there, and then each subsequent spot. However, in this parking lot if cars are unable to park in a spot after their preferred spot, they can circle back to the spots before their preference. Thus, all cars are always able to park.
+
+	There are $s^{gs - 1}$ such preference functions, each leaving one empty spot. This empty spot must be a multiple of $g$, one spot before one of the permitted spots in $S$ since a car with preference $g \sigma + 1 \in S$ must pass all $g \sigma + j$ before it reaches $g (\sigma + 1)$. If the empty spot is the last ($gs$th) spot, then this preference function must be one of our desired parking functions --- no car can cross the last spot without trying to park in it, so $\pi$ results in every car parking in one of the first $gs - 1$ spots without crossing the last spot. Conversely, every $S$-restricted parking function corresponds directly to such a preference function on the circle.
+
+	The preference functions on the circle also have circular symmetry. If $\pi$ leads to car $i$ parking in spot $\pi^{i}$ and $\psi = \pi + a \pmod{gs}$, then $\psi$ results in each car parking in spot $\psi^{i} = \pi^{i} + \pmod{gs}$. \todo[jayden]{explain why, explain the orbits} In particular, there is a natural action of the cyclic group $\mathbb{Z} / s \mathbb{Z}$ by $x \cdot \pi = \pi + xg \pmod{gs}$. Each orbit of this action contains exactly one parking function with spot $gs$ empty --- for $\pi$ with spot $g \sigma$ empty, $(s - \sigma) \cdot \pi$ has spot $gs$ empty.
+
+	Since the only fixed points of this action occur when the identity fixes every preference function we can apply Burnside's lemma to see that there are
+	\[
+		\frac{s^{gs - 1}}{s} = s^{gs - 2}
+	\]
+	orbits and also, $S$-restricted parking functions.
+\end{proof}
+
 This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$.
 
 \begin{restatable}{theorem}{modPFcountGen}
@@ -327,9 +342,9 @@ This is really the first case of a more general (though recursive) result due to
 			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
 	\end{align*}
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is an ordered partition of $k$.
-
-	Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset.
 \end{restatable}
+
+Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
 
 In practice, the formula above is computationally intractable for large $g, s, k$, but can be useful to show special cases of small $k$ as below.
 
