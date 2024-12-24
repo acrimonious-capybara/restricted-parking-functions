@@ -87,7 +87,7 @@ The \emph{parking functions} $\pi : [n] \to [n]$ that take cars to a list of pre
 \end{enumerate}
 We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subset [n]$. 
 
-These reinterpretations yield more complete theories of the variants, new combinatorial insights \todo[jayden]{remove if we don't have room for any of the equivalence class results on $[s]$-restrictions}, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions and the obvious combinatorial intuition of the original parking function question.
+These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions and the obvious combinatorial intuition of the original parking function question.
 
 \section{Initial segment restrictions}
 
@@ -300,14 +300,14 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 
 	It follows that $f^{*}$ since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
 
-	These equalities work in reverse too! For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
+	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
 \end{proof}
 
 \section{Modular restrictions}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. \todo[jayden]{read up and add more context on this (?)} Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure. \todo[jayden]{reference \cite{blake-konheim-1977} corollary 2.1}
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure (in corollary 2.1 of the paper).
 
-Instead of considering $s$ rows with $g$ parking spots each, \todo[jayden]{except the last row (?)} we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. This equivalent problem is a restricted parking function! Now we can use the circular symmetry of parking functions to enumerate these restricted parking functions, in a manner similar to Pollak's enumeration of parking functions \todo[jayden]{cite Riordan}. 
+Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. We can use the circular symmetry of parking functions to enumerate these restricted parking functions, in a manner similar to Pollak's enumeration of parking functions as recounted by Riordan in \cite{riordan-1969}.
 
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
@@ -318,14 +318,18 @@ Instead of considering $s$ rows with $g$ parking spots each, \todo[jayden]{excep
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
-This is really the first case of a more general (though recursive) result for parking functions of length $gs - k$.
+This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$.
 
 \begin{restatable}{theorem}{modPFcountGen}
-	The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S}$ and satisfies the relation
-	\[
-		s^{gs - k} = s \# \mathrm{PF}_{gs - k \mid S} + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vdash k, \lvert \lambda \rvert = n} \sum_{\mu \vdash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S}
-	\]
-\end{restatable} \todo[jayden]{credit Jasper} \todo[jayden]{partitions are ordered, change notation accordingly} \todo[jayden]{$S$ is not quite a subset of $[n]$ here}
+	The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
+	\begin{align*}
+		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
+			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
+	\end{align*}
+	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is an ordered partition of $k$.
+
+	Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset.
+\end{restatable}
 
 In practice, the formula above is computationally intractable for large $g, s, k$, but can be useful to show special cases of small $k$ as below.
 
