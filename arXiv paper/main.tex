@@ -350,9 +350,11 @@ This is really the first case of a more general (though recursive) result due to
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is an ordered partition of $k$.
 \end{restatable}
 
-Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
+Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. Further, partitions $\lambda$ and $\mu$ are treated as vectors $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\lvert \lambda \rvert = \sum_{i = 1}^{n} \lambda_{i}$. $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda$.
 
-In practice, the formula above is computationally intractable for large $g, s, k$, but can be useful to show special cases of small $k$ as below.
+The left hand side is just counting preference functions of $gs - k$ cars with restricted preferences on the circle with $gs$ spots. The right hand side enumerates the same preference functions as the sum of the $s$ ways to map each restricted parking function of length $gs - k$ onto the circle and the ways to place the $k$ empty spots between the cars. 
+
+In practice, the formula it yields is computationally intractable for large $g, s, k$. However, it can be useful to show special cases of small $k$ as below.
 
 \begin{restatable}{example}{modPFcount2}
 	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
