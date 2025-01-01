@@ -279,7 +279,7 @@ Prime parking functions are an important class of parking functions. In analogy 
 	A prime parking function of length $n$ is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
 \end{definition}
 
-Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving cars' preferences'' to the left, over the second spot.
+Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving'' cars' preferences to the left to turn a restricted parking function into a prime parking function.
 
 \begin{restatable}{theorem}{primeIsRes}
     \label{thm:primeIsRes}
@@ -289,7 +289,7 @@ Prime parking functions also have a characterization in terms of $S$-restricted 
 	\]
 \end{restatable}
 
-In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement, from which \cref{thm:primeIsRes} follows:
+In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows, again by a bijection that corresponds to ``moving'' cars' preferences to the left:
 
 \begin{restatable}{theorem}{resPrimeIsRes}
 	There is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (of length $n$) where
