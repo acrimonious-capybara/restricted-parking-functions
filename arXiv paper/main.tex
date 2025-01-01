@@ -312,9 +312,9 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 
 \section{Modular restrictions}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. Specifically, they consider the problem of parking cars in a lot with many rows of parking spot where cars have preferences for the rows. Using machinery from complex analysis and generating functions, they obtain an enumeration of the ``parking functions'' under this modified parking procedure (in corollary 2.1 of the paper). We obtain the same enumeration by more elementary means that provided a simpler generalization corresponding
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a lot with many rows of parking spots. Here, cars have preferences for the rows and attempt to park in their preferred row and then each subsequent row until they succeed at parking. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- preference functions that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} corollary 2.1).
 
-Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. We can use the circular symmetry of parking functions to enumerate these restricted parking functions, in a manner similar to Pollak's enumeration of parking functions as recounted by Riordan in \cite{riordan-1969}.
+We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. We can use the circular symmetry of parking functions to enumerate these restricted parking functions, as in Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}).
 
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
@@ -332,11 +332,10 @@ Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parki
 
 	The preference functions on the circle also have circular symmetry. If $\pi$ leads to car $i$ parking in spot $\pi^{i}$ and $\psi = \pi + xg \pmod{gs}$, then $\psi$ results in each car parking in spot $\psi^{i} = \pi^{i} + xg \pmod{gs}$. This follows since adding $xg$ is equivalent to the cars entering the circular parking lot at spot $xg + 1 \pmod {gs}$ instead of spot $1$ --- the cars still choose parking spots in the same order. In particular, there is a natural action of the cyclic group $\mathbb{Z} / s \mathbb{Z}$ on preference functions on the circle by $x \cdot \pi = \pi + xg \pmod{gs}$. Each orbit of this action contains exactly one parking function with spot $gs$ empty --- for $\pi$ with spot $g \sigma$ empty, only $(s - \sigma) \cdot \pi$ has spot $gs$ empty. Alternatively, one can think of this as moving spot $1$ at which the cars enter the circle to just after original empty spot $g \sigma$.
 
-	Since the only fixed points of this action occur when the identity fixes every preference function we can apply Burnside's lemma to see that there are
+	Now, to count the parking functions we just count the orbits of the action. By the definition of the action its only fixed points are those of the identity $0$. The identity fixes every preference function, so by Burnside's lemma
 	\[
-		\frac{s^{gs - 1}}{s} = s^{gs - 2}
+		\mathrm{PF}_{gs - 1 \mid S} = \frac{\# \{ \pi : [gs - 1] \to [s] \}}{\lvert \mathbb{Z} / s \mathbb{Z} \rvert} = \frac{s^{gs - 1}}{s} = s^{gs - 2}.
 	\]
-	orbits and also, $S$-restricted parking functions.
 \end{proof}
 
 This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$.
