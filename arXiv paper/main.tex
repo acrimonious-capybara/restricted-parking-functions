@@ -341,13 +341,19 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$.
 
 \begin{restatable}{theorem}{modPFcountGen}
-	The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
+	Given $g,s\in\mathbb{N}$ and $k\in [g],$ The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
 	\begin{align*}
 		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
 			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
 	\end{align*}
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is an ordered partition of $k$.
 \end{restatable}
+
+\begin{proof}
+    Consider $gs-k$ cars in a circular parking lot with $gs$ spots; as with the proof above, we only permit cars to prefer the $s$ distinct spots $1,g+1,2g+1,\ldots$ around the lot. There are $s^{gs-k}$ total ways to choose these preferences, and every such choice will lead to all cars parking.
+
+    The empty spots in the parking lot will be distributed between
+\end{proof}
 
 Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. Further, partitions $\lambda$ and $\mu$ are treated as vectors $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\lvert \lambda \rvert = \sum_{i = 1}^{n} \lambda_{i}$. $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda$.
 
