@@ -58,6 +58,7 @@ citecolor = blue}
 
 \begin{abstract}
 	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subseteq [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights to the results in \cite{cameron-johannsen-prellberg-schweitzer-2008} and a proof of Abel's binomial theorem, an elementary proof of a difficult result of \cite{blake-konheim-1977} and a new characterization of prime parking functions respectively.
+	\todo[jayden, inline]{convention: don't cite in the abstract}
 \end{abstract}
 
 \maketitle
@@ -80,7 +81,7 @@ citecolor = blue}
 
 The classical parking function problem is to describe the parking preferences cars can have that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way street with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
 
-The \emph{parking functions} $\pi : [n] \to [n]$ that take cars to a list of preferences that allows everyone to park are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
+The \emph{parking functions} \todo[jayden]{define these better} $\pi : [n] \to [n]$ that take cars to a list of preferences \todo[jayden]{define preference lists} that allows everyone to park are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
 \begin{enumerate}
 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data.)
@@ -273,13 +274,13 @@ Thus the above identity is true for all $x,s\in\mathbb{R}$ and $n\in\mathbb{N}.$
 
 \section{Prime parking functions}
 
-Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions.
+Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. \todo[jayden]{reference!} They are often defined as satisfying a stricter condition than parking functions. \todo[jayden]{reference!}
 
 \begin{definition}[prime parking functions]
 	A prime parking function of length $n$ is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
 \end{definition}
 
-Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving'' cars' preferences to the left to turn a restricted parking function into a prime parking function.
+Prime parking functions also have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by ``moving'' cars' preferences to the left \todo[jayden]{subtracting $1$, or moving towards the first spot} to turn a restricted parking function into a prime parking function.
 
 \begin{restatable}{theorem}{primeIsRes}
     \label{thm:primeIsRes}
@@ -292,7 +293,7 @@ Prime parking functions also have a characterization in terms of $S$-restricted 
 In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows, again by a bijection that corresponds to ``moving'' cars' preferences to the left:
 
 \begin{restatable}{theorem}{resPrimeIsRes}
-	There is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (of length $n$) where
+	There is a bijection between $S$-restricted prime \todo[jayden]{the primeness means no $n \in T$} parking functions and $T$-restricted parking functions (of length $n$) where
 	\[
 		T = \{ 1 \} \cup \{ i + 1 \mid i \in S, 1 < i < n \}.
 	\]
@@ -303,7 +304,7 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 \end{restatable}
 
 \begin{proof}
-	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f \circ \pi$.
+	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward \todo[jayden]{use combinatorial vocabulary?} to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f \circ \pi$.
 
 	It follows that $f^{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
 
@@ -312,7 +313,7 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 
 \section{Modular restrictions}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a lot with many rows of parking spots. Here, cars have preferences for the rows and attempt to park in their preferred row and then each subsequent row until they succeed at parking. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- preference functions that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} corollary 2.1).
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a lot with many rows of parking spots. Here, cars have preferences for the rows and attempt to park in their preferred row and then each subsequent row until they succeed at parking. \todo[jayden]{talk about order within the row} Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- preference functions that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} corollary 2.1).
 
 We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. We can use the circular symmetry of parking functions to enumerate these restricted parking functions, as in Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}). \todo[jayden]{add a figure}
 
