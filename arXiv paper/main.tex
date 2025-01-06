@@ -13,6 +13,7 @@
 \usepackage{microtype}
 \usepackage[indent]{parskip}
 
+
 % theorem setup
 \usepackage{amsthm, thmtools, thm-restate}
 \newtheorem{theorem}{Theorem}[section]
@@ -32,6 +33,17 @@ colorlinks,
 linkcolor = blue,
 urlcolor = blue,
 citecolor = blue}
+
+% car
+\newcommand{\mzncar}[3][(0,0)]{
+\begin{scope}[shift={#1}]
+\shade[top color=#2, bottom color=#3, shading angle=90, draw=white, rounded corners=0.7ex, very thick] (0.75,.25) -- ++(0,0.5) -- ++(0.5,0.15) -- ++(1.5,0) -- ++(0.5,0) -- ++(0,-0.65) -- (0.75,.25) -- cycle;
+\draw[thick, rounded corners=0.2ex, fill=white, thick] (1.25,0.85) -- ++(0.5,0.35) -- ++(0.8,0) -- ++(0.3,-0.35) -- (1.25,0.85);
+\draw[thick] (2.1,0.85) -- (2.1,1.2);
+\draw[fill=gray!80,thin] (1.375,.25) circle[radius=.2];
+\draw[fill=gray!80,thin] (2.76,.25) circle[radius=.2];
+\end{scope}
+}
 
 % add your own todostyle!
 \usepackage{todonotes}
@@ -141,6 +153,18 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 
 	We consider 2-colored parking functions --- that is, parking functions with cars assigned one of two colors --- with a particular restriction upon them.  Suppose we choose a subset of size $i \ge s$ of our cars to be colored indigo. These cars are to form a parking function on the first $i$ parking spots (though the parking outcome may not result in them actually parking there). The remaining $n - i$ cars are colored red and can prefer any of the $i + 1 - s$ ``forbidden'' spots in  $[i + 1] \setminus [s]$.
     
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=0.3]
+	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
+\end{tikzpicture} $\quad \Longleftrightarrow \quad$
+\begin{tikzpicture}[scale=0.3]
+	\mzncar[(18,0)]{blue}{blue} \mzncar[(21,0)]{red}{red} \mzncar[(24,0)]{blue}{blue} \mzncar[(27,0)]{blue}{blue} \mzncar[(30,0)]{blue}{blue}
+\end{tikzpicture}
+\end{center}
+\caption{For $n=5$, $s = 2$, two colorings of $\pi = (1,3,2,2,4)$ with $i = 3$ and $i = 4$ are connected by recoloring car 5. Note that both satisfy the constraints of the proof below.}
+\end{figure}
+    
     These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards.
     
     We count these parking functions positively when there are an even number of red cars and negatively otherwise. This count is
@@ -149,7 +173,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 	\]
 	This is equal to the sum above; note that consecutive terms have opposite sign.
 
-	We now create a sign-reversing involution on these 2-colored parking functions. If $m$ is the maximum preference among all the cars, let car $x$ be the first car that prefers spot $m$ (this choice is arbitrary, but one such car must be specified). That is, for a parking function $\pi$, let \[x = \min(\pi^{-1}(m)),\] where $m=\max(\pi([n]))$. Note that $m > s$ as long as there exist any red cars, since red cars all prefer spots greater than $s$. For our involution, we recolor this car, making it red if it was indigo and vice versa. 
+	We now create a sign-reversing involution on these 2-colored parking functions (Figure 1). If $m$ is the maximum preference among all the cars, let car $x$ be the first car that prefers spot $m$ (this choice is arbitrary, but one such car must be specified). That is, for a parking function $\pi$, let \[x = \min(\pi^{-1}(m)),\] where $m=\max(\pi([n]))$. Note that $m > s$ as long as there exist any red cars, since red cars all prefer spots greater than $s$. For our involution, we recolor this car, making it red if it was indigo and vice versa. 
 
 	If car $x$ was red, then  $m\in [i + 1]$ by definition. Consider the same parking function with car $x$ painted indigo. Adding any preference in $[i + 1]$ to a parking function of length $i$ will form a parking function of length $i + 1$. To see this, consider adding the preference at the end. The first $i$ cars will park in the first $i$ spots (on which they form a parking function), and then the added car will park in the last spot. Since parking functions are permutation invariant, the list will form a parking function no matter where we add the car. Thus, with car $x$, the indigo cars form a parking function of length $i + 1$.
     
@@ -177,7 +201,7 @@ We can enumerate restrictions on prime parking functions in much the same manner
 \end{theorem}
 
 \begin{proof}
-	Our goal is again to take all $s^n$ restricted preference functions and remove those which are not prime parking functions. A prime parking function must have its 1st, 2nd, 3rd, 4th, etc. smallest preferences be $1,1,2,3,\ldots$; we do casework on the first counterexample. We treat the first case separately: there are $(s-1)^n$ ways to have one's smallest preference greater than 1, as we must choose preferences from $2$ to $s$ for each car.
+	Our goal is again to take all $s^n$ restricted preference functions and remove those which are not prime parking functions. A prime parking function must have its 1st, 2nd, 3rd, 4th, etc. smallest preferences be at most $1,1,2,3,\ldots$; we do casework on the first counterexample. We treat the first case separately: there are $(s-1)^n$ ways to have one's smallest preference greater than 1, as we must choose preferences from $2$ to $s$ for each car.
     
     Now we can assume that some $i\in [s-1]$ is the smallest value such that the $i+1$th value is greater than $i$. Since more than $j$ cars prefer the first $j$ spots for all $j < i+1$, the $i$ cars that prefer the first $i$ spots form a prime parking function on $[i]$ in one of $(i - 1)^{i - 1}$ ways. The remaining $n - i$ cars can prefer any of the remaining $s - i$ spots in $[s] \setminus [i]$ in one of $(s - i)^{n - i}$ ways. With $\binom{c}{i}$ ways to choose the $i$ cars, there are $\binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}$ preference lists in $[s]^{n}$ so that the first counterexample is $i+1$.
 
@@ -260,9 +284,9 @@ Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a
 \begin{proof}
     We omit most of the details here, as they follow along lines very similar to \cref{thm:resPFcount1} and \cref{thm:resPFcount2}.
     
-    For the first claim, $(s-1+x)^n$ is a generating function for all preference functions restricted to $[s],$ as the number of preference functions with $k$ 1s is $\binom{n}{k}1^k(s-1)^{n-k}.$ In each term of the sum we're subtracting off, $x(x+1)^{i-1}$ \todo[jayden]{I think here and below this should be $x(x + i)^{i - 1}$} counts parking functions of length $i$; the $(s-i-1)^{n-i}$ represents preferences after the first gap in the parking lot, and therefore it has no 1s to account for.
+    For the first claim, $(s-1+x)^n$ is a generating function for all preference functions restricted to $[s],$ as the number of preference functions with $k$ 1s is $\binom{n}{k}1^k(s-1)^{n-k}.$ In each term of the sum we're subtracting off, $x(x+i)^{i-1}$ \todo[jayden]{I think here and below this should be $x(x + i)^{i - 1}$} counts parking functions of length $i$; the $(s-i-1)^{n-i}$ represents preferences after the first gap in the parking lot, and therefore it has no 1s to account for.
 
-    The second claim proceeds similarly; $x(x+1)^{i-1}$ again counts parking functions of length $i$. Since $(s-i-1)^{n-i}$ counts red cars, which always prefer forbidden spots greater than $s\ge1,$ we again needn't account for preferences of 1 here. From this point on the proofs are identical.
+    The second claim proceeds similarly; $x(x+i)^{i-1}$ again counts parking functions of length $i$. Since $(s-i-1)^{n-i}$ counts red cars, which always prefer forbidden spots greater than $s\ge1,$ we again needn't account for preferences of 1 here. From this point on the proofs are identical.
 \end{proof}
 
 This means that for all $n\in\mathbb{N},$ $s\in [n],$ $x\in\mathbb{R},$
@@ -338,10 +362,10 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 	\]
 \end{proof}
 
-This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$.
+This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted by $\lambda\vDash s, \lvert\lambda\rvert = n;$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
 
 \begin{restatable}{theorem}{modPFcountGen}
-	Given $g,s\in\mathbb{N}$ and $k\in [g],$ The number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
+	Given $g,s\in\mathbb{N},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
 	\begin{align*}
 		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
 			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
@@ -352,10 +376,19 @@ This is really the first case of a more general (though recursive) result due to
 \begin{proof}
     Consider $gs-k$ cars in a circular parking lot with $gs$ spots; as with the proof above, we only permit cars to prefer the $s$ distinct spots $1,g+1,2g+1,\ldots$ around the lot. There are $s^{gs-k}$ total ways to choose these preferences, and every such choice will lead to all cars parking.
 
-    The empty spots in the parking lot will be distributed between
+    The $k$ empty spots in the parking lot will be distributed in $n$ contiguous segments for some $1\le n\le k.$ These unfilled segments will all be immediately prior to spots that can be preferred; all other scenarios force cars to pass unfilled spots without parking in them.
+
+    Our gaps will be of size $\lambda_1,\lambda_2,\ldots,\lambda_n,$ all positive and summing up to $k$; we denote this as $\lambda\vDash k,|\lambda|=n.$ These unfilled segments can each be paired with the filled segments immediately prior to them; by virtue of the locations of unfilled segments, these pairs will each have total length a multiple of $g.$ Call these $g\mu_1,g\mu_2,\ldots,g\mu_n$; since the sum of all of these is $gs,$ we have $\mu\vDash s,|\mu|=n.$
+
+    For each such partition of this type, each filled segment will have $g\mu_i-\lambda_i$; choosing which cars will have preferences in each segment can be done in $\binom{gs - k}{g \mu_1 - \lambda_1,g \mu_2 - \lambda_2,\ldots,g \mu_n - \lambda_n}=\binom{gs - k}{g \mu - \lambda}$ ways.
+    
+    Within each segment, we have $g\mu_i-\lambda_i$ cars which can only prefer spots which are $1$ mod $g$ and must park in the first $g\mu_i-\lambda_i$ spots without gaps. This is precisely a parking function with modular restrictions, and can be done in $\# \mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ ways.
+
+    Finally, we must choose how our parking functions are placed within the circle itself. There are $s$ ways to place the first possible preference in the first restricted parking function, and all placements are forced from there onwards; however, for any given $n$ we are overcounting by a factor of $n,$ since all cyclic permutations of a given $\lambda$ and $\mu$ are equivalent, but all are counted. Thus we multiply by $\frac{s}{n},$ for a total of 
+    \[s^{gs - k} = \sum_{n = 1}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]};\] the formula above arises from pulling out the desirable $n=1$ term.Z
 \end{proof}
 
-Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. Further, partitions $\lambda$ and $\mu$ are treated as vectors $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\lvert \lambda \rvert = \sum_{i = 1}^{n} \lambda_{i}$. $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda$.
+Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
 
 The left hand side is just counting preference functions of $gs - k$ cars with restricted preferences on the circle with $gs$ spots. The right hand side enumerates the same preference functions as the sum of the $s$ ways to map each restricted parking function of length $gs - k$ onto the circle and the ways to place the $k$ empty spots between the cars. 
 
