@@ -53,23 +53,32 @@ citecolor = blue}
 
 \title{Preference-restricted parking functions}
 
+\author[Bown]{Jasper Bown}
+\address[J. Bown]{Harvey Mudd College, United States}
+\email{abown@g.hmc.edu}
+
+\author[Kagey]{Peter Kagey}
+\address[P. Kagey]{California State Polytechnic University, Pomona}
+\email{pkagey@cpp.edu}
+
 \author[Kappler]{Alan Kappler}
 \address[A. Kappler]{Harvey Mudd College, United States}
 \email{akappler@g.hmc.edu}
+
+\author[Orrison]{Michael E.~Orrison}
+\address[M.~Orrison]{Harvey Mudd College, United States}
+\email{orrison@hmc.edu}
 
 \author[Thadani]{Jayden Thadani}
 \address[J. Thadani]{Harvey Mudd College, United States}
 \email{jthadani@hmc.edu}
 
-% \author[Bown]{Jasper Bown}
-% \address[J. Bown]{Harvey Mudd College, United States}
-% \email{abown@g.hmc.edu}
 
 \begin{document}
 	
 
 \begin{abstract}
-	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subseteq [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights to the results in \cite{cameron-johannsen-prellberg-schweitzer-2008} and a proof of Abel's binomial theorem, an elementary proof of a difficult result of \cite{blake-konheim-1977} and a new characterization of prime parking functions respectively.
+	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subseteq [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights on old results about certain generalizations of parking functions, as well as a new characterization of prime parking functions.
 \end{abstract}
 
 \maketitle
@@ -110,19 +119,19 @@ These reinterpretations yield new combinatorial insights, simpler proofs, and co
 
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
-This type of set is closely related to a another variant on classical parking functions, when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the defect of the system (that is, the number of cars which are unable to park).
+This type of set is closely related to another variant on classical parking functions, when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the defect of the system (that is, the number of cars which are unable to park).
 
 \begin{theorem}
     Given $1\le s\le n,$ the number of ways for $n$ cars to park in $s$ spots, with the minimum possible defect of $n-s,$ is equal to $\# \mathrm{PF}_{n \mid [s]}.$
 \end{theorem}
 
 \begin{proof}
-    We have in both situations a set of preference lists which are of length $n$ and taking values in $[s]$; we'd like to prove that they coincide. To do so, add to the end of our street of $s$ spots an ``overflow lot" of length $n-s.$ Our case with minimum defect will occur only when the overflow lot is exactly full: that is, if all cars can park in one of the $s+(n-s)=n$ spots we've constructed.
+    We have in both situations a set of preference lists which are of length $n$ and taking values in $[s]$; we'd like to prove that they coincide. To do so, add to the end of our street of $s$ spots an extra segment of length $n-s$ that catches the overflow. Our case with minimum defect will occur only when the overflow segment is exactly full: that is, if all cars can park in one of the $s+(n-s)=n$ spots we've constructed.
 
-    But this is exactly analogous to our parking procedure! We have $n$ cars parking in the first $s$ of $n$ spots, and a parking function only occurs when all cars can park. This gives the bijection we want.
+    But this is exactly analogous to our parking procedure! We have $n$ cars parking in the first $s$ of $n$ spots, and a parking function only occurs when all cars can park. We are counting the same procedure in two different ways-- thus the equality.
 \end{proof}
 
-A natural question to ask: how many $[s]$-restricted parking functions are there? This is answered by \cite{cameron-johannsen-prellberg-schweitzer-2008} through a combinatorial proof, reproduced here in the language of $[s]$-restricted parking functions:
+One question we can ask: how many $[s]$-restricted parking functions are there? This is answered by \cite{cameron-johannsen-prellberg-schweitzer-2008} through a combinatorial proof, reproduced here in the language of $[s]$-restricted parking functions:
 
 \begin{restatable}{theorem}{resPFcount1}
     \label{thm:resPFcount1}
