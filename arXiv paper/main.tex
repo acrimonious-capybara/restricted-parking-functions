@@ -9,9 +9,8 @@
 \usepackage[varbb]{newpxmath}
 
 % wider margins just for now, so that todonotes are easily visible
-\usepackage[margin = 1.5 in]{geometry}
+\usepackage[margin = 1 in]{geometry}
 \usepackage{microtype}
-\usepackage[indent]{parskip}
 
 % theorem setup
 \usepackage{amsthm, thmtools, thm-restate}
@@ -45,7 +44,7 @@ citecolor = blue}
 }
 
 % add your own todostyle!
-\usepackage{todonotes}
+\usepackage[disable]{todonotes}
 \todostyle{jayden}{color = pink}
 \todostyle{jasper}{color = lime}
 \todostyle{alan}{color = purple}
@@ -81,20 +80,6 @@ citecolor = blue}
 \end{abstract}
 
 \maketitle
-
-\pagebreak
-
-\tableofcontents
-
-\pagebreak
-
-% just set up to make sure the todo list gets printed fine at the start of the doc
-\makeatletter
-\providecommand\@dotsep{5}
-\makeatother
-\listoftodos\relax
-
-\pagebreak
 
 \section{Introduction}
 
