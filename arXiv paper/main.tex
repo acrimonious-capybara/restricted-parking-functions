@@ -165,7 +165,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 \begin{center}
 \begin{tikzpicture}[scale=0.3]
 	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
-\end{tikzpicture} $\quad \Longleftrightarrow \quad$
+\end{tikzpicture} $\quad \longleftrightarrow \quad$
 \begin{tikzpicture}[scale=0.3]
 	\mzncar[(18,0)]{blue}{blue} \mzncar[(21,0)]{red}{red} \mzncar[(24,0)]{blue}{blue} \mzncar[(27,0)]{blue}{blue} \mzncar[(30,0)]{blue}{blue}
 \end{tikzpicture}
@@ -194,7 +194,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 	This is our exception --- we cannot recolor to have a new red car if even the maximum preference is in $[s]$. This corresponds to the the $[s]$-restricted parking functions of length $c$. They are only counted once --- positively, as a subset of the term with 0 red cars. Any other pair of 2-colored parking functions is counted positively once and negatively once in our sum, for an even and odd number of red cars respectively. Thus, the sum counts only $\#\mathrm{PF}_{c \mid [s]}$.
 \end{proof}
 
-There is an analogous result for prime parking functions as well! Recall that these are preference functions $\pi:[n]\to[n]$ that satisfy an extra-strong Catalan condition, that at least $i$ cars have preferences in $[i-1]$ for all $1<i\le n.$ These are a subset of all parking functions, and their total count is $(n-1)^{n-1}$; they are discussed further in \ref{modularsection}. This motivates the following definition:
+There is an analogous result for prime parking functions as well! Recall that these are preference functions $\pi:[n]\to[n]$ that satisfy an extra-strong Catalan condition, that at least $i$ cars have preferences in $[i-1]$ for all $1<i\le n.$ These are a subset of all parking functions, and their total count is $(n-1)^{n-1}$. They are discussed further in \cref{primesection}. This motivates the following definition:
 
 \begin{definition}
     An $S$-restricted prime parking function on $n$ cars, is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PPF}_{n\mid S}.$
@@ -256,7 +256,7 @@ Abel's binomial theorem is a generalization of the standard binomial theorem, wi
 \[
 	(X + Y)^{n} = \sum_{i = 0}^{n} \binom{n}{i} X (X + iZ)^{i - 1} (Y - i Z)^{n - i}.
 \]
-for $X, Y, Z \in \mathbb{C}$ and $n \in \mathbb{Z}_{> 0}$. The substitutions $x = X/Z$ and $y = Y/Z - n$ (for suitable $Z$) yield an equivalent form that can be recovered from parking functions.
+for $X, Y, Z \in \mathbb{C}$ and $n \in \mathbb{Z}_{> 0}$. The substitutions $x = X/Z$ and $y = Y/Z - n$ (for suitable $Z$) yield an equivalent form that is particularly amenable to combinatorial interpretation --- our enumerations of $[s]$-restricted parking functions are really two different truncations of the identity.
 
 \begin{restatable}[Abel's binomial theorem]{theorem}{abelsbin}
 	For all $n\in\mathbb{Z}_{>0}$ and $x,y\in\mathbb{C},$
@@ -265,17 +265,17 @@ for $X, Y, Z \in \mathbb{C}$ and $n \in \mathbb{Z}_{> 0}$. The substitutions $x 
 	\]
 \end{restatable}
 
-Setting \cref{thm:resPFcount1} and \cref{thm:resPFcount2} equal gives a special case of this identity:
+Since the expressions in \cref{thm:resPFcount1} and \cref{thm:resPFcount2} both count $[s]$-restricted parking functions of length $n$, we can set them equal. With all the sums on one side, we see
 \begin{align*}
     s^{n} &= \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i} + \sum_{i = s}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}\\
     &=\sum_{i = 0}^{n} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i},
 \end{align*}
-which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, setting \cref{thm:resPPFcount1} and \cref{thm:resPPFcount2} equal gives 
+which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, from \cref{thm:resPPFcount1} and \cref{thm:resPPFcount2} we get 
 \begin{align*}
     - (s - 1)^{n} &= -s^n + \sum_{i = 1}^{s} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i} + \sum_{i = s + 1}^{n} \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i}\\
     &=\sum_{i=0}^n \binom{n}{i} (i - 1)^{i - 1} (s - i)^{n - i},
 \end{align*}
-which is Abel's theorem for $x=-1,$ $y=s-n+1.$ It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
+which is Abel's theorem for $x=-1,$ $y=s-n+1$. It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
 
 These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function: %\todo[jayden]{apparently there's also a Pollak-style argument for this (Stanley hints at it in some slides that I can't find)}
 
@@ -301,13 +301,18 @@ Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a
     The second claim proceeds similarly; $x(x+i)^{i-1}$ again counts parking functions of length $i$. Since $(s-i-1)^{n-i}$ counts red cars, which always prefer forbidden spots greater than $s\ge1,$ we again needn't account for preferences of 1 here. From this point on the proofs are identical.
 \end{proof}
 
-This means that for all $n\in\mathbb{Z}_{>0},$ $s\in [n],$ $x\in\mathbb{R},$
-\[(s-1+x)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i}.\]
-In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{Z}_{>0}$ and $x\in\mathbb{C},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values. These must then be equal, since $f(s)-g(s)$ is of degree at most $n-1$ and has at least $n$ roots.
+\begin{proof}[Proof of Abel's binomial theorem]
+	Equating the two expressions in the previous theorem gives us that for all $n\in\mathbb{Z}_{>0},$ $s\in [n],$ $x\in\mathbb{C},$
+	\[
+		(s-1+x)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i}.
+	\]
+In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{Z}_{>0}$ and $x\in\mathbb{C},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values. These must then be equal, since $f(s)-g(s)$ is of degree at most $n-1$ and has at least $n$ roots --- $f(s) - g(s)$ is the zero polynomial.
 
-Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}.$ Substituting $s=n+1+y$ recovers Abel's full theorem.
+Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}$. Substituting $s=n+1+y$ recovers Abel's binomial theorem.
 
-\section{Prime parking functions}
+\end{proof}
+
+\section{Prime parking functions} \label{primesection}
 
 Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions. See \cite{armon-2024} for a further discussion of these functions.
 
@@ -374,7 +379,7 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 	\]
 \end{proof}
 
-This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted by $\lambda\vDash s, \lvert\lambda\rvert = n;$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
+This is really the first case of a more general (though recursive) result for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted by $\lambda\vDash s, \lvert\lambda\rvert = n;$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
 
 \begin{restatable}{theorem}{modPFcountGen}
 	Given $g,s\in\mathbb{Z}_{>0},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
