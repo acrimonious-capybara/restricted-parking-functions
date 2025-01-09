@@ -101,7 +101,7 @@ citecolor = blue}
 
 The classical parking function problem is to describe the parking preferences cars can have that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way street with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
 
-The \emph{parking functions} $\pi : [n] \to [n],$ which take each of $n$ cars to their preferences in a manner that allows everyone to park, are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
+The \emph{parking functions} $\pi : [n] \to [n],$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
 \begin{enumerate}
 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data.)
@@ -274,7 +274,7 @@ which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, setting \cref{thm:resPP
 \end{align*}
 which is Abel's theorem for $x=-1,$ $y=s-n+1.$ It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
 
-These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function: \todo[jayden]{apparently there's also a Pollak-style argument for this (Stanley hints at it in some slides that I can't find)}
+These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function: %\todo[jayden]{apparently there's also a Pollak-style argument for this (Stanley hints at it in some slides that I can't find)}
 
 \begin{lemma}
     The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{Z}^{>0}.$
@@ -306,7 +306,7 @@ Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}^{
 
 \section{Prime parking functions}
 
-Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. \todo[jayden]{reference!} They are often defined as satisfying a stricter condition than parking functions. See \cite{yan-survey-2015} for 
+Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions. See \cite{armon-2024} for a further discussion of these functions.
 
 \begin{definition}[prime parking functions]
 	A prime parking function of length $n$ is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
@@ -336,7 +336,7 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 \end{restatable}
 
 \begin{proof}
-	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward \todo[jayden]{use combinatorial vocabulary?} to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f \circ \pi$.
+	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this yields a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f \circ \pi$.
 
 	It follows that $f^{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
 
@@ -379,7 +379,7 @@ This is really the first case of a more general (though recursive) result due to
 		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
 			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
 	\end{align*}
-	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is an ordered partition of $k$.
+	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is a composition of $k$ with length $|\lambda|.$.
 \end{restatable}
 
 \begin{proof}
