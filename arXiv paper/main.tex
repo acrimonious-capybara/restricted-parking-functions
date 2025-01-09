@@ -253,7 +253,11 @@ We can enumerate restrictions on prime parking functions in much the same manner
 
 In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two approaches are very similar; this isn't a coincidence!
 
-Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests. The identity has many equivalent statements, but perhaps most common is the following version: \todo[jayden]{this result is actually a reduction of the general theorem which comes from writing $x = X / Z$, $y = Y / Z$}
+Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests. The identity has many equivalent statements. One common one similar to those in \cite{shapiro-1991} and \cite{zucker-2024} is
+\[
+	(X + Y)^{n} = \sum_{i = 0}^{n} \binom{n}{i} X (X + iZ)^{i - 1} (Y - i Z)^{n - i}.
+\]
+for $X, Y, Z \in \mathbb{C}$ and $n \in \mathbb{Z}_{> 0}$. The substitutions $x = X/Z$ and $y = Y/Z - n$ (for suitable $Z$) yield an equivalent form that can be recovered from parking functions.
 
 \begin{restatable}[Abel's binomial theorem]{theorem}{abelsbin}
 	For all $n\in\mathbb{Z}^{>0}$ and $x,y\in\mathbb{C},$
