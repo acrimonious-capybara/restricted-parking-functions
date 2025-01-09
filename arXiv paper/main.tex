@@ -383,10 +383,9 @@ This is really the first case of a more general (though recursive) result for pa
 
 \begin{restatable}{theorem}{modPFcountGen}
 	Given $g,s\in\mathbb{Z}_{>0},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
-	\begin{align*}
-		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
-			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
-	\end{align*}
+	\[
+		s^{gs - k} = s \, \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
+	\]
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is a composition of $k$ with length $|\lambda|.$.
 \end{restatable}
 
