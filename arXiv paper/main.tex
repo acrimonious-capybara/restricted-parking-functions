@@ -260,7 +260,7 @@ Abel's binomial theorem is a generalization of the standard binomial theorem, wi
 for $X, Y, Z \in \mathbb{C}$ and $n \in \mathbb{Z}_{> 0}$. The substitutions $x = X/Z$ and $y = Y/Z - n$ (for suitable $Z$) yield an equivalent form that can be recovered from parking functions.
 
 \begin{restatable}[Abel's binomial theorem]{theorem}{abelsbin}
-	For all $n\in\mathbb{Z}^{>0}$ and $x,y\in\mathbb{C},$
+	For all $n\in\mathbb{Z}_{>0}$ and $x,y\in\mathbb{C},$
     \[
 		(x + y + n)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (y + n - i)^{n - i}.
 	\]
@@ -281,7 +281,7 @@ which is Abel's theorem for $x=-1,$ $y=s-n+1.$ It's rather surprising that we'd 
 These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function: %\todo[jayden]{apparently there's also a Pollak-style argument for this (Stanley hints at it in some slides that I can't find)}
 
 \begin{lemma}
-    The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{Z}^{>0}.$
+    The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{Z}_{>0}.$
 \end{lemma}
 
 Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a clever construction involving a bijection with labeled trees. This gives us a rather more general form for our identity:
@@ -302,11 +302,11 @@ Note that this reduces to the usual $(n+1)^{n-1}$ when setting $x=1$; Yan uses a
     The second claim proceeds similarly; $x(x+i)^{i-1}$ again counts parking functions of length $i$. Since $(s-i-1)^{n-i}$ counts red cars, which always prefer forbidden spots greater than $s\ge1,$ we again needn't account for preferences of 1 here. From this point on the proofs are identical.
 \end{proof}
 
-This means that for all $n\in\mathbb{Z}^{>0},$ $s\in [n],$ $x\in\mathbb{R},$
+This means that for all $n\in\mathbb{Z}_{>0},$ $s\in [n],$ $x\in\mathbb{R},$
 \[(s-1+x)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x(x + i)^{i - 1} (s - i - 1)^{n - i}.\]
-In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{Z}^{>0}$ and $x\in\mathbb{C},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values. These must then be equal, since $f(s)-g(s)$ is of degree at most $n-1$ and has at least $n$ roots.
+In particular, viewing both sides of the expression as a polynomial in $s$: for any $n\in\mathbb{Z}_{>0}$ and $x\in\mathbb{C},$ we have two monic polynomials $f(s)$ and $g(s)$ of degree $n$ which agree on $n$ distinct values. These must then be equal, since $f(s)-g(s)$ is of degree at most $n-1$ and has at least $n$ roots.
 
-Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}^{>0}.$ Substituting $s=n+1+y$ recovers Abel's full theorem.
+Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}.$ Substituting $s=n+1+y$ recovers Abel's full theorem.
 
 \section{Prime parking functions}
 
@@ -378,7 +378,7 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 This is really the first case of a more general (though recursive) result due to Bown for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted by $\lambda\vDash s, \lvert\lambda\rvert = n;$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
 
 \begin{restatable}{theorem}{modPFcountGen}
-	Given $g,s\in\mathbb{Z}^{>0},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
+	Given $g,s\in\mathbb{Z}_{>0},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
 	\begin{align*}
 		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
 			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
