@@ -108,7 +108,7 @@ The \emph{parking functions} $\pi : [n] \to [n],$ which take each of $n$ cars to
 \end{enumerate}
 We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$. 
 
-These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions and the obvious combinatorial intuition of the original parking function question.
+These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions (of which they are a special case!) and the obvious combinatorial intuition of the original parking function question.
 
 \section{Initial segment restrictions}
 
@@ -116,15 +116,15 @@ These reinterpretations yield new combinatorial insights, simpler proofs, and co
     An $S$-restricted parking function on $n$ cars, given a set of possible preferences $S,$ is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PF}_{n\mid S}.$
 \end{definition}
 
-$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
+%$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
 
-\begin{theorem}
-    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
-\end{theorem}
+%\begin{theorem}
+%    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
+%\end{theorem}
 
-\begin{proof}
-    Letting $s=|S|,$ take the function $f:[s]\to S$ given by 
-\end{proof} \todo[jayden]{I think this could be just a short note in the introduction after the ``balance between the power of $\mathbf{u}$-parking functions'' comment --- I'm not sure we need a proof}
+%\begin{proof}
+%    Letting $s=|S|,$ take the function $f:[s]\to S$ given by 
+%\end{proof} \todo[jayden]{I think this could be just a short note in the introduction after the ``balance between the power of $\mathbf{u}$-parking functions'' comment --- I'm not sure we need a proof}
 
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
