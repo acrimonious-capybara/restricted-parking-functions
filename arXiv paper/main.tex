@@ -77,7 +77,7 @@ citecolor = blue}
 	
 
 \begin{abstract}
-	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subseteq [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights on old results about certain generalizations of parking functions, as well as a new characterization of prime parking functions.
+	We demonstrate a new paradigm for solving parking problems --- preference-restricted parking functions. By considering parking functions of length $n$ where all cars prefer spots in some convenient $S \subseteq [n]$, we convert questions about complicated parking procedures into more easily understood questions about ordinary parking functions. In particular, we demonstrate choices of $S$ that yield new combinatorial insights into previous results about variant parking procedures, distinct enumerations of ``parking functions'' for those parking procedures, a novel characterization of prime parking functions, and Abel's binomial theorem.
 \end{abstract}
 
 \maketitle
@@ -98,23 +98,26 @@ citecolor = blue}
 
 \section{Introduction}
 
-The classical parking function problem is to describe the parking preferences cars can have that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way street with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
+The classical parking function problem is to describe the parking preferences of cars that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way parking lot with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
 
-The \emph{parking functions} $\pi : [n] \to [n],$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood. However, many of the variants of the parking function question considered in the literature do not fully leverage our knowledge of parking functions ---
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood. However, many variants of the parking function question considered in the literature do not fully leverage our understanding of parking functions ---
 \begin{enumerate}
 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data.)
 	\item Prime parking functions --- the building blocks from which parking functions are formed.
 \end{enumerate}
-We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$. 
-
-These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ --- and the obvious combinatorial intuition of the original parking function question.
-
-\section{Initial segment restrictions}
+We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$.
 
 \begin{definition}
-    An $S$-restricted parking function on $n$ cars, given a set of possible preferences $S,$ is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PF}_{n\mid S}.$
+    An $S$-restricted parking function on $n$ cars, given a set of possible preferences $S$ is a parking function $\pi$ on $n$ cars where all preferences lie in $S$ --- $\pi([n]) \subset S$.
+
+    We denote the set of $S$-restricted parking functions by $\mathrm{PF}_{n \mid S}$ and thus, their number by $\# \mathrm{PF}_{n \mid S}$.
 \end{definition}
+
+
+These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ --- and the obvious combinatorial intuition of the original parking function question.
+
+\section{Initial segment restrictions}
 
 %$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
 
