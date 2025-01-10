@@ -404,6 +404,13 @@ Note that here, for convenience, $S$ is not a subset of the various $m$ that are
 
     The $k$ empty spots in the parking lot will be distributed in $n$ contiguous segments for some $1\le n\le k.$ These unfilled segments will all be immediately prior to spots that can be preferred; all other scenarios force cars to pass unfilled spots without parking in them.
 
+    \begin{figure}[H]
+    	\centering
+	\includegraphics[width = 0.45 \textwidth]{modPFs3}
+	\includegraphics[width = 0.45 \textwidth]{modPFs4}
+	\caption{For $g = s = 3$ and $k = 2$, the two empty spots could be the last two spots $g \sigma + 1, g \sigma + 2$ in a ``row'', or the last spots $g \sigma_{1} + 2$ and $g \sigma_{2} + 2$ in two different ``rows''.}
+    \end{figure}
+
     Our gaps will be of size $\lambda_1,\lambda_2,\ldots,\lambda_n,$ all positive and summing up to $k$; we denote this as $\lambda\vDash k,|\lambda|=n.$ These unfilled segments can each be paired with the filled segments immediately prior to them; by virtue of the locations of unfilled segments, these pairs will each have total length a multiple of $g.$ Call these $g\mu_1,g\mu_2,\ldots,g\mu_n$; since the sum of all of these is $gs,$ we have $\mu\vDash s,|\mu|=n.$
 
     For each such partition of this type, each filled segment will have $g\mu_i-\lambda_i$; choosing which cars will have preferences in each segment can be done in $\binom{gs - k}{g \mu_1 - \lambda_1,g \mu_2 - \lambda_2,\ldots,g \mu_n - \lambda_n}=\binom{gs - k}{g \mu - \lambda}$ ways.
