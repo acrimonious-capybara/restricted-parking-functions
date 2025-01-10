@@ -93,13 +93,23 @@ The \emph{parking functions} $\pi : [n] \to [n],$ which take each of $n$ cars to
 \end{enumerate}
 We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$. 
 
-These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions and the obvious combinatorial intuition of the original parking function question.
+These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the power of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ --- and the obvious combinatorial intuition of the original parking function question.
 
 \section{Initial segment restrictions}
 
 \begin{definition}
     An $S$-restricted parking function on $n$ cars, given a set of possible preferences $S,$ is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PF}_{n\mid S}.$
 \end{definition}
+
+%$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
+
+%\begin{theorem}
+%    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
+%\end{theorem}
+
+%\begin{proof}
+%    Letting $s=|S|,$ take the function $f:[s]\to S$ given by 
+%\end{proof} \todo[jayden]{I think this could be just a short note in the introduction after the ``balance between the power of $\mathbf{u}$-parking functions'' comment --- I'm not sure we need a proof}
 
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
@@ -237,7 +247,7 @@ We can enumerate restrictions on prime parking functions in much the same manner
 
 In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two approaches are very similar; this isn't a coincidence!
 
-Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests. The identity has many equivalent statements. One common form similar to those in \cite{shapiro-1991} and \cite{zucker-2024} is
+Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests. The identity has many equivalent statements. One common form similar to those in \cite{shapiro-1991} and \cite{zucker-2024} is that
 \[
 	(X + Y)^{n} = \sum_{i = 0}^{n} \binom{n}{i} X (X + iZ)^{i - 1} (Y - i Z)^{n - i}.
 \]
@@ -351,29 +361,17 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
-\begin{proof}
-	Consider a circular parking lot with $gs$ spots and only permit cars to prefer the $s$ spots $1, g + 1, 2g + 1, \dots$ in $S$. The $gs - 1$ cars perform the regular parking procedure --- they enter the parking lot at spot $1$, drive to their preferred spot, attempt to park there, and then each subsequent spot until they get to park. However, in this parking lot if cars are unable to park in a spot after their preferred spot, they can circle back to the spots before their preference. Thus, all cars are always able to park.
-
-	There are $s^{gs - 1}$ such preference functions, each leaving one empty spot. This empty spot must be a multiple of $g$, one spot before one of the permitted spots in $S$ since a car with preference $g \sigma + 1 \in S$ must pass all $g \sigma + j$ before it reaches $g (\sigma + 1)$. If the empty spot is the last ($gs$th) spot, then this preference function must be one of our desired parking functions --- no car can cross the last spot without trying to park in it, so $\pi$ results in every car parking in one of the first $gs - 1$ spots without crossing the last spot. Conversely, every $S$-restricted parking function corresponds directly to such a preference function on the circle.
-
-	The preference functions on the circle also have circular symmetry. If $\pi$ leads to car $i$ parking in spot $\pi^{i}$ and $\psi = \pi + xg \pmod{gs}$, then $\psi$ results in each car parking in spot $\psi^{i} = \pi^{i} + xg \pmod{gs}$. This follows since adding $xg$ is equivalent to the cars entering the circular parking lot at spot $xg + 1 \pmod {gs}$ instead of spot $1$ --- the cars still choose parking spots in the same order. In particular, there is a natural action of the cyclic group $\mathbb{Z} / s \mathbb{Z}$ on preference functions on the circle by $x \cdot \pi = \pi + xg \pmod{gs}$. Each orbit of this action contains exactly one parking function with spot $gs$ empty --- for $\pi$ with spot $g \sigma$ empty, only $(s - \sigma) \cdot \pi$ has spot $gs$ empty. Alternatively, one can think of this as moving spot $1$ at which the cars enter the circle to just after original empty spot $g \sigma$.
-
-	Now, to count the parking functions we just count the orbits of the action. By the definition of the action its only fixed points are those of the identity $0$. The identity fixes every preference function, so by Burnside's lemma
-	\[
-		\mathrm{PF}_{gs - 1 \mid S} = \frac{\# \{ \pi : [gs - 1] \to [s] \}}{\lvert \mathbb{Z} / s \mathbb{Z} \rvert} = \frac{s^{gs - 1}}{s} = s^{gs - 2}.
-	\]
-\end{proof}
-
-This is really the first case of a more general (though recursive) result for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted by $\lambda\vDash s, \lvert\lambda\rvert = n;$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
+This is really the first case of a more general recursive result for parking functions of length $gs - k$. Here compositions $\lambda = (\lambda_{1}, \dots, \lambda_{n})$ with $\sum_{i = 1}^{n} \lambda_{i} = s$ are denoted $\lambda\vDash s, \lvert\lambda\rvert = n$ while $\binom{n}{\lambda}$ denotes the number of ways to partition a set of size $n$ into parts with sizes given by $\lambda_i$.
 
 \begin{restatable}{theorem}{modPFcountGen}
 	Given $g,s\in\mathbb{Z}_{>0},$ $1\le k\le gs,$ the number of parking functions of length $gs - k$ with gap $g$ between possible preferred spots is $\mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ and satisfies the relation
-	\begin{align*}
-		s^{gs - k} & = s \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} \\
-			   & + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
-	\end{align*}
+	\[
+		s^{gs - k} = s \, \# \mathrm{PF}_{gs - k \mid S \cap [gs - k]} + \sum_{n = 2}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}
+	\]
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is a composition of $k$ with length $|\lambda|.$.
 \end{restatable}
+
+Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
 
 \begin{proof}
     Consider $gs-k$ cars in a circular parking lot with $gs$ spots; as with the proof above, we only permit cars to prefer the $s$ distinct spots $1,g+1,2g+1,\ldots$ around the lot. There are $s^{gs-k}$ total ways to choose these preferences, and every such choice will lead to all cars parking.
@@ -387,14 +385,13 @@ This is really the first case of a more general (though recursive) result for pa
     Within each segment, we have $g\mu_i-\lambda_i$ cars which can only prefer spots which are $1$ mod $g$ and must park in the first $g\mu_i-\lambda_i$ spots without gaps. This is precisely a parking function with modular restrictions, and can be done in $\# \mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ ways.
 
     Finally, we must choose how our parking functions are placed within the circle itself. There are $s$ ways to place the first possible preference in the first restricted parking function, and all placements are forced from there onwards; however, for any given $n$ we are overcounting by a factor of $n,$ since all cyclic permutations of a given $\lambda$ and $\mu$ are equivalent, but all are counted. Thus we multiply by $\frac{s}{n},$ for a total of 
-    \[s^{gs - k} = \sum_{n = 1}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]};\] the formula above arises from pulling out the desirable $n=1$ term.Z
+    \[
+	    s^{gs - k} = \sum_{n = 1}^{k} \frac{s}{n} \sum_{\lambda \vDash k, \lvert \lambda \rvert = n} \sum_{\mu \vDash s, \lvert \mu \rvert = n} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}.
+    \]
+    The formula above arises from pulling out the desirable $n = 1$ term.
 \end{proof}
 
-Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
-
-The left hand side is just counting preference functions of $gs - k$ cars with restricted preferences on the circle with $gs$ spots. The right hand side enumerates the same preference functions as the sum of the $s$ ways to map each restricted parking function of length $gs - k$ onto the circle and the ways to place the $k$ empty spots between the cars. 
-
-In practice, the formula it yields is computationally intractable for large $g, s, k$. However, it can be useful to show special cases of small $k$ as below.
+In practice, the formula it yields is computationally intractable for large $g, s, k$. However, it can be useful to show special cases of small $k$ as in \cref{thm:modPFcount} and below ---
 
 \begin{restatable}{example}{modPFcount2}
 	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
