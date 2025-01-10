@@ -360,7 +360,7 @@ We obtain the same enumeration by elementary means that provide an explicit gene
 	\centering
 	\includegraphics[width = 0.45 \textwidth]{modPFs}
 	\includegraphics[width = 0.45 \textwidth]{modPFs2}
-	\caption{Blake and Konheim's row parking function where cars 1, 4, 5, and 7 prefer the first row, cars 2 and 3 prefer the second row and car 6 prefers the last row can be understood as a restricted parking function $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$}
+	\caption{Blake and Konheim's row parking function where cars 1, 4, 5, and 7 prefer the first row, cars 2 and 3 prefer the second row and car 6 prefers the last row can be understood as a restricted parking function $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$. This is an example of the case $g = s = 3$, $k = 2$.}
 \end{figure}
 
 \begin{restatable}{theorem}{modPFcount}
@@ -388,6 +388,13 @@ Note that here, for convenience, $S$ is not a subset of the various $m$ that are
     Consider $gs-k$ cars in a circular parking lot with $gs$ spots; as with the proof above, we only permit cars to prefer the $s$ distinct spots $1,g+1,2g+1,\ldots$ around the lot. There are $s^{gs-k}$ total ways to choose these preferences, and every such choice will lead to all cars parking.
 
     The $k$ empty spots in the parking lot will be distributed in $n$ contiguous segments for some $1\le n\le k.$ These unfilled segments will all be immediately prior to spots that can be preferred; all other scenarios force cars to pass unfilled spots without parking in them.
+
+    \begin{figure}[H]
+    	\centering
+	\includegraphics[width = 0.45 \textwidth]{modPFs3}
+	\includegraphics[width = 0.45 \textwidth]{modPFs4}
+	\caption{For $g = s = 3$ and $k = 2$, the two empty spots could be the last two spots $g \sigma + 1, g \sigma + 2$ in a ``row'', or the last spots $g \sigma_{1} + 2$ and $g \sigma_{2} + 2$ in two different ``rows''.}
+    \end{figure}
 
     Our gaps will be of size $\lambda_1,\lambda_2,\ldots,\lambda_n,$ all positive and summing up to $k$; we denote this as $\lambda\vDash k,|\lambda|=n.$ These unfilled segments can each be paired with the filled segments immediately prior to them; by virtue of the locations of unfilled segments, these pairs will each have total length a multiple of $g.$ Call these $g\mu_1,g\mu_2,\ldots,g\mu_n$; since the sum of all of these is $gs,$ we have $\mu\vDash s,|\mu|=n.$
 
