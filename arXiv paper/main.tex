@@ -247,7 +247,7 @@ We can enumerate restrictions on prime parking functions in much the same manner
 	Once again, then, we have a single exception to the involution: prime parking functions where all preferences are in $[s]$ are counted once while everything else cancels. Thus our alternating sum counts $\mathrm{PPF}_{c \mid [s]}$.
 \end{proof}
 
-\subsection{Abel's binomial theorem}
+\subsection*{Abel's binomial theorem}
 
 In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two approaches are very similar; this isn't a coincidence!
 
@@ -310,6 +310,33 @@ In particular, viewing both sides of the expression as a polynomial in $s$: for 
 Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}$. Substituting $s=n+1+y$ recovers Abel's binomial theorem.
 
 \end{proof}
+
+\subsection*{The symmetric group and initial restrictions}
+
+Regular parking functions (on $n$ cars) have certain structure beyond just whether they are parking functions or not. For example, whether a given $\pi : [n] \to [n]$ is a parking function depends only on the size of each of the pre-images $\pi^{-1}([i])$. It doesn't matter which cars prefer spots in each $[i]$. However, the parking function itself also comes with the data of its \emph{parking outcome} (the permutation sending each parking space to the car parked in it) which clearly does depend on which cars prefer spots. This structure involves the symmetric group $\mathfrak{S}_{n}$ in two different ways.
+
+First, there is an action of the symmetric group on $\mathrm{PF}_{n}$ by shuffling around the preferred spots among the cars. Explicitly, this is the left action $\mathfrak{S}_{n} \times \mathrm{PF}_{n} \to \mathrm{PF}_{n}$ by $\sigma \cdot \pi = \pi \circ \sigma^{-1}$. Counting the orbits of this action is equivalent to counting the ``non-decreasing'' (order-preserving) parking functions. It's known that they are in bijection with Dyck paths and thus, the number of them is the $n$th Catalan number $C_{n}$ (see, for example, \cite{armstrong-loehr-warrington-2016}).
+
+Second, there is a surjection $\mathrm{PF}_{n} \twoheadrightarrow \mathfrak{S}_{n}$ that sends every parking function to its parking outcome. Every parking outcome must be a bijection $[n] \to [n]$ from spots to cars --- a permutation; every permutation can be achieved by a parking function that is the same permutation. In \cite{pinsky-2024}, Pinsky determines the size of the pre-image of a permutation $\sigma \in \mathfrak{S}_{n}$ under this map, and analyses asymptotics as $n \to \infty$.
+
+Both of these analyses have analogues for $[s]$-restricted parking functions. \todo[jayden]{prove them}
+
+\begin{theorem}
+	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$ there are $C(n, s - 1)$ orbits.
+
+	Here $C(n, k)$ is the $(n, k)$th entry in Catalan's triangle, also known as the Narayana number $N(n, k)$ \cite[A001263]{oeis}.
+\end{theorem} 
+
+\begin{theorem}
+    The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_m$ is
+    \[
+    \prod_{i=1}^m \max(0,l_{m,i}(\sigma)-\max(0,i-n)).
+    \]
+    Here $l_{m, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \cdots \sigma_{n}$) ending at $\sigma_i$ with $\sigma_i$ greater than any other $\sigma_{j}$ within the string.
+\end{theorem}
+
+
+
 
 \section{Prime parking functions} \label{primesection}
 
