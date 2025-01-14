@@ -1,0 +1,32 @@
+\section{Week 8}
+
+\subsection*{Interpreting our proof of Abel's binomial theorem}~
+
+Last week we proved \abelsbin*
+
+We did so by analogy to $n$-letter words formed from an alphabet of length $x + y + n$, for which the presumption that $y$ and thus, $y + n - k$ were always positive integers was crucial. (We then extended the result to all $x, y \in \mathbb{C}$ by combinatorial Nullstellensatz). However, for the way in which we have used Abel's identity, $y$ is always negative, and $y + n - k$ becomes negative exactly at the point where we break the sum. \\
+
+Specifically, our results are
+\[
+	\begin{split}
+		\# \mathrm{PF}_{c \mid [s]} & = s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i} \\
+					    & = \sum_{i = s}^{c} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}
+	\end{split}
+\]
+which we can rearrange to say
+\[
+	s^{c} = \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i} + \sum_{i = s}^{c} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
+\]
+That is, we can divide all preference lists of $c$ cars on $s$ spots into parking functions and non-parking functions. This corresponds to Abel's binomial theorem for the case $x = 1$ and $y = s - c - 1$. Since $s \le c$, $y$ must be negative. The left hand side of the equation is naturally interpreted as the number of ways to construct words of length $c$ from the alphabet $[s]$. We want the right hand side to count the same thing with $y$ corresponding to negative counts for the forbidden last $c - s$ numbers and $x$-alphabet. \\
+
+Instead of the original greedy algorithm that we suggested to divide words into subsets, consider the following.
+
+\begin{enumerate}[label = (\arabic*)]
+	\item If there are no $a_{j}$ in the word, then $S_{x} = \text{\O}$.
+	\item For all $i \in [n]$, if $f(i) \in A$, then add $i$ to $S_{x}$.
+	\item For all $i \in [n]$, if $f(i) \le \# S_{x}$, then add $i$ to $S_{x}$.
+	\item Repeat step (3) until there are no more $i$ such that $f(i) \le \# S_{x}$
+	\item $S_{y} = [n] \setminus S_{x}$.
+\end{enumerate}
+
+What we're doing here is forcing ourselves to use the order-preserving bijections $S_{x} \to [k]$ and $S_{y} \to [n] \setminus [k]$ to choose the letters that go in the positions in $S_{x}$ and $S_{y}$ respectively. We can apply the same bijection to the unravelling cycles part of proving the other direction to show that this is also a valid way of thinking about the identity.

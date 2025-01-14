@@ -1,0 +1,140 @@
+\section{Week 4}
+
+\subsection*{Forbidding a single spot}~
+
+How many parking functions are there on $[c]$ restricted to $S=[c]\backslash\{x\},$ where $x$ is some value in $[c]$? Note first that when $x=1,$ our answer is $0$ since spot $1$ can never be full. On the other end, when $X=c$ our answer is $(c+1)^{c-1}-c^{c-1}$: this is the number of parking functions restricted to $[c-1].$ What about intermediate restrictions?
+
+\begin{lemma}
+    The number of parking functions on $[c]$ with $x=2$ a forbidden preference is $(c-1)^{c-1},$ the number of prime parking functions on $[c].$
+\end{lemma}
+
+\begin{proof}
+    We construct a bijections between the former and latter sets. Given a parking function $\pi$, with $x=2$ a forbidden preference, define $\pi'(c_i)=1$ if $\pi(c_i)=1$ and $\pi'(c_i)=\pi(c_i)-1$ if $\pi(c_i)>2,$ and map $\pi\mapsto\pi'.$ This forms a injection from the set of preference functions with $2$ forbidden to the set of all parking functions, since distinct preferences are mapped to distinct preferences.\\
+
+    From the Catalan condition, our restricted parking function $\pi$ requires at least 1 car preferring the first spot, at least 2 cars preferring the first 2 spots, at least 3 preferring the first 3 spots, etc. Since there are no cars in the second spot, at least 2 cars prefer the first spot as well.\\
+
+    After our transformation, shifting by 1 spot all preferences greater than 2, we then have at least 2 cars preferring the first spot, at least 3 preferring the first 2 spots, etc. This is precisely the definition of a prime parking function!\\
+    
+    Conversely, shifting back the preferences of a prime parking function will give a function where at least 2 cars prefer the first spot, at least 3 prefer the first 3, at least 4 prefer the first 4, etc. This is a parking function as well, and since nobody will prefer spot 2, it has the restrictions we desire. Thus we have our bijection.
+\end{proof}
+
+\begin{lemma}
+    Let $N_{c,x}$ denote the number of parking functions on $[c]$ with $x$ a forbidden preference. Then $N_{c,x+1}-N_{c,x}=\binom{c}{x-1}x^{x-2}(c-x)^{c-x}.$
+\end{lemma}
+
+\begin{proof}
+    Consider a function from parking functions with $x$ a forbidden preference to parking functions with $x+1$ a forbidden preference: given a parking function, all preferences of $x+1$ with preferences of $x.$ This is an injection, since distinct preferences map to distinct preferences.\\
+    
+    Thus we'd like to count the number of parking functions with $x+1$ forbidden which are not in the image of this function: that is, such that replacing preferences of $x$ with preferences of $x+1$ turns it into a non-parking function.\\
+
+    The only place that the Catalan condition could suddenly fail, upon this move, is at $x$; that is, there must be at least $x$ cars that prefer the first $x$ spots, but fewer than $x$ cars prefer the first $x-1$ spots (since those are the cars that remain within range after the shift). Since at least $x-1$ cars prefer the first $x-1$ spots by definition of a parking function, there must be exactly $x-1$ cars preferring such spots. That is, we have a parking function on the first $x-1$ spots; we may choose the cars for this function in $\binom{c}{x-1}$ ways and assemble them into a parking function in $x^{x-2}$ ways.
+
+    The remaining cars must park in spots $x,x+2,x+3,\cdots,c-1,c.$ This is equivalent to a parking function on $[c-x+1]$ with spot 2 forbidden, which happens by the above lemma in $(c-x)^{c-x}$ ways. Thus there are $\binom{c}{x-1}x^{x-2}(c-x)^{c-x}$ parking functions not in our image; this is the difference between the sizes of our domain and codomain, or $N_{c,x+1}-N_{c,x}.$
+\end{proof}
+
+\begin{proposition}
+    The number of parking functions on $[c]$ with $x$ forbidden is $$\sum_{i=0}^{x-1}\binom{c}{i}(i+1)^{i-1}(c-i-1)^{c-i-1}$$
+\end{proposition}
+
+\begin{proof}
+    We sum over the values in the above lemma, as $N_{c,1}=0$ and the sum telescopes.
+\end{proof}
+
+Note that taking this sum for $x=c$ gives a sum equaling a value we found independently: $$(c+1)^{c-1}-c^{c-1}=\sum_{i=0}^{c-1}\binom{c}{i}(i+1)^{i-1}(c-i-1)^{c-i-1}.$$ Subtracting $(c+1)^{c-1}$ from both sides gives a term on the right which can become part of the sum, giving $$-c^{c-1}=\sum_{i=0}^{c}\binom{c}{i}(i+1)^{i-1}(c-i-1)^{c-i-1},$$ once more a special case of Abel's binomial theorem.
+
+\subsection*{$p$-prime parking functions}
+
+Motivated by the section above, we might ask: what if we were to make forbidden a contiguous subset of $[c],$ rather than just one spot? Again, if the first $p$ spots are forbidden, then there are no parking functions; if the last $p$ spots are forbidden, then we have a restricted parking function. The first interesting case comes when we have a contiguous region starting with spot 2.\\
+
+We'd like something similar to a prime parking function generalizes our result for forbidding only 2. In light of this, we define the following:\\
+
+\begin{definition}[$p$-prime parking functions] A $p$-prime parking function on $[c]$ is a parking function on $[c]$ such that for any $i\in[c-p],$ there are at least $i+p$ preferences in the first $i$ spots.
+\end{definition}
+
+
+Similarly to prime parking functions, we can equivalently say that a parking function is $p$-prime if we can remove $p$ 1s from it and have the preferences which remain form a parking function as well; this is true through the Catalan condition.
+
+\begin{proposition}
+    The number of parking functions on $[c]$ with $\{2,3,\ldots,p+1\}$ forbidden equals the number of $p$-prime parking functions on $[c].$
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+    Similarly to above, we set up a bijection between restricted and $p$-prime parking functions; we do so by moving back by $p$ spots any preferences which are $p+2$ or larger. Distinct preferences map to distinct preferences, the Catalan conditions change by $p$ to give the description we want of $p$-prime parking functions, and the map is invertible as desired over the right codomain.
+\end{proof}
+
+\subsubsection*{The number of ones}\label{sss: no.ones}~
+
+To understand objects like $p$-parking functions and parking functions restricted not to prefer contiguous gaps of parking functions it becomes important to understand how many cars prefer the first spot (particularly so that we can understand how many of those cars that prefer the first spot we can remove while keeping the preference list a parking function). \\
+
+The Handbook of Enumerative Combinatorics chapter on parking functions notes that
+\begin{proposition}[from \cite{yan-2015}]
+	The enumerator of parking functions of length $c$ by the number of elements equal to $1$ is $x(x + n)^{n - 1}$. That is,
+	\[
+		\sum_{\mathbf{a} \in \operatorname{PF}_{n}} x^{\lvert \{ i \mid a_{i} = 1 \} \rvert} =x(x + c)^{c - 1}.
+	\]
+\end{proposition}
+
+Note that, on the right hand side, the coefficient of each $x^{k}$ is the number of parking functions such that $k$ cars prefer the first spot. On the left hand side, the coefficient of each $x^{k}$ is the coefficient of $x^{k - 1}$ in the binomial expansion of $(x + c)^{c - 1}$. That is, we have
+
+\begin{corollary}
+	The number of parking functions of length $c$ such that $k$ cars prefer the first spot is $\binom{c - 1}{k - 1} c^{c - k}$.
+\end{corollary}
+
+Note that this formula seems to hint at a circular argument. Consider Pollak's circle with $c + 1$ parking spots. Choose to have the first (or any fixed $j$th) car prefer the first spot. Choose $k - 1$ of the rest of the cars to also park in the first spot, and then let the rest of the cars pick where to park arbitrarily among the remaining spots. Just multiplying, there are $\binom{c - 1}{k - 1} c^{c - k}$ ways to do so. We can then perform the ``circular shift'' adding some multiple of $(1, \dots, 1)$ in $(\mathbb{Z}/(c + 1)\mathbb{Z})^{c}$ until the only spot not parked in is the $c + 1$th spot. Thus, we get a parking function. Note that the parking functions we get from distinct preference lists are distinct because the first car always initially prefers the first spot. \\
+
+For many of these the circular shift required will be $0$, and thus, the number of cars preferring the first spot will be preserved. For some the shift will be nonzero but there will be no change in the number of cars preferring the first spot. Finally, we claim that for every circular shift that results in a preference list with $k$ cars preferring the first spot being transformed into a parking function with $\tilde{k}$ cars preferring the first spot, there is a preference list with $\tilde{k}$ cars preferring the first spot transformed into a parking function with $k$ cars preferring the first spot.
+
+To be precise, we are conjecturing the following.
+
+\begin{conjecture}[the counting-ones coefficient conjecture] \label{cnj: counting-ones}
+	Suppose $\pi \in [c + 1]^{c}$ is a preference list with $\pi_{1} = 1$ such that $\tilde{\pi} = \pi + a (1, \dots, 1) \pmod{c + 1}$ is a parking function ($a \in \mathbb{Z}$). Let $k = \#\{ i \mid \pi_{i} = 1 \}$ and $\tilde{k} = \#\{ i \mid \tilde{\pi}_{i} = 1 \}$. \\
+
+	Then there exists a preference list $\tilde{\psi} \in [c + 1]^{c}$ with $\psi_{1} = 1$ such that $\psi = \tilde{\psi} + b (1, \dots, 1) \pmod{c + 1}$ is a parking function ($b \in \mathbb{Z}$) and $\tilde{k} = \#\{ i \mid \tilde{\psi}_{i} = 1 \}$ and $k = \# \{ i \mid \psi_{i} = 1 \}$.
+\end{conjecture}
+
+\begin{proof}[Evidence for the conjecture]
+	After looking at a small case by hand ($c = 5$, $k = 1$), there are some obvious sub-sub-cases where this bijection works (for example, all the cars on the first and $c + 1$th spots) and some possible ways to expand them. Doing this by hand is just not fast though. \\
+	
+	We were able to computationally check this for $c$ as large as $8$. For all of them that we checked, the code worked. However, the time complexity got bad very quickly, and for $9$ and $10$ we couldn't get the code to execute fast enough. (We left the code for $c = 10$ to execute for fifteen minutes and still got nothing). We're not quite sure where the code is so inefficient, but optimising and testing more is a goal for next week. (Alternatively, prove the conjecture without computation).
+\end{proof}
+
+\subsubsection*{Enumerating $p$-prime functions}
+
+It will be most useful for us to enumerate $p$-prime parking functions using the remove-1s definition: that is, we create a $p$-prime parking function on $[c]$ by taking a parking function on $[c-p]$ and adding 1s in some order.\\
+
+The number of ways to do this, however, depends on how many 1s the original parking function already has. If our function has $i$ 1s, then there are $\binom{c-p}{i}$ ways to place those 1s in our parking function; there are $\binom{c}{p+i}$ ways to place $p+i$ 1s in the function instead. The ratio between these two is the ratio between the number of parking functions with $i$ 1s and the number of $p$-prime parking functions with $p+i$ ones.\\
+
+Partitioning the set of parking functions over their number of 1s and multiplying by the right ratios shows that there are $$\sum_{i=1}^{c-p}\frac{C(c,p+i)}{C(c-p,i)}\cdot\binom{c-1}{i-1}c^{c-i}$$ $p$-prime parking functions. A great deal of annoying algebraic manipulation ensues; ultimately, the best way I've found to write it is $$\left(\sum_{i=0}^{p-1}(p-i)\binom{n}{i}(n-p)^{n-i-1}\right)-(p-1)(n-p+1)^{n-1}.$$ For $p=1,$ this becomes $(n-1)^{n-1}$ as expected; for $p=2$ it becomes $2(n-2)^{n-1}-n(n-2)^{n-2}-(n-1)^{n-1}=(3n-4)(n-2)^{n-2}-(n-1)^{n-1}.$ This is sequence \href{https://oeis.org/A096364}{A096384} of the OEIS, which apparently has something to do with decompositions of Coxeter roots?\\
+
+Is this generalizable to other contiguous sequences? Probably, but it does seem to get significantly uglier; there's casework that has to be done on the Catalan conditions. At the very least, you probably can't do it just with a single sum.
+
+\subsection*{Random restrictions}
+
+Take a (uniformly) randomly chosen subset of $[c]$ containing 1. What's the expected number of parking functions on $[c]$ restricted to that subset?\\
+
+We'd like to first find the sum over all subsets of $[c]$ of the number of parking functions whose image lies within $[c].$ Note that every parking function with an image of size $i$ is counted $2^{c-i}$ times in this sum-- once for each superset of our image that we can restrict to.\\
+
+So it seems that there's a meaningful partition to be made of parking functions based on the size of their image.
+
+\begin{proposition}[Partition by image size]
+    The number of parking functions on $[c]$ with exactly $i$ distinct preferences is $S(c,i)P(c,i-1),$ where $S(n,k)$ and $P(n,k)$ count Stirling numbers and permutations respectively. In particular, $\displaystyle\sum_{i=1}^{c}S(c,i)P(c,i-1)=(c+1)^{c-1}.$
+\end{proposition}
+
+\begin{proof}
+    We first partition the set of cars into $i$ subsets, each of which we will assign to a distinct preference. The number of ways to partition $c$ cars into $i$ partitions is $S(c,i).$\\
+
+    We proceed by a circle argument similar to Pollak's: given these $i$ subsets, first assign them to distinct spots on a circular parking lot of size $c+1.$ There are $(c+1)(c)(c-1)\cdots(c-i+2)$ ways to make these choices. This will lead to all cars parking since there are more cars than spots, with one open spot remaining; cutting at this open spot yields a parking function on $c$ cars.
+
+    Since we are overcounting by a factor of $c+1$ due to the $c+1$ different possible open spots for each parking function, we are left with $c(c-1)\cdots(c-i+2)=P(c,i-1)$ ways to make a parking function out of our partitions. This gives the desired total of $S(c,i)P(c,i-1).$
+\end{proof}
+
+We are attempting, then, to count $\displaystyle\sum_{i=1}^{c}S(c,i)P(c,i-1)\cdot 2^{c-i}.$ It's unclear how to do this, but this is a relatively simple closed form.\\
+
+Another way of going about this is by looking for bijections with parking functions that might shed some insight. Particularly useful here is a bijection through search algorithms on graphs described by \cite{yan-2015}. The important quality of this bijection is that it plays really nicely with permutations, so important qualities of our preference list are mapped in nice ways to properties of the graph.\\
+
+In particular, a parking function on $[c]$ maps to a labeled rooted tree with $c+1$ vertices and root at $0$; when the parking function has an image of size $i,$ the corresponding tree has exactly $c+1-i$ leaves. This is quite nice for us! In particular, our sum $\displaystyle\sum_{i=1}^{c}S(c,i)P(c,i-1)\cdot 2^{c-i}$ is half of $\displaystyle\sum_{i=1}^{c}S(c,i)P(c,i-1)\cdot 2^{c-i+1},$ which would count the number of rooted labeled trees whose leaves are 2-colored (see \href{https://oeis.org/A349562}{A349562}).
+
+Our sum itself has a sequence as well (\href{https://oeis.org/A201595}{A201595}): it appears to count the dimensions of a particular quotient ring, similar to the diagonal harmonics of dimension $(n+1)^{n-1}$ about which Haiman proved some important parking-related structure theorem in the early 2000s. This is probably something to ask an expert in this tiny subfield about if possible.
+
+The average over all subsets doesn't have a sequence (some values are half-integers), but the average over subsets containing a 1 does! It's highly, highly populated with interpretations; there's an entire exercise in Stanley about it. Most intriguingly, it counts the number of regions in the $K_n$-Linial arrangement; a priority for next week is to figure out why.
+

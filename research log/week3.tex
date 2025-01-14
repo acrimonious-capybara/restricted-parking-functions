@@ -1,0 +1,205 @@
+\section{Week 3}
+
+\subsection*{Restricted prime parking functions}~
+
+Gessel introduced, in an unpublished manuscript, the concept of a prime parking function:
+
+\begin{definition}
+    A prime parking function on $c$ cars is a parking function such that for every integer $i\in[c-1],$ at least $i+1$ cars have preferences in the first $i$ spots.
+\end{definition}
+
+This definition comes about in analogy to the Catalan condition on parking functions, where at least $i$ cars had to have preferences in the first $i$ spots; here our cars must prefer even earlier spots than before. Note that this means prime parking functions are permutation-invariant as well.
+
+\begin{proposition}
+    The number of prime parking functions on $c$ cars is $(c-1)^{c-1}.$
+\end{proposition}
+
+\begin{proof}
+    One alternative way to characterize parking functions is as follows: imagine that each car makes tracks in the parking lot from the spot they prefer to the spot they eventually park in. Then a prime parking function is one such that the entire lot has tracks on it, with no gaps between lots: this is because, when the first $i$ spots of the lot are filled, there will be tracks leading out of spot $i$ if and only if at least $i+1$ people had preferences in the first $i$ spots.\\~
+
+    Note also that the final car in a prime parking function will park in the last spot: this is because removing the final car will still give at least $i$ cars preferring the first $i$ spots for any $i\in[c-1],$ so the first $c-1$ cars will fill the first $c-1$ spots. Since all $c$ cars prefer the first $c-1$ spots, the final car does as well.\\~
+
+    We would like to find a similar circular argument: so imagine $c$ cars attempting to park in a circular parking lot with $c-1$ spots. The last car will circle around indefinitely after the first $i-1$ cars fill their respective spots. There are $(c-1)^c$ different preference functions that come out of this.\\~
+    
+    We'd like to find some sort of break point for the final car, at which we can ``cut'' the circle and form a linear parking function. Considering cars making tracks works out well here: when the $c-1$th car parks, no one will have passed its final spot, implying that there are no tracks directly ahead of it. This means that there is not a complete circle of tracks: so we can make a cut at the point where the final car completes the circle, forming a line of $c-1$ spots and tacking the last car onto the end.\\~
+
+    This forms a prime parking function in every case: after all, every car will park, and there are no gaps in the lot by definition (we've just completed the circle). Conversely, every prime parking function may be embedded into this circle in $c-1$ ways: there are $c-1$ choices for where to place spot 1 and thereby make the cut, and all cars will park appropriately since only the final car parks outside the first $c-1$ spots.\\~
+
+    Therefore, there are $\frac{(c-1)^c}{c-1}=(c-1)^{c-1}$ prime parking functions in total.
+\end{proof}
+
+We can now make an analogous definition for restricted functions:
+
+\begin{definition}[restricted prime parking function]
+    A restricted prime parking function of $c$ cars on $S\subset [c]$ is a prime parking function $\pi : [c] \to [c]$ such that $\operatorname{range} \pi \subseteq S.$
+\end{definition}
+
+We have the following result:
+
+\begin{theorem}
+    The number of restricted prime parking functions of $c$ cars on $[s]\subseteq [c]$ may be expressed as
+    \[s^c-(s-1)^c-\sum_{i=1}^s \binom{c}{i}(i-1)^{i-1}(s-i)^{c-i}\]
+    or as
+    \[\sum_{i=s+1}^{c} (-1)^{c - i} \binom{c}{i}(i-1)^{i-1}(i-s)^{c-i}.\]
+\end{theorem}
+
+These two formulas are again equivalent by Abel's binomial theorem: setting them equal and rearranging (while noting that $s^c$ is equal to $\binom{c}{0}(-1)^{-1}(s-0)^{c-0}$) gives
+\[\sum_{i=0}^c \binom{c}{i}(i-1)^{i-1}(s-i)^{c-i}=-(s-1)^c,\] a special case of the identity for $w=-1.$ However, we may prove them separately as well.
+
+\begin{proof}[Proof 1: complementary counting]
+    We count by first considering all preference functions on $[s]^c,$ then subtracting out all functions which are not parking functions. In doing so, we may perform casework by first counterexample: that is, the smallest $i$ for which at most $i$ cars preferred the first $i$ spots.\\
+
+    Note first that if fewer than $i$ cars prefer the first $i$ spots, then at most $i-1$ cars prefer the first $i-1$ spots as well. This means that for all $i>1,$ if $i$ is the first counterexample, then exactly $i$ cars prefer the first $i$ spots. $i=1$ is the one case we must treat separately: we can have no cars preferring the first spot in $(s-1)^c$ different ways, since there are $s-1$ choices for each car remaining.\\
+
+    If only $i$ cars prefer the first $i$ spots, and this is the first counterexample to primality, then the first $i$ spots must form a prime parking function: for any $j<i,$ at least $j+1$ cars prefer the first $j$ spots. There are $\binom{c}{i}$ ways to choose these $i$ cars, $(i-1)^{i-1}$ ways to form a parking function with them, and $(s-i)^{c-i}$ ways to give preferences to the remaining $c-i$ cars in the remaining $s-i$ spots.\\
+
+    Subtracting out everything, we are left with \[s^c-(s-1)^c-\sum_{i=1}^s \binom{c}{i}(i-1)^{i-1}(s-i)^{c-i}\] restricted prime parking functions.
+\end{proof}
+
+\begin{proof}[Proof 2: involution-exception, follows Theorem 2.1's proof closely]
+    We \textbf{define} a subset of 2-colored prime parking functions on $[c]$: in particular we count parking functions with cars painted indigo and red, such that the $i>s$ indigo cars form a prime parking function on the first $i$ spots, and the remaining $c-i$ red cars all have preferences in the first $i-s$ "forbidden" spots from $s+1$ to $i.$ We add these for an even number of red cars and subtract them for an odd number of red cars. The sum here is
+	\[
+		\sum_{i = s+1}^{c} (-1)^{c - i} \binom{c}{i} (i - 1)^{i - 1}(i - s)^{c - i},
+	\] with $\binom{c}{i}$ ways to choose the indigo cars, $(i-1)^{i-1}$ ways to assign them a prime parking function, and $(i-s)^{c-i}$ ways to put the remaining $c-i$ cars in particular spots, assigned $\pm$ by the number of red cars.\\
+
+    We next create an \textbf{involution} on this set. Given any prime parking function, let $m$ be the largest number appearing in the preference list, and let $x$ be a car that prefers spot $m.$ Our involution will paint car $x$ red if it is indigo, and indigo if it is red. This is an involution; we claim that it is (almost) always well-defined on our set.\\
+
+    First suppose car $x$ is painted red as part of a 2-colored prime parking function; then all red cars including $x$ have preferences from $s+1$ to $i,$ and all indigo cars form a prime parking function on $[i].$ If we paint car $x$ indigo, then there will be $i+1$ indigo cars; we want all remaining red cars to have preferences from $s+1$ to $i+1,$ and for the new set of indigo cars to form a prime parking function.\\
+
+    The first claim is clearly true; removing a car must keep the remaining cars between $s+1$ and $i+1.$ The second claim is also true; adding $m$ to a prime parking function on $[i]$ yields a prime parking function on $[i+1].$ all, we already have at least $j+1$ preferences in the first $j$ slots for any $j<i,$ and since $m\in[i],$ there will be $i+1$ preferences in the first $i,$ completing our requirements.\\
+
+    Now suppose car $x$ is painted indigo as part of a 2-colored parking function; then all red cars have preferences from $s+1$ to $i,$ and all indigo cars form a prime parking function on $[i].$ If we paint car $x$ red, then there will be $i-1$ indigo cars; we want all remaining indigo cars to form a prime parking function on $[i-1],$ with $i-1>s,$ and for the new set of red cars to have preferences from $s+1$ to $i-1.$\\
+    
+    The first claim is always true: a function is a parking function if and only if the $j$th-smallest preference is always less than $j,$ which will still be true for the $i-1$ remaining cars when we remove the largest preference (which is an $m$). Also note that $i-1$ will still be greater than $s$. If it were not, then $i-1=s,$ and the $i$ original indigo cars parked in the first $i-1=s$ spots; this would imply that none of the indigo cars are in forbidden spots. All the red cars are in forbidden spots, though, making it impossible for car $x$ to have the highest preference while originally being indigo.\\
+
+    The second claim, on the other hand, is true only when $m>s.$ Since $x$ was originally part of a prime parking function on $i$ cars, it had a preference in $[i-1]$; since its preference is the largest of all preferences, all red cars have preferences at most $i-1.$ In addition, all red cars before the repainting were at least $s+1$ by definition. The only roadblock, then, is whether car $x$ prefers a spot greater than $s$; if it does, then the proof is complete.\\
+
+    This leads to our single \textbf{exception}: our involution does not work when the largest preference is at most $s.$ This occurs when all preferences are at most $s$; since red cars always choose forbidden spots, all cars are painted indigo. The number of functions here is the number of prime parking functions on $[c]$ with preferences restricted to $[s],$ given a positive sign since $(-1)^0=1.$ This is precisely what we are trying to count! Our involution maps positives to negatives and negatives to positives, so all terms cancel except the restricted prime parking functions, giving our desired bijection.
+\end{proof}
+
+\subsection*{$S_{c}$-orbits of parking functions}~
+
+The symmetric group has a natural action on the space of parking functions by permuting the which cars prefer which spots --- this is due to the permutation invariance of whether a given preference list is a parking function. We specify this action just for completeness
+
+\begin{definition}[the natural action of $S_{c}$ on $\operatorname{PF}_{c}$]
+	If $\pi \in \operatorname{PF}_{c}$ is thought of as an assignment of cars to functions by $\pi : [c] \to [c]$, then the natural action of $S_{c}$ on $\operatorname{PF}_{c}$ is 
+	\[
+		\sigma \cdot \pi = \sigma \circ \pi
+	\]
+	for all $\sigma \in S_{n}$. 
+\end{definition}
+
+Martínez Mori gives a proof of the fact that the number of $S_{c}$-orbits of parking functions of length $c$ is the $c$th Catalan number $C_{c}$ \cite{martinezmori-2024}. This follows by splitting every non-decreasing parking function at the last $i$ where $\pi_{i} = i$ and obtaining the Catalan recurrence relation. We prove a similar result using a different recurrence.
+
+\begin{proposition}[enumerating the $S_{n}$-orbits of restricted parking functions]
+	There are $C(c, s - 1)$ $S_{n}$-orbits of parking functions of length $c$ with preferences restricted to $[s]$, where $C(n, k)$ is the $(n, k)$th entry in Catalan's triangle.
+\end{proposition}
+
+\begin{proof}
+	Note that it is enough to enumerate the non-decreasing restricted parking functions --- each of them corresponds to exactly one $S_{c}$-orbit. Let $\operatorname{PF}_{c \mid [s]}$ denote the parking functions of length $c$ restricted to $[s]$, and let $\operatorname{PF}_{c \mid [s]}' \subset \operatorname{PF}_{c \mid [s]}$ be the subset of non-increasing parking functions. \\
+
+	Consider any non-decreasing parking function of length $c$ restricted to $[s]$, say $\pi$. If the last car prefers the $s$th spot (if $\pi_{c} = s$), then the remaining cars must form a non-decreasing parking function of length $c - 1$ restricted to $[s]$. If they didn't, then there'd be a gap in the first $c - 1$ spots that would not be filled by car $\pi_{c}$, making $\pi$ not a parking function. If the last car the does not prefer the $s$th spot (if $\pi_{c} < s$), then $\pi$ is just a parking function of length $c$ restricted to $[s - 1]$. \\
+
+	Since the two possibilities are mutually exclusive, we have the recurrence relation
+	\[
+		\lvert \operatorname{PF}_{c \mid [s]}' \rvert = \lvert \operatorname{PF}_{c - 1 \mid [s]}' \rvert + \lvert \operatorname{PF}_{c \mid [s - 1]}' \rvert.
+	\]
+	The Catalan triangle numbers satisfy the same recurrence relation ---
+	\[
+		C(c, s - 1) = C(c - 1, s - 1) + C(c, s - 2).
+	\]
+	It only remains to show that they satisfy the same initial conditions. \\
+
+	Obviously $\lvert \operatorname{PF}_{c \mid [1]}' \rvert = 1$ always --- there is only $(1, \dots, 1) \in \operatorname{PF}_{c \mid [1]}'$. Thus $\lvert \operatorname{PF}_{c \mid [1]}' \rvert = C(c, 1 - 1)$ for all $c \in \mathbb{N}$. Finally, we already know $\lvert \operatorname{PF}_{c \mid [c]}' \rvert = C_{c}$, the $c$th Catalan number. The Catalan triangle has $C(c, c - 1) = C_{c}$, and thus, we have $\lvert \operatorname{PF}_{c \mid [c]}' \rvert = C(c, c - 1)$. With the same initial conditions on the diagonal and vertical and the same recurrence relation (giving a number in terms of those above and to its left) for both of the sequences, they must be the same. That is,
+	\[
+		\lvert \operatorname{PF}_{c \mid [s]}' \rvert = C(c, s - 1).
+	\]
+\end{proof}
+
+\begin{remark}[Recurrence similar to \cite{martinezmori-2024}]
+	Note that we can still get a recurrence in a manner similar
+	We construct $\pi$, a preference list in $[s]^{c}$ so that it is a non-decreasing restricted parking function. We do so in a \textit{Catalan} fashion. \\
+	
+	Choose the largest $i$ such that $\pi_{i} = i$. We can choose any $i \in [s]$. Then the list $(\pi_{1}, \dots, \pi_{i - 1})$ is a non-decreasing parking function on the first $i - 1$ spots (we don't need to do anything more to account for the restriction since $i - 1 < s$). We also have that the rest of the list is a parking function on the last $c - i$ slots, with preferences restricted to $[s]$. More formally, $(\pi_{i + 1} - i + 1, \dots, \pi_{c} - i + 1)$ is parking function of length $c - i$ with preferences restricted to $[s - i + 1]$. Of course, if $s - i + 1 \ge c - i$, then this restriction is meaningless. Thus, for each $i$, we have $C_{i} \, \lvert \operatorname{PF}_{c \mid [s - i + 1]}' \rvert$ ways to construct a non-decreasing restricted parking function. Then we have the recurrence relation
+	\[
+		\lvert \operatorname{PF}_{c \mid [s]}' \rvert = \begin{cases}
+			C_{c} & s \ge c \\
+			\sum_{i = 1}^{s} C_{i} \,  \lvert \operatorname{PF}_{c \mid [s - i + 1]}' \rvert
+		\end{cases}
+	\]
+\end{remark}
+
+\subsection*{More inclusion-exclusion on restricted parking functions}~
+
+Last week we tried to prove Theorem 2.1 by inclusion-exclusion on a family of sets $A_{i}$ that gave $\operatorname{PF}_{c \mid [s]} = \operatorname{PF}_{c} \setminus \bigcup_{i = 1}^{n} A_{i}$. We found that the $A_{i}$ and their $k$-intersections did not correspond with the terms of the formula given in Theorem 2.1 in the obvious way. However, since $\operatorname{PF}_{c \mid [s]} = \operatorname{PF}_{c} \setminus \bigcup_{i = 1}^{n} A_{i}$ still holds, we should be able to get another formula if we can just enumerate the $k$-intersections of these $A_{i}$. The hope is that these $k$-intersections have a nice form that, with cancellations, reduces to Theorem 2.1.\\ 
+
+Explicitly, this might look something like the following (extended) example.
+
+\begin{example}[{parking function of length $5$ restricted to $[2]$}] In this case, $A_{i} = \{ \pi \in \operatorname{PF}_{5} \mid \pi_{i} \in [5] \setminus [2], (\pi_{1}, \dots, \pi_{i - 1}, \pi_{i}, \dots, \pi_{5}) \in \operatorname{PF}_{4} \}$. Note that since this definition depends only on the preferences of the cars, the $A_{i}$ and their $k$-intersections are permutation invariant. That is, it suffices to study $A_{1} \cap \dots \cap A_{k}$ instead of all $A_{j_{1}} \cap \dots \cap A_{j_{k}}$. \\
+
+	The $A_{i}$ are simple. For example, $A_{1} = \{ 3, 4, 5 \} \times \operatorname{PF}_{4}$, giving us $\lvert A_{1} \rvert = 3 \lvert \operatorname{PF}_{4} \rvert$. By symmetry, $\sum_{i = 1}^{5} \lvert A_{i} \rvert = 15 \operatorname{PF}_{4}$ which is exactly $\binom{5}{1} (5 - 2 - 1 + 1)^{1} \lvert \operatorname{PF}_{4} \rvert$, the second term in Theorem 2.1. \\
+
+	To analyse the $2$-intersections, we look at $A_{1} \cap A_{2}$. Note that for $\pi \in A_{1} \cap A_{2}$, neither $\pi_{1}$ nor $\pi_{2}$ can be $5$. This is because, both $(\pi_{1}, \pi_{3}, \pi_{4}, \pi_{5})$ and $(\pi_{2}, \pi_{3}, \pi_{4}, \pi_{5})$ are parking functions (by the definitions of $A_{1}$ and $A_{2}$). Since $\pi_{1}, \pi_{2} \notin [2]$, $(\pi_{1}, \pi_{2})$ can only be any one of the pairs in $\{ 3, 4 \}^{2}$. \\
+
+	Note that if $\pi_{1} = 4$ or $\pi_{2} = 4$, then the $(\pi_{3}, \pi_{4}, \pi_{5})$ must be a parking function for $(\pi_{1}, \pi_{3}, \pi_{4}, \pi_{5})$ and $(\pi_{2}, \pi_{3}, \pi_{4}, \pi_{5})$ both to be parking functions. However, if $(\pi_{1}, \pi_{2}) = (3, 3)$, then the remaining preferences can be a parking function of length $3$ or some combination of a parking function of length $2$ and a $4$. That is,
+	\[
+		A_{1} \cap A_{2} = \{ (3, 3) \} \times (\operatorname{PF}_{3} \cup \, \{ 4 \} \otimes \operatorname{PF}_{2}) \cup \{ (3, 4), (4, 3), (4, 4) \} \times \operatorname{PF}_{3}.
+	\]
+	where $\{ 4 \} \otimes \operatorname{PF}_{2}$ is a set of cardinality $3 \lvert \{ 4 \} \times \operatorname{PF}_{2} \rvert$ containing all three ways to add a $4$ to each parking function of length $2$.  Thus,
+	\[
+		\begin{split}
+			\lvert A_{1} \cap A_{2} \rvert & = 1 (\lvert \operatorname{PF}_{3} \rvert + 3 \lvert \operatorname{PF}_{2} \rvert) + 3 \lvert \operatorname{PF}_{3} \rvert \\
+						       & = 4 \lvert \operatorname{PF}_{3} \rvert + 3 \lvert \operatorname{PF}_{2} \rvert.
+		\end{split}
+	\]
+	Finally, the by symmetry, all of the other $2$-intersections have the same cardinality, and thus, $\sum_{j_{1}, j_{2} \in [5]} \lvert A_{j_{1}} \cap A_{j_{2}} \rvert = \binom{5}{2} (4 \operatorname{PF}_{3} + 3 \operatorname{PF}_{2})$. This is $\binom{5}{2} 3 \operatorname{PF}_{2}$ more than the third term in Theorem 2.1. We have to hope for a similar excess in the $3$-intersections to cancel this out under the alternating sign. \\
+
+	We analyse the $3$-intersections through $A_{1} \cap A_{2} \cap A_{3}$. Note that as before, none of $\pi_{1}$, $\pi_{2}$, or $\pi_{3}$ can be $5$, but also, no pair of them can be $(4, 4)$ since any  $4$-tuple containing $(4, 4)$ would not be a parking function. Thus, $(\pi_{1}, \pi_{2}, \pi_{3}) \in \{ (3, 3, 3), (3, 3, 4), (3, 4, 3), (4, 3, 3) \}$. Note that any pair of $(\pi_{1}, \pi_{2}, \pi_{3})$ combined with $(\pi_{4}, \pi_{5})$ must be a parking function. Since each triple contains at least $2$ cars preferring to park in spots $3$ or later, the cars parking in the first two spots must form a parking function on them. That is,
+	\[
+		A_{1} \cap A_{2} \cap A_{3} = \{ (3, 3, 3), (3, 3, 4), (3, 4, 3), (4, 3, 3) \} \times \operatorname{PF}_{2}
+	\]
+	Note that we can split the first set into the union of $\{ (3, 3, 3) \}$ and $\{ (3, 3, 4), (3, 4, 3), (4, 3, 3) \}$. The first set crossed with $\operatorname{PF}_{2}$ has a cardinality of $\lvert \operatorname{PF}_{2} \rvert$. $\binom{5}{3}$ such sets have their cardinalities sum to $\binom{5}{3} \operatorname{PF}_{2}$ which is exactly the fourth term of Theorem 2.1. The second set crossed with $\operatorname{PF}_{2}$ has a cardinality of $3 \lvert \operatorname{PF}_{2} \rvert$. $\binom{5}{3}$ such sets have their cardinalities sum to $\binom{5}{3} 3 \lvert \operatorname{PF}_{2} \rvert$. This is exactly equal to the excess from the $2$-intersections --- $\binom{5}{2} 3 \lvert \operatorname{PF}_{2} \rvert = \binom{5}{2} 3 \lvert \operatorname{PF}_{2} \rvert$, and is exactly what we wanted!
+\end{example}
+
+Thus, inclusion and exclusion on $A_{i}$ seems to coincide with Theorem 2.1 --- extra parking functions on the first $3$ that we didn't account for in the ``$2$-intersections term" of Theorem 2.1 allow for extra bad-choices among the $3$-intersections that we didn't account for either. Figuring out whether this is exactly the same involution as in the involution-exception proof of Theorem 2.1 is probably something worth spending some time on. \\
+
+It seems like
+\[
+	\begin{split}
+		& A_{j_{1}} \cap \dots \cap A_{j_{k}} \\
+		& = \sum_{\tau = (k - 1)\text{-multiset in } [c - 1] \setminus [s]} (\# k\text{-tuples with largest sub-multiset } \tau) (\# \pi \in \operatorname{PF}_{c - 1} \text{ containing } \tau)
+	\end{split}
+\]
+but its unclear how to split this up into the sizes of various sets of parking functions.
+
+\subsection*{Asymptotics on restricted preferences}
+
+If we want to start sampling from restricted parking functions, we had better get a good idea of how many of them there are in the first place. In particular, the asymptotics are interesting: given a random restricted preference function, what's the probability that it's a parking function?
+
+\begin{proposition}
+    For $i$ constant and $c$ large, the probability that a preference function restricted to $[c-d]$ is also a parking function is $O\left(\frac{1}{c}\right).$
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+    We use our second formula for the number of restricted parking functions of $[c-d]$ on $[c],$ then divide by $(c-d)^c.$ Each term turns out to be $O\left(\frac{1}{c}\right),$ though with a variety of constant factors; important to figuring out said constant factors is the fact that $(1+k/n)^n$ approaches $e^k.$ Summing everything up gives asymptotics of $\frac{1}{c}$ as well, with a constant factor of $$\sum_{i=0}^d e^i(-i)^{d-i}.$$
+\end{proof}
+
+The asymptotics of this constant factor in $i$ are worth looking at further, as are smaller restrictions: what if, say, your preferences are restricted to the first half of the parking lot? It looks like this decreases as well, but much more slowly; potentially it approaches a constant?
+
+\begin{proposition}
+    For $s$ large and $g$ a gap size, the probability that that a preference list on $[gs-1]$ or $[gs-2]$ is a parking function is $O(1/s).$
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+    On $[gs-1],$ the problem is easy; there are $s^{gs-2}$ parking functions out of $s^{gs-1}$ preference lists, for an exact fraction of $\frac{1}{s}$.\\~
+
+    This is complicated on $[gs-2],$ as we have a long sum once again: $$s^{gs-2}-\frac{1}{2}\sum_{i=1}^{s-1}\binom{gs-2}{gi-1}i^{gi-2}(s-i)^{g(s-i)-2}.$$ However, terms in the middle essentially contribute nothing as $s$ becomes large; this is because $(s/2)^{gs/2}\cdot(s/2)^{gs/2}$ is so much less than $s^{gs}.$ This is symmetric, and most of the middle terms seem to be negligible. This means that the ends contribute most of the probability mass; calculating the first, second, third etc. terms separately each give values that are $O(1/s).$ The total sum is therefore $O(1/s)$ as well, as is $g^{gs-3}$ compared to $g^g{s-2}.$\\
+    
+    Our ratio approaches a multiple of $\frac{1}{s},$ with a constant factor equal to the infinite sum $$1-\frac{g}{e^2}\cdot\sum_{i=1}^{\infty}\frac{(gi/e)}{(gi-1)!}.$$ This matches up with numerical data quite well.
+\end{proof}
+
+Calculating this precisely looks fairly intractable, though somewhat similar to the Borel-distribution sum given by Diaconis and Hicks. Intriguingly, its value for $g=2$ appears to be roughly $\frac{16}{e^2},$ twice the ratio of the first two terms of that series; this opens up the possibility that there's a closed form to be had.
+
+\begin{conjecture}
+    The probability of achieving a parking function on randomly selected preferences in $[gs+i]$ which are $1$ mod $g,$ taking $s\to\infty$ and keeping $g$ and $i$ constant, is $O(1/s).$
+\end{conjecture}

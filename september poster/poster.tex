@@ -1,0 +1,143 @@
+%% Use the hmcposter class with the thesis document-class option.
+\documentclass[thesis]{hmcposter}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{booktabs}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{url}
+
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{0.8 \columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+
+%% Author of the thesis.
+\author{Alan Kappler and Jayden Thadani}
+
+%% The year of your thesis poster's creation.
+\posteryear{2024}
+
+%% Thesis Title.
+\title{Preference-restricted parking functions}
+
+%% The name of the class for which the poster was created.
+%% Generally we see posters for thesis and Clinic, but sometimes
+%% other classes require or allow the creation of posters to
+%% communicate the results of a project.
+%% 
+%% Use the format Math nnn: Class Title.
+\class{Research in enumerative combinatorics}
+
+%% Advisor(s) name or names.  Separate with \and.
+\advisor{Michael Orrison \and Peter Kagey}
+
+%% Define the \BibTeX command, used in our example document.
+\providecommand{\bibtex}{{\rmfamily B\kern-.05em%
+    \textsc{i\kern-.025em b}\kern-.08em%
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\pagestyle{fancy}
+
+\begin{document}
+
+\begin{poster}
+
+\section{Introduction}
+% Note that we're not labeling sections because you shouldn't be
+% doing a lot of referring back and forth in your poster---let the
+% interested folks read your thesis or Clinic report, or ask
+% questions.
+
+To analyze functions, we often restrict them. By restricting parking functions, we understand variants that other parking functions are built from and are intrinsically interesting too!
+
+\section{Parking functions}%
+
+$c$ cars drive down a one-way street with $c$ spots. Each car has a preferred parking spot given by $\pi:[c] \to [c]$. In order, the cars try to park: first trying their preference, then going to the first open spot. $\pi$ is a \emph{parking function} if all cars can park.
+
+\begin{figure}
+    \centering
+    \incfig{Parking procedure}
+    \caption{The parking procedure for preferences given by $\pi = (2, 1, 2, 2)$}
+    \label{fig:parking-procedure}
+\end{figure}
+
+A \emph{breakpoint} in a parking function is a spot at which only one car attempts to park. The final spot $c$ is always a breakpoint; we call a parking function \emph{prime} if this is the only breakpoint.
+
+\subsection{Enumeration}
+
+Of the $c^c$ possible preference functions for $c$ cars, how many are parking functions? The answer is $(c+1)^{c-1}$ (elegant!)
+\begin{itemize}
+\item Take $c$ cars in a circular lot with $c+1$ spots; $(c+1)^c$ total
+\item Removing the empty spot gives $c$ parked cars in a line
+\item This is a parking function! Each $\pi$ is mapped to by $c+1$ preference functions. 
+\end{itemize}
+
+\section{Encapsulating variants}%
+
+A couple variant problems, some from the literature:
+\begin{itemize}
+\item What if there are more cars than spots? (\cite{cameron-johannsen-prellberg-schweitzer-2008})
+\item What if spots can fit multiple cars? (\cite{blake-konheim-1977})
+\item What if all the parking functions have to be prime?
+\end{itemize}
+
+These problems can all be modeled by a \emph{preference-restricted parking function}. An $S$-restricted parking function $\pi$ on $[c]$ is a parking function with $\pi([c]) \subset S \subset [c]$.
+
+\section{$[s]$-restricted parking functions}
+
+Parking functions with $c > s$ cars and $s$ spots are exactly $[s]$-restricted parking functions! All spots will be filled if and only if there are no unfilled spots in the first $s$.
+
+\subsection{Enumeration and Abel's theorem}
+
+How to count? Two restrictions, so two techniques! 
+
+Start with all preference functions $[c] \to [s]$ and subtract all those where spots are left empty ---
+\[
+	s^{c} - \sum_{i = 0}^{s - 1} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
+\]
+
+Or, start with all parking functions and sieve out those where cars prefer spots in $[c] \setminus [s]$ ---
+\[
+	\sum_{i = s}^{c} \binom{c}{i} (i + 1)^{i - 1} (s - i - 1)^{c - i}.
+\]
+
+Abel's generalization of the binomial theorem connects these with the formula, which can be recovered from parking functions:
+\[
+	(x + y + n)^{n} = \sum_{i = 0}^{n} \binom{n}{i} x (x + i)^{i - 1} (y + n - i)^{n - i}.
+\]
+
+\newcolumn 
+\section{Other restrictions}
+
+If $s$ spots can each hold $g$ cars, then we can think about $S$-restricted parking functions for $S = \{ i \in [c] \mid i \equiv 1 \pmod g \}$! \cite{blake-konheim-1977} used complex analysis and generating functions to show that there are $s^{gs - 2}$ ways to park $gs - 1$ cars in this set up. We used a circle argument to give a much simpler proof!
+
+Prime parking functions are in bijection with $S$-restricted parking functions for $S = [c]\backslash\{2\}$! Just ``shift cars over spot 2''.
+
+\section{Conclusions}
+
+\begin{itemize}
+    \item Parking functions are based on the analysis of preferences and have elegant combinatorics.
+    \item Restricting the outputs of parking functions provides a powerful framework to look at variant problems.
+\end{itemize}
+
+\bibliographystyle{hmcmath}
+\bibliography{sampleposter}
+\vfill
+
+\section{Acknowledgements}
+
+We thank Professors Orrison and Kagey, as well as Jasper Bown '24, for their invaluable guidance and advice throughout the research process. Thank you to the Harvey Mudd Department of Mathematics for supporting this research.
+
+\vfill
+\end{poster}
+
+\end{document}

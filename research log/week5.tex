@@ -1,0 +1,53 @@
+\section{Week 5}
+
+\subsection*{Expected equivalence classes}~
+
+We can ask a similar question about equivalence classes of parking functions: if we take a random restriction $S\subseteq [c],$ how many classes on average do we expect there to be?\\
+
+Similarly to above, finding the sum of this value over all subsets of $[c]$ becomes a sum over all parking functions, weighted according to the size of their image. In particular, we want to know the number of equivalence classes of parking functions with a given image size of $i.$\\
+
+Through the standard bijection of parking-function equivalence classes to Dyck paths, we find that the number of parking functions with $i$ distinct preferences equals the number of Dyck paths from $(0,0)$ to $(c,c)$ with $i$ peaks. This is counted by the Narayana numbers $N(c,i)$ (\href{https://oeis.org/A001263}{A001263}).\\
+
+Given an equivalence class of parking functions with $i$ distinct preferences, there will be $2^{c-i}$ restrictions $S$ under which this equivalence class is allowed. Thus our sum is $$\sum_{i=0}^c N(c,i)\cdot 2^{c-i}.$$ This sum evaluates to the \textit{super-Catalan numbers} (\href{https://oeis.org/A001003}{A001003}) (which tend to count the sorts of things Catalan numbers count, but with some kind of 2-coloring attached).\\
+
+Based on asymptotics given by Knuth for the super-Catalan numbers, we expect an average of $O(2.9142^n\cdot n^{-3/2})$ equivalence classes of parking functions for a random restriction. For comparison, the total number of equivalence classes of parking functions, given no restrictions, is $O(4^n\cdot n^{-3/2}).$
+
+\subsection*{Contiguous forbidden zones}~
+
+Suppose that we have a parking function on $[c]$ restricted so that cars cannot prefer a contiguous zone in its center; they are restricted to the $f$ spots in the front and the $b$ spots in the back, for $f+b<c.$\\
+
+We partition over the number of cars which prefer spots in the back. If $i$ cars prefer said spots, then note that $i\le b$ since cars otherwise overflow. There are $\binom{c}{i}$ ways to choose the relevant $i$ cars and $(b-i+1)(b+1)^{i-1}$ to place them as a parking function in the last $b$ spots. The remaining cars form a restricted parking function on the other $f+b-i$ empty spots, in which cars must park in the first $f$ spots. This gives a total of $\binom{c}{i}\cdot|PF'_{f+b-i|[f]}\cdot(b-i+1)(b+1)^{i-1}$ possible parking functions with $i$ in the back, or $$\sum_{i=0}^b \binom{c}{i}\cdot|PF'_{f+b-i|[f]}\cdot(b-i+1)(b+1)^{i-1}$$ total. Note that setting $f=1$ gives $$\sum_{i=0}^b \binom{c}{i}\cdot(b-i+1)(b+1)^{i-1}$$ as our number of $(c-b-1)$-prime parking functions.\\
+
+(This last one looks a bit like it might have an Abel dual, but it doesn't! You can, however, split it up into two simpler sums which are both partial sums along the lines of the regular binomial theorem.)
+
+\subsection*{Parking function statistics}~
+
+There are a few interesting generating functions for which it's a good idea to ask about generalizing to restricted parking functions.\\
+
+The first one to note is the \textit{lucky} statistic, counting the number of cars which park in the spot which they prefer. The generating function for this on $c$ cars is provided by Yan, and equals $\displaystyle\frac{1}{c+1}\prod_{i=0}^{c-1}((c+1-i)x+i).$\\
+
+The easiest way to see this is through a circle argument: the corresponding $c+1$ circular parking functions for any linear parking function have the same value for their lucky statistic, and a car parking on a circular lot when $i$ cars have parked so far has a $\frac{c+1-i}{c+1}$ chance of parking at their preference. This gives a factor put into our parking function of $(c+1-i)x+i$; multiplying these together and dividing by $c+1$ for our overcounting gives the desired result.\\
+
+Denote this polynomial by $\ell_c(x).$ We claim that the lucky polynomial for parking functions of $c$ cars restricted to $[c-1]$ is $$\ell_c(x)-cx\cdot\ell_{c-1}(x).$$ The reason for this is that we can simply subtract out the parking functions with a car preferring $c.$ There are $c$ ways to choose a car preferring spot $c,$ which will always be lucky, hence the $cx$ term; the remaining cars form a parking function on $[c-1],$ hence the $\ell_{c-1}(x)$ term.\\
+
+Unfortunately, there doesn't seem to be a similar restricted function for a more general case, at least none quite as nice; attempting to use our DIE formula leads to issues with intersecting realms for the red and indigo cars, which messes up lucky counts significantly.\\
+
+A more exciting case comes from the \textit{ones} statistic, counting the number of cars which prefer the first spot. The generating function for this on $c$ cars is $$o_c(x)=x(x+c)^{c-1}.$$ Understanding this in full requires two steps. First of all, there is a family of bijections between parking functions and trees labeled $0$ to $c,$ using searching algorithms on said trees; the details are less important than the fact that our \textit{ones} statistic corresponds to the degree of the vertex labeled 0.\\
+
+This means that to understand the \textit{ones} statistic, we need to understand statistics on degrees of labeled trees. Fortunately, there's an (apparently little-known?) proof of Cayley's theorem on trees which helps out here. It turns out that the generating function for the degrees of all vertices on a labeled tree on $0,1,...,c$, where degrees are represented by the exponents on $x_0,x_1,...,x_c,$ is given by $$x_0x_1\cdots x_c(x_0+x_1+\cdots+x_c)^{c-1}.$$ (This may be shown through showing that each individual coefficient is the correct multinomial coefficient, most easily done through induction and a generalized Pascal's rule.) Plugging in 1 for each coefficient gives the $(c+1)^{c-1}$ of Cayley's theorem; plugging in $1$ for every coefficient except $x_0$ gives the generating function on one vertex which we want, namely $x(x+c)^{c-1}.$\\
+
+Importantly, this actually generalizes! The \textit{ones} statistic for $c$ cars restricted to $[s]$ is $$\sum_{i=s}^c (-1)^{c-i}\binom{c}{i}o_i(x)(i-s+1)^{c-i},$$ almost exactly the same as our general formula for number of parking functions. The reason for this is that the proof just works exactly the same way; all the nonsense with intersecting regions doesn't matter here, since we only care about the number of 1s and this is unaffected by everything but the parking function on the first $i$ spots.\\
+
+The other proof works as well here; we can find that the generating function here is also $$(x+s-1)^c-\sum_{i=0}^{s-1} \binom{c}{i}o_i(x)(s-i-1)^{c-i}.$$ This works for generally the same reasons that our proof of the similar statement for total number of parking functions worked; the only thing worth noting is the $(x+s-1)^c$ term, which occurs because over fully general preference functions all cars have a $\frac{1}{s}$ chance of picking the first spot.\\
+
+Setting these two generating functions equal appears to give a fully general statement of Abel's binomial theorem. (!!)
+
+\subsection*{Thoughts on Jasper's work?}~
+
+Would it also work to just use restricted parking functions rather than restricted prime parking functions?\\
+
+Suppose that we're sampling defect-$d$ parking functions from $[c],$ for $d>0.$ Consider for these parking functions the last spot which is empty after all cars park, such that there are $s$ spots after it and $c-s-1$ spots before it. There will be $s+d$ cars preferring spots after this one, forming a restricted parking function function of $s+d$ cars on $[s]$, and $c-s-d$ cars preferring the $c-s-1$ spots before it, forming a regular parking function.\\
+
+This can happen in $\binom{c}{s+d}|\mathrm{PF}'_{s+d|[s]}|\cdot d(c-s)^{c-s-d-1}$ ways, so our total value is $$\sum_{s=1}^{c}\binom{c}{s+d}|\mathrm{PF}'_{s+d|[s]}|\cdot d(c-s)^{c-s-d-1}.$$ We can reasonably sample in a similar way that Jasper did, so the question now becomes finding a good way to sample either restricted parking functions or restricted prime parking functions. \\
+
+Notably, the bijection we mentioned earlier could be promising for a way to sample prime parking functions and $p$-prime parking functions. Since $p$-prime parking functions are a subset of parking functions with $p + 1$ cars preferring the first spot, perhaps it would be effective to just sample from the parking functions with $p + 1$ ones and then remove those that are not parking functions or not restricted after removing the $p$ ones. This might fill the gap between performance in the two methods Jasper mentioned.
