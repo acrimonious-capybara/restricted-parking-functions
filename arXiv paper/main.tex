@@ -101,11 +101,13 @@ citecolor = blue}
 
 The classical parking function problem is to describe the parking preferences of cars that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way parking lot with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood. \todo[jayden]{explain the Catalan condition} However, many variants of the parking function question considered in the literature do not fully leverage our understanding of parking functions ---
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood.
+
+However, many variants of the parking function question considered in the literature do not fully leverage our understanding of parking functions ---
 \begin{enumerate}
+	\item Prime parking functions --- the building blocks from which parking functions are formed.
 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data.)
-	\item Prime parking functions --- the building blocks from which parking functions are formed.
 \end{enumerate}
 We will show that all of these can be understood as \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$.
 
@@ -117,6 +119,45 @@ We will show that all of these can be understood as \emph{$S$-restricted parking
 
 
 These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ \todo[jayden]{use absolute value symbol} --- and the obvious combinatorial intuition of the original parking function question.
+
+\section{Prime parking functions} \label{primesection}
+
+Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions. See \cite{armon-2024} for a further discussion of these functions.
+
+\begin{definition}[prime parking functions]
+	A prime parking function on $n$ cars is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
+\end{definition}
+
+Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by reassigning cars' preferences in certain manner to turn a restricted parking function into a prime parking function.
+
+\begin{restatable}{theorem}{primeIsRes}
+    \label{thm:primeIsRes}
+	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (on $n$ cars). That is,
+	\[
+		\# \mathrm{PPF}_{n} = \# \mathrm{PF}_{n \mid [n] \setminus \{ 2 \}} 
+	\]
+\end{restatable}
+
+In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows, by a bijection that subtracts 1 from all preferences greater than 1. 
+
+\begin{restatable}{theorem}{resPrimeIsRes}
+	For any $S\subseteq [n],$  there is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (on $n$ cars) where
+	\[
+		T = \{ 1 \} \cup \{ i + 1 \mid i \in S, 1 < i < n \}.
+	\]
+	That is,
+	\[
+		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
+	\]
+\end{restatable}
+
+\begin{proof}
+	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f^{*} \pi = f \circ \pi$.
+
+	It follows that $f^{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
+
+	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
+\end{proof}
 
 \section{Initial segment restrictions} \todo[jayden]{swap this and prime parking functions}
 
@@ -339,48 +380,6 @@ Both of these analyses have analogues for $[s]$-restricted parking functions. \t
     \]
     Here $l_{m, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \cdots \sigma_{n}$) ending at $\sigma_i$ with $\sigma_i$ greater than any other $\sigma_{j}$ within the string.
 \end{theorem}
-
-
-
-
-\section{Prime parking functions} \label{primesection}
-
-Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions. See \cite{armon-2024} for a further discussion of these functions.
-
-\begin{definition}[prime parking functions]
-	A prime parking function on $n$ cars is a preference function $\pi : [n] \to [n]$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
-\end{definition}
-
-Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions --- prime parking functions are in bijection with parking functions where no car prefers the second spot. Essentially, this bijection follows by reassigning cars' preferences in certain manner to turn a restricted parking function into a prime parking function.
-
-\begin{restatable}{theorem}{primeIsRes}
-    \label{thm:primeIsRes}
-	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (on $n$ cars). That is,
-	\[
-		\# \mathrm{PPF}_{n} = \# \mathrm{PF}_{n \mid [n] \setminus \{ 2 \}} 
-	\]
-\end{restatable}
-
-In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows, by a bijection that subtracts 1 from all preferences greater than 1. 
-
-\begin{restatable}{theorem}{resPrimeIsRes}
-	For any $S\subseteq [n],$  there is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (on $n$ cars) where
-	\[
-		T = \{ 1 \} \cup \{ i + 1 \mid i \in S, 1 < i < n \}.
-	\]
-	That is,
-	\[
-		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
-	\]
-\end{restatable}
-
-\begin{proof}
-	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f^{*} \pi = f \circ \pi$.
-
-	It follows that $f^{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
-
-	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
-\end{proof}
 
 \section{Modular restrictions \label{modularsection}}
 
