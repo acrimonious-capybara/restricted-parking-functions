@@ -101,7 +101,8 @@ citecolor = blue}
 
 The classical parking function problem is to describe the parking preferences of cars that allow every car to park under a certain parking procedure. Each of $n$ cars goes down a one-way parking lot with $n$ parking spots, attempts to park in its preferred spot, and then each subsequent spot until it parks.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood.
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park, are well understood. They have been enumerated --- there are $(n + 1)^{n - 1}$ parking functions. They are characterized by the following \emph{Catalan condition} --- a function $\pi : [n] \to [n]$ is a parking function if and only if $\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots.
+
 
 However, many variants of the parking function question considered in the literature do not fully leverage our understanding of parking functions ---
 \begin{enumerate}
@@ -118,7 +119,7 @@ We will show that all of these can be understood as \emph{$S$-restricted parking
 \end{definition}
 
 
-These reinterpretations yield new combinatorial insights, simpler proofs, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ \todo[jayden]{use absolute value symbol} --- and the obvious combinatorial intuition of the original parking function question.
+These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions is a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ \todo[jayden]{use absolute value symbol} --- and the obvious combinatorial intuition of the original parking function question.
 
 \section{Prime parking functions} \label{primesection}
 
