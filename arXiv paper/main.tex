@@ -120,16 +120,6 @@ These reinterpretations yield new combinatorial insights, simpler proofs, and co
 
 \section{Initial segment restrictions} \todo[jayden]{swap this and prime parking functions}
 
-%$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
-
-%\begin{theorem}
-%    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
-%\end{theorem}
-
-%\begin{proof}
-%    Letting $s=|S|,$ take the function $f:[s]\to S$ given by 
-%\end{proof} \todo[jayden]{I think this could be just a short note in the introduction after the ``balance between the power of $\mathbf{u}$-parking functions'' comment --- I'm not sure we need a proof}
-
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
 This type of set is closely related to another variant on classical parking functions, when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the defect of the system (that is, the number of cars which are unable to park).
@@ -460,6 +450,19 @@ In practice, the formula it yields is computationally intractable for large $g, 
 	\]
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
+
+\section{Connections and further avenues}
+
+$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
+
+\begin{theorem}
+    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
+\end{theorem}
+
+\begin{proof}
+    Letting $s=|S|,$ take the bijection $f:[s]\to S$ given by sending $i$ to the $i$th-smallest value in $S.$ 
+\end{proof}
+
 
 \bibliography{references}
 \bibliographystyle{alpha}
