@@ -160,7 +160,7 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
 \end{proof}
 
-\section{Initial segment restrictions} \todo[jayden]{swap this and prime parking functions}
+\section{Initial segment restrictions}
 
 Note that since every parking function has at least one preference equal to $1,$ $\# \mathrm{PF}_{n\mid S}$ is only nonzero when $1\in S.$ One natural type of restriction to look at, then, is one where only the first few spots can be preferred. Specifically, we look at restrictions to $[s],$ where $1\le s\le n.$
 
@@ -366,13 +366,35 @@ First, there is an action of the symmetric group on $\mathrm{PF}_{n}$ by shuffli
 
 Second, there is a surjection $\mathrm{PF}_{n} \twoheadrightarrow \mathfrak{S}_{n}$ that sends every parking function to its parking outcome. Every parking outcome must be a bijection $[n] \to [n]$ from spots to cars --- a permutation; every permutation can be achieved by a parking function that is the same permutation. In \cite{pinsky-2024}, Pinsky determines the size of the pre-image of a permutation $\sigma \in \mathfrak{S}_{n}$ under this map, and analyses asymptotics as $n \to \infty$.
 
-Both of these analyses have analogues for $[s]$-restricted parking functions. \todo[jayden]{prove them}
+Both of these facts have analogues for $[s]$-restricted parking functions. \todo[jayden]{prove them}
 
 \begin{theorem}
-	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$ there are $C(n, s - 1)$ orbits.
-
-	Here $C(n, k)$ is the $(n, k)$th entry in Catalan's triangle, also known as the Narayana number $N(n, k)$ \cite[A001263]{oeis}.
+	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ orbits --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
 \end{theorem} 
+
+\begin{proof}
+	It will suffice to count one specific representative of each orbit. We can count those representatives such that $\pi$ is order-preserving, called the \emph{non-decreasing $[s]$-restricted parking functions} because they give $\pi(1) \le \dots \le \pi(n)$. Let $\operatorname{PF}_{n \mid [s]}^{\uparrow}$ be the subset of non-decreasing $[s]$-restricted parking functions.
+
+	Consider any $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since the required inequality is exactly the same --- $\pi(i) \le \min \{ i, s \}$. If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$.
+
+	Since the two possibilities are mutually exclusive, we have the recurrence relation
+	\[
+		\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = \# \operatorname{PF}_{n - 1 \mid [s]}^{\uparrow} + \# \operatorname{PF}_{n \mid [s - 1]}^{\uparrow} .
+	\]
+	Catalan's triangle satisfies the same recurrence relation \cite{bailey-1996} ---
+	\[
+		C(n, s - 1) = C(n - 1, s - 1) + C(n, s - 2).
+	\]
+	It only remains to show that the two sequences satisfy the same initial conditions.
+
+	Obviously $\# \operatorname{PF}_{n \mid [1]}^{\uparrow}  = 1$ always --- there is only $(1, \dots, 1) \in \operatorname{PF}_{n \mid [1]}^{\uparrow}$. Thus $\# \operatorname{PF}_{n \mid [1]}^{\uparrow}  = C(n, 1 - 1)$ for all $n \in \mathbb{N}$. Finally, we already know $\# \operatorname{PF}_{n \mid [n]}^{\uparrow}  = C_{n}$, the $n$th Catalan number. The Catalan triangle has $C(n, n - 1) = C_{n}$, and thus, we have $\# \operatorname{PF}_{n \mid [n]}^{\uparrow} = C(n, n - 1)$.
+
+	With the same initial conditions on the diagonal and vertical and the same recurrence relation (giving a number in terms of those above and to its left) for both of the sequences, they must be the same. That is,
+	\[
+		 \# \operatorname{PF}_{n \mid [s]}^{\uparrow} = C(n, s - 1).
+	\]
+\end{proof}
+
 
 \begin{theorem}
     The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_m$ is
