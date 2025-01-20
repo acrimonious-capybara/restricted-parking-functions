@@ -369,7 +369,7 @@ Second, there is a surjection $\mathrm{PF}_{n} \twoheadrightarrow \mathfrak{S}_{
 Both of these facts have analogues for $[s]$-restricted parking functions. \todo[jayden]{prove them}
 
 \begin{theorem}
-	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ orbits --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
+	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
 \end{theorem} 
 
 \begin{proof}
@@ -397,11 +397,11 @@ Both of these facts have analogues for $[s]$-restricted parking functions. \todo
 
 
 \begin{theorem}
-    The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_m$ is
+    The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_n$ is
     \[
-    \prod_{i=1}^m \max(0,l_{m,i}(\sigma)-\max(0,i-n)).
+    \prod_{i = n}^s \max(0,l_{n,i}(\sigma)-\max(0, i - s)).
     \]
-    Here $l_{m, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \cdots \sigma_{n}$) ending at $\sigma_i$ with $\sigma_i$ greater than any other $\sigma_{j}$ within the string.
+    Here $l_{n, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \cdots \sigma_{n}$) ending at $\sigma_i$ with maximum value $\sigma_i$ in the string.
 \end{theorem}
 
 \section{Modular restrictions \label{modularsection}}
