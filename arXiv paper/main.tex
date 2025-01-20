@@ -377,7 +377,7 @@ Both of these facts have analogues for $[s]$-restricted parking functions. \todo
 
 	Consider any $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since the required inequality is exactly the same --- $\pi(i) \le \min \{ i, s \}$. If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$.
 
-	Since the two possibilities are mutually exclusive, we have the recurrence relation
+	Any $[s]$-restricted parking function on $n - 1$ cars can be made an $[s]$-restricted parking function on $n$ cars by the last car preferring spot $s$, and any $[s - 1]$-restricted parking function on $n$ cars is obviously also an $[s]$-restricted parking function. Since the two possibilities are mutually exclusive, we have the recurrence relation
 	\[
 		\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = \# \operatorname{PF}_{n - 1 \mid [s]}^{\uparrow} + \# \operatorname{PF}_{n \mid [s - 1]}^{\uparrow} .
 	\]
