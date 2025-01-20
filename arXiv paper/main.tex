@@ -351,10 +351,10 @@ First, there is an action of the symmetric group on $\mathrm{PF}_{n}$ by shuffli
 
 Second, there is a surjection $\mathrm{PF}_{n} \twoheadrightarrow \mathfrak{S}_{n}$ that sends every parking function to its parking outcome. Every parking outcome must be a bijection $[n] \to [n]$ from spots to cars --- a permutation; every permutation can be achieved by a parking function that is the same permutation. In \cite{pinsky-2024}, Pinsky determines the size of the pre-image of a permutation $\sigma \in \mathfrak{S}_{n}$ under this map, and analyses asymptotics as $n \to \infty$.
 
-Both of these facts have analogues for $[s]$-restricted parking functions. \todo[jayden]{prove them}
+Both of these facts have analogues for $[s]$-restricted parking functions.
 
 \begin{theorem}
-	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ orbits --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
+	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
 \end{theorem} 
 
 \begin{proof}
@@ -362,7 +362,7 @@ Both of these facts have analogues for $[s]$-restricted parking functions. \todo
 
 	Consider any $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since the required inequality is exactly the same --- $\pi(i) \le \min \{ i, s \}$. If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$.
 
-	Since the two possibilities are mutually exclusive, we have the recurrence relation
+	Any $[s]$-restricted parking function on $n - 1$ cars can be made an $[s]$-restricted parking function on $n$ cars by the last car preferring spot $s$, and any $[s - 1]$-restricted parking function on $n$ cars is obviously also an $[s]$-restricted parking function. Since the two possibilities are mutually exclusive, we have the recurrence relation
 	\[
 		\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = \# \operatorname{PF}_{n - 1 \mid [s]}^{\uparrow} + \# \operatorname{PF}_{n \mid [s - 1]}^{\uparrow} .
 	\]
@@ -381,14 +381,22 @@ Both of these facts have analogues for $[s]$-restricted parking functions. \todo
 \end{proof}
 
 
-\begin{theorem}
-    The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_m$ is
+\begin{theorem}[inspired by \cite{pinsky-2024}]
+    The number of $[s]$-restricted parking functions on $n$ cars with parking outcome $\sigma \in \mathfrak{S}_n$ is
     \[
-    \prod_{i=1}^m \max(0,l_{m,i}(\sigma)-\max(0,i-n)).
+    \prod_{i = n}^s \max \{ 0, l_{n,i}(\sigma)-\max \{ 0, i - s \} \}.
     \]
-    Here $l_{m, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \cdots \sigma_{n}$) ending at $\sigma_i$ with $\sigma_i$ greater than any other $\sigma_{j}$ within the string.
+    Here $l_{n, i}$ is the length of the longest contiguous string in $\sigma$ (written in one-line notation as $\sigma_{1} \dots \sigma_{n}$) ending at $\sigma_i$ with maximum value $\sigma_i$ in the string.
 \end{theorem}
 
+\begin{proof}
+	Recall that the parking outcome $\sigma$ sends each parking spot to the car that parks in it. Thus, writing $\sigma$ in one-line notation $\sigma_{1} \dots \sigma_{n}$ is just writing the car numbers in order of which parking spot they end up in.
+
+	First consider the case of parking outcomes $\sigma$ of regular parking functions. In order for car $\sigma_{i}$ to end up in parking spot $i$, it is necessary and sufficient that it prefers a spot $j \le i$, such that all the spots between $j$ and $i$ are already occupied by the time it tries to park. Spots $j, j + 1, \dots, i$ need to be occupied by cars with lower numbers than $\sigma_{i}$ --- the string $\sigma_{j} \dots \sigma_{i}$ must have maximum $\sigma_{i}$. The longest such string contains all the parking spots that a car $\sigma_{i}$ could prefer to cause the given parking outcome. Thus, the number of parking functions with the given parking outcome is just the product of all $l_{n, i}$.
+
+	However, in the case of $[s]$-restricted parking functions, when car $\sigma_{i}$ ends up in spot $i$ outside the first $s$ spots, it couldn't have preferred any of the $i - s$ spots $s + 1, s + 2, \dots, i$. Thus, to obtain the number of possible preferred spots, we subtract $\max \{ 0, i - s \}$ from the length of the longest string ending in in $\sigma_{i}$ with maximum value $\sigma_{i}$. If $l_{m, i}(\sigma) - \max \{ 0, i - s \}$ is negative, then $\sigma_{s}, \sigma_{s + 1}, \dots, \sigma_{n}$ is not in increasing order. This can only happen if some car $\sigma_{j}$ has a preferred spot in the last $n - s$ spots. Any such parking outcome $\sigma$ does not result from an $[s]$-restricted parking function. Thus, the number of possible preferred spots of $\sigma_{i}$ is actually $\max \{ 0, l_{n, i}(\sigma) - \max \{ 0, i - s \} \}$, and the number of $[s]$-restricted parking functions inducing parking outcome $\sigma$ is the product of all these terms.
+\end{proof}
+ 
 \section{Modular restrictions \label{modularsection}}
 
 In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a street, where instead of a parking spots each fitting a single car, we consider rows which can each fit $g\ge 1$ cars (except for the last row, which potentially fits fewer). Here, cars have preferences for rows; they attempt to park in their preferred row, and then each subsequent row until they find one that is not full. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- preference functions that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} corollary 2.1).
