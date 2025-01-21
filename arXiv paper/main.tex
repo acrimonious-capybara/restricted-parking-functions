@@ -486,11 +486,12 @@ In practice, the formula it yields is computationally intractable for large $g, 
 $S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
 
 \begin{theorem}
-    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to $u_i=|S\cap [i]|.$
+    For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to the $\mathbf{u}$ given by $u_i=|S\cap [i]|.$
 \end{theorem}
-
 \begin{proof}
-    Letting $s=|S|,$ take the bijection $f:[s]\to S$ given by sending $i$ to the $i$th-smallest value in $S.$ 
+    Letting $s=|S|,$ take the bijection $S\to [s]$ given by sending the $i$th-smallest value in $S$ to $i$; note that this is order-preserving. We claim that the function $f^*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
+
+    Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $i\in S$ the $i$th-smallest preference in $\pi$ is at most $i.$ Therefore, the $i$th-smallest preference in $f\circ\pi$ is at most $f(i);$ this means that 
 \end{proof}
 
 
