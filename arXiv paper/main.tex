@@ -483,6 +483,10 @@ In practice, the formula it yields is computationally intractable for large $g, 
 
 \section{Connections and further avenues}
 
+We conclude with a brief exploration of particularly interesting connections and leads for the enterprising reader to explore further.
+
+\subsection{$\mathbf{u}$-parking functions}
+
 $S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
 
 \begin{theorem}
@@ -493,6 +497,22 @@ $S$-restricted parking functions are closely related to a certain class of vecto
 
     Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $i\in S$ the $i$th-smallest preference in $\pi$ is at most $i.$ Therefore, the $i$th-smallest preference in $f\circ\pi$ is at most $f(i);$ this means that 
 \end{proof}
+
+
+This means that most of our results about restricted parking functions can also be phrased as results about particular classes of $\mathbf{u}$-parking functions!
+
+\subsection{Hyperplane arrangements}
+
+In considering permutation-invariant parking functions, \cite{chen-2023} comes across a class of $\mathbf{u}$-parking functions equivalent to initial-segment restrictions; in the particular cases of $s=1,2,3,$ \cref{thm:resPFcount1} gives $1,$ $2^n-1,$ and $3^n-2^n-n$ $[s]$-restricted parking functions. They notes in particular that $s=3$ generates the sequence \cite[A001263]{oeis}, as there happen to be $3^n-2^n-n$ regions in a structure called $G$-Shi hyperplane arrangement, for $G=C_n.$
+
+The Shi hyperplane arrangement in $n$ dimensions consists of the hyperplanes $x_i-x_j=0$ and $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$; famously, it has $(n+1)^{n-1}$ regions, which are in bijection with parking functions through maps given by \cite{athanasiadis-linusson-1999} among others. \cite{bennett-2024} constructs a subset of this arrangement assigned to any labeled graph $G$ on $n$ vertices; they do this by letting the $G$-Shi arrangement hyperplanes of $x_i-x_j=0$ and $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G.$
+
+The $C_n$-Shi arrangement, then, consists of the hyperplanes $x_i-x_{i+1}=0,1$ for $i\in[n-1],$ along with the hyperplanes $x_1-x_n=0,1.$ The fact that this connects to preference-restricted parking functions seems more than coincidence!
+
+It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. For example, one may define a $G$-Linial arrangement in much the same way, considering the hyperplane $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G.$ In the case of $G=C_n,$ this yields $2^n-1$ regions, as all ``possible" regions exist except for ($x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$)-- exactly corresponding to our $s=2$ case! Cleverer constructions may yield neat results.
+
+\subsection{Parking statistics}
+
 
 
 \bibliography{references}
