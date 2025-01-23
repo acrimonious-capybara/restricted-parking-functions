@@ -495,7 +495,7 @@ $S$-restricted parking functions are closely related to a certain class of vecto
 \begin{proof}
     Letting $s=|S|,$ take the bijection $S\to [s]$ given by sending the $i$th-smallest value in $S$ to $i$; note that this is order-preserving. We claim that the function $f^*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
 
-    Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $i\in S$ the $i$th-smallest preference in $\pi$ is at most $i.$ Therefore, the $i$th-smallest preference in $f\circ\pi$ is at most $f(i);$ this means that 
+    Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $j\in S$ the $j$th-smallest preference in $\pi$ is at most $j.$ Therefore, the $j$th-smallest preference in $f\circ\pi$ is at most $f(j).$ For $j$ the $i$th-smallest element of $S,$ this means that 
 \end{proof}
 
 
@@ -510,9 +510,6 @@ The Shi hyperplane arrangement in $n$ dimensions consists of the hyperplanes $x_
 The $C_n$-Shi arrangement, then, consists of the hyperplanes $x_i-x_{i+1}=0,1$ for $i\in[n-1],$ along with the hyperplanes $x_1-x_n=0,1.$ The fact that this connects to preference-restricted parking functions seems more than coincidence!
 
 It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. For example, one may define a $G$-Linial arrangement in much the same way, considering the hyperplane $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G.$ In the case of $G=C_n,$ this yields $2^n-1$ regions, as all ``possible" regions exist except for ($x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$)-- exactly corresponding to our $s=2$ case! Cleverer constructions may yield neat results.
-
-\subsection{Parking statistics}
-
 
 
 \bibliography{references}
