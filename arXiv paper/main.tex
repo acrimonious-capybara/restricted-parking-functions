@@ -356,6 +356,8 @@ In particular, viewing both sides of the expression as a polynomial in $s$: for 
 
 Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}$. Substituting $s=n+1+y$ recovers Abel's binomial theorem.
 
+Note that this result essentially comes from looking at the ``number-of-1s" statistic on $[s]$-restricted parking functions. Other statistics, such as lucky and area, could be promising as well!
+
 \end{proof}
 
 \subsection*{The symmetric group and initial restrictions}
@@ -498,7 +500,6 @@ $S$-restricted parking functions are closely related to a certain class of vecto
     Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $j\in S$ the $j$th-smallest preference in $\pi$ is at most $j.$ Therefore, the $j$th-smallest preference in $f\circ\pi$ is at most $f(j).$ For $j$ the $i$th-smallest element of $S,$ this means that 
 \end{proof}
 
-
 This means that most of our results about restricted parking functions can also be phrased as results about particular classes of $\mathbf{u}$-parking functions!
 
 \subsection{Hyperplane arrangements}
@@ -511,6 +512,7 @@ The $C_n$-Shi arrangement, then, consists of the hyperplanes $x_i-x_{i+1}=0,1$ f
 
 It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. For example, one may define a $G$-Linial arrangement in much the same way, considering the hyperplane $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G.$ In the case of $G=C_n,$ this yields $2^n-1$ regions, as all ``possible" regions exist except for ($x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$)-- exactly corresponding to our $s=2$ case! Cleverer constructions may yield neat results.
 
+\subsection{Parking polytopes}
 
 \bibliography{references}
 \bibliographystyle{alpha}
