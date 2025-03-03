@@ -341,6 +341,8 @@ In particular, viewing both sides of the expression as a polynomial in $s$: for 
 
 Thus the above identity is true for all $x,s\in\mathbb{C}$ and $n\in\mathbb{Z}_{>0}$. Substituting $s=n+1+y$ recovers Abel's binomial theorem.
 
+Note that this result essentially comes from looking at the ``number-of-1s" statistic on $[s]$-restricted parking functions. Other statistics, such as lucky and area, could be promising as well!
+
 \end{proof}
 
 \subsection*{The symmetric group and initial restrictions}
@@ -474,15 +476,20 @@ We conclude with a brief exploration of particularly interesting connections and
 
 $S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{} as preference functions whose $i$th-smallest preference is at most $u_i.$
 
+By the following claim, any set of $S$-restricted parking functions is ``naturally" in bijection with a corresponding set of $\mathbf{u}$-parking functions:
+
 \begin{theorem}
     For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to the $\mathbf{u}$ given by $u_i=|S\cap [i]|.$
 \end{theorem}
 \begin{proof}
-    Letting $s=|S|,$ take the bijection $S\to [s]$ given by sending the $i$th-smallest value in $S$ to $i$; note that this is order-preserving. We claim that the function $f^*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
+    Letting $s=|S|,$ take the function $f:[n]\to [s]$ given by sending $i$ to $u_i$; note that this is order-preserving and sends the $j$th-smallest element of $S$ to $j$. We claim that the function $f^*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
 
-    Note first that $f^*$ is injective since $f$ is; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$ If $\pi$ is additionally a parking function, then for every $j\in S$ the $j$th-smallest preference in $\pi$ is at most $j.$ Therefore, the $j$th-smallest preference in $f\circ\pi$ is at most $f(j).$ For $j$ the $i$th-smallest element of $S,$ this means that 
+    Note first that $f^*$ is injective since $f$ is injective on $S$; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$
+    
+    $S$-restricted parking functions are those functions $[n]\to S$ whose $i$th-smallest preference is at most $i$ for all $i\in [n]$. Since $f$ is order-preserving, the image of this set under $f^*$ is the set of functions $[n]\to [s]$ whose $i$th-smallest preference is at most $f(i)=u_i.$
+
+    But this is precisely the set of $\mathbf{u}$-parking functions, as desired! We therefore have a bijection.
 \end{proof}
-
 
 This means that most of our results about restricted parking functions can also be phrased as results about particular classes of $\mathbf{u}$-parking functions!
 
@@ -496,6 +503,11 @@ The $C_n$-Shi arrangement, then, consists of the hyperplanes $x_i-x_{i+1}=0,1$ f
 
 It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. For example, one may define a $G$-Linial arrangement in much the same way, considering the hyperplane $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G.$ In the case of $G=C_n,$ this yields $2^n-1$ regions, as all ``possible" regions exist except for ($x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$)-- exactly corresponding to our $s=2$ case! Cleverer constructions may yield neat results.
 
+\subsection{Parking polytopes}
+
+In \cite{andres-others-2023}, the convex hull $\mathfrak{X}$ of weakly increasing $\mathbf{x}$-parking functions is studied in the special case $\mathbf{x} = (a, b, b, \dots, b)$ (recall that an $\mathbf{x}$-parking function is a $\mathbf{u}$-parking function with $u_{i} = x_{1} + \dots + x_{i}$). In particular, it is shown that $\mathfrak{X}$ is integrally equivalent to the Pitman-Stanley polytope of $\mathbf{x}$. This result provides a way to count integer points in the Pitman-Stanley polytope by counting weakly increasing parking functions and vice versa.
+
+Our $[s]$-restricted parking functions correspond to $\mathbf{x}$-parking functions with $\mathbf{x} = (\underbrace{1, \dots, 1}_{s \text{ times}}, 0, \dots, 0)$. If the results of \cite{andres-others-2023} can be generalized to work with this $\mathbf{x}$, then we would have new ways to count integer points in the corresponding Pitman-Stanley polytope using our formulas for weakly increasing $[s]$-restricted parking functions. Given the Pitman-Stanley polytope's central importance, this introduces the possibility for connections to all kinds of geometric combinatorics!
 
 \bibliography{references}
 \bibliographystyle{alpha}
