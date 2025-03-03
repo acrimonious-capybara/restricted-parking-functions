@@ -153,11 +153,11 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 \end{restatable}
 
 \begin{proof}
-	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f^{*} : \pi \mapsto f^{*} \pi = f \circ \pi$.
+	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that moves every $i \in T$ one place over. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f_{*} : \pi \mapsto f_{*} \pi = f \circ \pi$.
 
-	It follows that $f^{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f^{*} \pi$ is a parking function.
+	It follows that $f_{*}$ is injective since $f$ is. Thus, we only need to show that its image is $\mathrm{PF}_{n \mid T}$. If $\pi$ is an $S$-restricted prime parking function $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f_{*} \pi$ is a parking function.
 
-	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f^{*}$ is the desired bijection.
+	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus, $f_{*}$ is the desired bijection.
 \end{proof}
 
 \section{Initial segment restrictions} \todo[jayden]{For coherence reasons I think we should write this introduction the other way around. I think we should introduce the variant first, then explain that it is best thought of as an $[s]$-restricted parking function}
@@ -497,11 +497,11 @@ By the following claim, any set of $S$-restricted parking functions is ``natural
     For any $S\subseteq[n],$ $S$-restricted parking functions are in bijection with the $\mathbf{u}$-parking functions associated to the $\mathbf{u}$ given by $u_i=|S\cap [i]|.$
 \end{theorem}
 \begin{proof}
-    Letting $s=|S|,$ take the function $f:[n]\to [s]$ given by sending $i$ to $u_i$; note that this is order-preserving and sends the $j$th-smallest element of $S$ to $j$. We claim that the function $f^*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
+    Letting $s=|S|,$ take the function $f:[n]\to [s]$ given by sending $i$ to $u_i$; note that this is order-preserving and sends the $j$th-smallest element of $S$ to $j$. We claim that the function $f_*: \pi\mapsto f\circ \pi$ is a bijection between $S$-restricted parking functions and $\mathbf{u}$-parking functions.
 
-    Note first that $f^*$ is injective since $f$ is injective on $S$; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$
+    Note first that $f_*$ is injective since $f$ is injective on $S$; it also takes preference functions with all preferences in $S$ to preference functions with all preferences in $[s].$
     
-    $S$-restricted parking functions are those functions $[n]\to S$ whose $i$th-smallest preference is at most $i$ for all $i\in [n]$. Since $f$ is order-preserving, the image of this set under $f^*$ is the set of functions $[n]\to [s]$ whose $i$th-smallest preference is at most $f(i)=u_i.$
+    $S$-restricted parking functions are those functions $[n]\to S$ whose $i$th-smallest preference is at most $i$ for all $i\in [n]$. Since $f$ is order-preserving, the image of this set under $f_*$ is the set of functions $[n]\to [s]$ whose $i$th-smallest preference is at most $f(i)=u_i.$
 
     But this is precisely the set of $\mathbf{u}$-parking functions, as desired! We therefore have a bijection.
 \end{proof}
