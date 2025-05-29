@@ -97,15 +97,15 @@ citecolor = blue}
 
 \pagebreak
 
-\section{Introduction} %\todo[jayden]{make this more friendly to someone who is coming from polytopes or with less background in PFs}
+\section{Introduction}
 
-Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park along a one-way street with a total of $n$ spots. Each car has a preferred spot, as described by a function $\pi:[n]\to[n],$ where the $i$th car prefers the $\pi(i)$th spot. We sometimes describe this as a preference list of length $n$ instead, where the $i$th element is the preference of the $i$th car.
+Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park along a one-way street with a total of $n$ spots. Each car has a preferred spot, as described by a \emph{preference function} $\pi:[n]\to[n],$ where the $i$th car prefers the $\pi(i)$th spot. Equivalently, this function can be written as a \emph{preference list} $(\pi(1), \dots, \pi(n))$ of length $n$. We will use $\pi$ to describe a list or function interchangeably since certain definitions are simpler in one or the other formalism.
 
 These cars attempt to park along the one-way street as follows. Starting with the 1st car, each car successively enters the street and goes to its preferred spot. If that spot is empty, the car parks there; otherwise it proceeds down the street and parks in the first empty spot available. If it reaches the $n$th spot and finds nowhere to park, it leaves without parking.
 
 Some choices of $\pi$ lead to all $n$ cars parking; for example, any permutation $\pi\in S_n$ lets each car park in its preferred spot, while if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never fill, so that not all cars can park in the remaining $n-1$ spots.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park; their theory is well understood. For instance, they have been enumerated precisely; there are $(n + 1)^{n - 1}$ parking functions on $n$ cars. Parking functions are characterized by the following \emph{Catalan condition}: a function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots.
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park; their theory is well understood. For instance, they have been enumerated precisely; there are $(n + 1)^{n - 1}$ parking functions on $n$ cars. Parking functions are characterized by the following \emph{Catalan condition}: a function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement} $\pi^{\uparrow}$ such that $\pi^{\uparrow} = \pi \circ \sigma$ for some permutation $\sigma \in \mathfrak{S}_{n}$. The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi(i) \le i$ for all $i \in [n]$.
 
 There are many, many possible variants of the parking function question, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight in particular:
 \begin{enumerate}
@@ -113,22 +113,25 @@ There are many, many possible variants of the parking function question, some of
  	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data; or perhaps, as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
 \end{enumerate}
-We will show that all of these can be understood using \emph{$S$-restricted parking functions} --- parking functions $\pi : [n] \to S \subseteq [n]$.
+We will show that each of these can be placed in natural bijection with our new notion of \emph{$S$-restricted parking functions} with specific choices of $S \subseteq [n]$.
 
 \begin{definition}
-    An $S$-restricted parking function on $n$ cars, given a set of possible preferences $S$ is a parking function $\pi$ on $n$ cars where all preferences lie in $S$: that is, $\pi([n]) \subset S$.
+    Given a subset of allowed preferences $S \subseteq [n]$, an $S$-restricted parking function on $n$ cars is a parking function $\pi : [n] \to [n]$ where all preferences lie in $S$: that is, $\pi([n]) \subseteq S$.
 
-    We denote the set of $S$-restricted parking functions by $\mathrm{PF}_{n \mid S},$ and therefore their number by $\# \mathrm{PF}_{n \mid S}$.
+    We denote the set of $S$-restricted parking functions by $\mathrm{PF}_{n \mid S}$ and their number by $\# \mathrm{PF}_{n \mid S}$.
 \end{definition}
 
-These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions --- of which they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$ --- and the combinatorial intuition of the original parking function question.
+These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions (of which we will prove they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$) and the combinatorial intuition of the original parking functions.
 
 \section{Prime parking functions} \label{primesection}
 
 Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions: not only are there always enough cars to fill the first $i$ spots for any $1\le i\le n,$ there are always more than enough cars to fill such spots, so that the parking procedure constantly involves overflow. See \cite{armon-2024} for a further discussion of these functions. We construct a correspondence between prime parking functions and $S$-restricted parking functions, given $S=[n]\backslash\{2\},$ and extend this correspondence to prime parking functions with restricted preferences as well.
 
 \begin{definition}[prime parking functions]
-	A \textit{prime parking function} on $n$ cars is a function describing the preferences of $n$ cars on a street with $n$ cars, $\pi : [n] \to [n],$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). In other words $\# \pi^{-1}([i]) > i$.
+	A \textit{prime parking function} on $n$ cars is a function describing the preferences of $n$ cars on a street with $n$ cars, $\pi : [n] \to [n],$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). Equivalently, $\# \pi^{\uparrow}(i) < i$ for each $i \in [n]$. 
+
+	We denote the set of all prime parking functions on $n$ cars by $\mathrm{PPF}_{n}$ and their number by $\# \mathrm{P P F}_{n}$.
+
 \end{definition}
 
 Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. The bijection we present follows by reassigning cars' preferences in a  certain manner to turn a restricted parking function into a prime parking function.
@@ -138,7 +141,7 @@ Prime parking functions themselves have a characterization in terms of $S$-restr
 	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (on $n$ cars). 
 \end{restatable}
 
-In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows, by a bijection that adds 1 to all preferences greater than 1. 
+In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows by a bijection that adds $1$ to all preferences greater than $1$. 
 
 \begin{restatable}{theorem}{resPrimeIsRes}
 	For any $S\subseteq [n]$ such that $1\in S,$  there is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (on $n$ cars) where
@@ -375,7 +378,7 @@ Both of these facts have analogues for $[s]$-restricted parking functions.
 \end{theorem} 
 
 \begin{proof}
-	It will suffice to count one specific representative of each orbit. We can count those representatives such that $\pi$ is order-preserving, called the \emph{non-decreasing $[s]$-restricted parking functions} because they give $\pi(1) \le \dots \le \pi(n)$. Let $\operatorname{PF}_{n \mid [s]}^{\uparrow}$ be the subset of non-decreasing $[s]$-restricted parking functions.
+	It will suffice to count one specific representative of each orbit. We can count those representatives such that $\pi$ is order-preserving, called the \emph{non-decreasing $[s]$-restricted parking functions} because they give $\pi(1) \le \dots \le \pi(n)$. These are exactly those parking functions $\pi$ equal to their non-decreasing rearrangements $\pi^{\uparrow}$ (defined earlier in the introduction). Let $\operatorname{PF}_{n \mid [s]}^{\uparrow}$ be the subset of non-decreasing $[s]$-restricted parking functions.
 
 	Consider any $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since the required inequality is exactly the same --- $\pi(i) \le \min \{ i, s \}$. If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$.
 
