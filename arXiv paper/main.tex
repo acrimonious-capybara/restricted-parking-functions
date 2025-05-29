@@ -387,13 +387,13 @@ Both of these facts have analogues for $[s]$-restricted parking functions.
 	\[
 		\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = \# \operatorname{PF}_{n - 1 \mid [s]}^{\uparrow} + \# \operatorname{PF}_{n \mid [s - 1]}^{\uparrow} .
 	\]
-	Catalan's triangle satisfies the same recurrence relation \cite{bailey-1996}:
+	Catalan's triangle satisfies the same recurrence relation, as shown in \cite{bailey-1996}:
 	\[
 		C(n, s - 1) = C(n - 1, s - 1) + C(n, s - 2).
 	\]
 	It only remains to show that the two sequences satisfy the same initial conditions.
 
-	Obviously $\# \operatorname{PF}_{n \mid [1]}^{\uparrow}  = 1$ always --- there is only $(1, \dots, 1) \in \operatorname{PF}_{n \mid [1]}^{\uparrow}$. Thus $\# \operatorname{PF}_{n \mid [1]}^{\uparrow}  = C(n, 1 - 1)$ for all $n \in \mathbb{N}$. Finally, we already know $\# \operatorname{PF}_{n \mid [n]}^{\uparrow}  = C_{n}$, the $n$th Catalan number. The Catalan triangle has $C(n, n - 1) = C_{n}$, and thus, we have $\# \operatorname{PF}_{n \mid [n]}^{\uparrow} = C(n, n - 1)$.
+	If the restriction is to $S = [1]$ there is only $1$ parking function $(1, \dots, 1) \in \operatorname{PF}_{n \mid [1]}^{\uparrow}$. Thus $\# \operatorname{PF}_{n \mid [1]}^{\uparrow} = 1 = C(n, 1 - 1)$ for all $n \in \mathbb{N}$. Finally, we already know $\# \operatorname{PF}_{n \mid [n]}^{\uparrow}  = C_{n}$, the $n$th Catalan number. The Catalan triangle has $C(n, n - 1) = C_{n}$, and thus, we have $\# \operatorname{PF}_{n \mid [n]}^{\uparrow} = C(n, n - 1)$. These initial conditions are also found in \cite{bailey-1996}.
 
 	With the same initial conditions on the diagonal and vertical and the same recurrence relation (giving a number in terms of those above and to its left) for both of the sequences, they must be the same. That is,
 	\[
