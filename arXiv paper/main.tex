@@ -9,8 +9,13 @@
 \usepackage[varbb]{newpxmath}
 \usepackage{float}
 
+\usepackage{transparent}
+\usepackage{tikz}
+
+\usetikzlibrary {arrows.meta}
+
 % wider margins just for now, so that todonotes are easily visible
-\usepackage[margin = 1.5 in]{geometry}
+\usepackage[margin = 1 in]{geometry}
 \usepackage{microtype}
 \usepackage[indent]{parskip}
 
@@ -36,14 +41,55 @@ urlcolor = blue,
 citecolor = blue}
 
 % car
+%\newcommand{\mzncar}[3][(0,0)]{
+%\begin{scope}[shift={#1}]
+%\shade[top color=#2, bottom color=#3, shading angle=90, draw=white, rounded corners=0.7ex, very thick] (0.75,.25) -- ++(0,0.5) -- ++(0.5,0.15) -- ++(1.5,0) -- ++(0.5,0) -- ++(0,-0.65) -- (0.75,.25) -- cycle;
+%\draw[thick, rounded corners=0.2ex, fill=white, thick] (1.25,0.85) -- ++(0.5,0.35) -- ++(0.8,0) -- ++(0.3,-0.35) -- (1.25,0.85);
+%\draw[thick] (2.1,0.85) -- (2.1,1.2);
+%\draw[fill=gray!80,thin] (1.375,.25) circle[radius=.2];
+%\draw[fill=gray!80,thin] (2.76,.25) circle[radius=.2];
+%\end{scope}
+%}
+
+\newcommand{\mzncarrot}[4][(0,0)]{
+    \begin{scope}[shift={#1}]
+    % Car body
+    \shade[top color=#2, bottom color=#2, shading angle=90, draw=#2!90!black, rounded corners=0.5ex, thick] (0.5,0.25) -- ++(0,1.5+.25) -- ++(0.5,0.25) -- ++(1.5,0) -- ++(1,-.5) -- ++(0,-1.45) -- cycle;
+    % Car windows
+    \draw[thick, rounded corners=0.2ex, fill=white, thick] (1,2.1) -- ++(0.5,0.45) -- ++(0.8,0) -- ++(0.3,-0.45) -- cycle;
+    \draw[thick] (2.1-.25,2.1) -- ++(0,.45);
+    % Car label
+    \if\relax\detokenize{#3}\relax 
+    % if second argument is empty, do nothing
+    \else
+    \draw[fill=#2!20, thin, draw = #2] (2.1-.25,1.3) circle[radius=.65] 
+        node [anchor = center, rotate = #4]{\small #3};
+    \fi
+    % Wheels
+    \draw[fill=gray!80,thin] (1.375-.25,.25) circle[radius=.2];
+    \draw[fill=gray!80,thin] (2.76-.25,.25) circle[radius=.2];
+    \end{scope}
+}
+
 \newcommand{\mzncar}[3][(0,0)]{
-\begin{scope}[shift={#1}]
-\shade[top color=#2, bottom color=#3, shading angle=90, draw=white, rounded corners=0.7ex, very thick] (0.75,.25) -- ++(0,0.5) -- ++(0.5,0.15) -- ++(1.5,0) -- ++(0.5,0) -- ++(0,-0.65) -- (0.75,.25) -- cycle;
-\draw[thick, rounded corners=0.2ex, fill=white, thick] (1.25,0.85) -- ++(0.5,0.35) -- ++(0.8,0) -- ++(0.3,-0.35) -- (1.25,0.85);
-\draw[thick] (2.1,0.85) -- (2.1,1.2);
-\draw[fill=gray!80,thin] (1.375,.25) circle[radius=.2];
-\draw[fill=gray!80,thin] (2.76,.25) circle[radius=.2];
-\end{scope}
+    \mzncarrot[#1]{#2}{#3}{0}
+}
+
+\newcommand{\tikspotc}[3][(0,0)]{
+    \begin{scope}[shift={#1}]
+        \draw[fill = #3, rounded corners = .3ex, draw = #3] (0,-.4) rectangle node[text = white]{#2} ++(4, -1.2);
+        \draw[-to, white,very thick] (.5,-.4-.6)--++(.001,0);
+    \end{scope}
+}
+
+\newcommand{\tikspot}[2][(0,0)]{
+    \tikspotc[#1]{#2}{black}
+}
+
+\newcommand{\tikpref}[3][0,0]{
+    \begin{scope}[shift={#1}]
+        \draw[fill=#2!20, draw = #2] (0,0) circle[radius=.65] node [anchor = center]{\small #3};
+    \end{scope}
 }
 
 % add your own todostyle!
@@ -104,20 +150,20 @@ Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park alo
 
 These cars attempt to park along the one-way street as follows. Starting with the 1st car, each car successively enters the street and goes to its preferred spot. If that spot is empty, the car parks there; otherwise it proceeds down the street and parks in the first empty spot available. If it reaches the $n$th spot and finds nowhere to park, it leaves without parking.
 
-Some choices of $\pi$ lead to all $n$ cars parking; for example, any permutation $\pi\in S_n$ lets each car park in its preferred spot, while if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never fill, so that not all cars can park in the remaining $n-1$ spots.
+Some choices of $\pi$ lead to all $n$ cars parking; for example, any bijection $\pi:[n]\to[n]$ lets each car park in its preferred spot, while if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never fill, so that not all cars can park in the remaining $n-1$ spots.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$ which take each of $n$ cars to their preferences in a manner that allows all cars to park; their theory is well understood. For instance, they have been enumerated precisely; there are $(n + 1)^{n - 1}$ parking functions on $n$ cars. Parking functions are characterized by the following \emph{Catalan condition}: a function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement} $\pi^{\uparrow}$ such that $\pi^{\uparrow} = \pi \circ \sigma$ for some permutation $\sigma \in \mathfrak{S}_{n}$. The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi(i) \le i$ for all $i \in [n]$.
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$  which allow all cars to park. These have been well-studied; we suggest \cite{yan-survey-2015} as a comprehensive introduction to their properties. For instance, they have been enumerated precisely; there are $(n + 1)^{n - 1}$ parking functions on $n$ cars. Parking functions are characterized by the following \emph{Catalan condition}: a function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement} $\pi^{\uparrow},$ where the outputs are reordered in such as way that $\pi^\uparrow(i)\le \pi^\uparrow(j)$ if and only if $i\le j.$ The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi^\uparrow(i) \le i$ for all $i \in [n]$.
 
-There are many, many possible variants of the parking function question, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight in particular:
+There are many, many possible variants of the problem of enumerating and analyzing parking functions, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight in particular:
 \begin{enumerate}
-	\item Prime parking functions --- parking functions which one cannot break into smaller parking functions or alternatively functions which satisfy a stricter Catalan condition. See \cite{meyles-2023} for an excellent overview of their properties.
- 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (A special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
+	\item Prime parking functions --- parking functions for which one cannot partition their preferences into parking functions on smaller intervals, or alternatively functions which satisfy a stricter Catalan condition. See \cite{meyles-2023} for an excellent overview of their properties.
+ 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (This is a special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data; or perhaps, as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
 \end{enumerate}
 We will show that each of these can be placed in natural bijection with our new notion of \emph{$S$-restricted parking functions} with specific choices of $S \subseteq [n]$.
 
 \begin{definition}
-    Given a subset of allowed preferences $S \subseteq [n]$, an $S$-restricted parking function on $n$ cars is a parking function $\pi : [n] \to [n]$ where all preferences lie in $S$: that is, $\pi([n]) \subseteq S$.
+    Given a subset of allowed preferences $S \subseteq [n]$, an \textit{$S$-restricted parking function} on $n$ cars is a function $\pi : [n] \to S$ which is also a parking function.
 
     We denote the set of $S$-restricted parking functions by $\mathrm{PF}_{n \mid S}$ and their number by $\# \mathrm{PF}_{n \mid S}$.
 \end{definition}
@@ -128,21 +174,22 @@ These reinterpretations yield new combinatorial insights, simpler proofs, more c
 
 Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions: not only are there always enough cars to fill the first $i$ spots for any $1\le i\le n,$ there are always more than enough cars to fill such spots, so that the parking procedure constantly involves overflow. See \cite{armon-2024} for a further discussion of these functions. We construct a correspondence between prime parking functions and $S$-restricted parking functions, given $S=[n]\backslash\{2\},$ and extend this correspondence to prime parking functions with restricted preferences as well.
 
-\begin{definition}[prime parking functions]
-	A \textit{prime parking function} on $n$ cars is a function describing the preferences of $n$ cars on a street with $n$ cars, $\pi : [n] \to [n],$ such that more than $i$ cars prefer the first $i$ spots (for $1 \le i \le n$). Equivalently, $\# \pi^{\uparrow}(i) < i$ for each $i \in [n]$. 
+\begin{definition}[Prime parking functions]
+	A \textit{prime parking function} on $n$ cars is a function $\pi : [n] \to [n],$ such that for all $i\in[n-1]$ the size of $\pi^{-1}([i])$ is greater than $i$. Equivalently, it is a function whose order-preserving rearrangement satisfies $ \pi^{\uparrow}(i) < i$ for each $1<i\le n$. 
 
 	We denote the set of all prime parking functions on $n$ cars by $\mathrm{PPF}_{n}$ and their number by $\# \mathrm{P P F}_{n}$.
-
 \end{definition}
 
-Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. The bijection we present follows by reassigning cars' preferences in a  certain manner to turn a restricted parking function into a prime parking function.
+A prime parking function, then, describes the preferences of $n$ cars on a street with $n$ cars such that for all $i\in[n-1],$ more than $i$ cars prefer the first $i$ spots. Essentially this means that there will be ``overflow'' at every point.
+
+Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. The bijection we present follows by reassigning preferences in a  certain manner to turn a restricted parking function into a prime parking function.
 
 \begin{restatable}{theorem}{primeIsRes}
     \label{thm:primeIsRes}
 	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (on $n$ cars). 
 \end{restatable}
 
-In fact, this generalizes to a way to enumerate $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We prove this more general statement from which \cref{thm:primeIsRes} follows by a bijection that adds $1$ to all preferences greater than $1$. 
+This is a corollary of \cref{thm:primeIsRes}, which represents $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We proceed by a bijection that adds $1$ to all preferences greater than $1$. 
 
 \begin{restatable}{theorem}{resPrimeIsRes}
 	For any $S\subseteq [n]$ such that $1\in S,$  there is a bijection between $S$-restricted prime parking functions and $T$-restricted parking functions (on $n$ cars) where
@@ -157,21 +204,25 @@ In fact, this generalizes to a way to enumerate $S$-restricted prime parking fun
 \end{restatable}
 
 \begin{proof}
-	Consider the natural bijection $f : S \setminus \{ n \} \to T$ that adds 1 to all $i \in S\backslash \{n\}$ greater than 1. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f_{*} : \pi \mapsto f_{*} \pi = f \circ \pi$.
+	Consider the bijection $f \colon S \setminus \{ n \} \to T$ that adds 1 to all $i \in S\backslash \{n\}$ greater than 1. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f_{*}\colon\mathrm{PPF}_{n \mid S}\to\mathrm{PF}_{n \mid T}$ defined by $\pi \mapsto f \circ \pi$. $f_*$ maps functions $[n]\to S$ to functions $[n]\to T$ in a well-defined manner, for no prime parking function can have $n$ in its image, since all $n$ preferences lie in $[n-1].$
+    
+    Since $f(1)=1$ and $\pi$ is prime and thus at least two cars prefer spot $1,$ the corresponding cars in $f\circ\pi$ prefer spot 1, and so at least $1$ car prefers the first spot and at least $2$ cars prefer one of the first two spots in $f\circ\pi$. For $i>2,$ $\pi(j)\le i-1$ implies $(f\circ\pi)(j)\le i$; since $\pi$ is prime, at least $i$ cars satisfy $\pi(j)\le i-1,$ so $(f\circ\pi)(j)\le i$ for these $i$ cars, satisfying the Catalan condition. Therefore, $f\circ\pi\in\mathrm{PF}_{n\mid T}.$
 
-	We first claim that $f_{*}$ is a well-defined map  $\mathrm{PPF}_{n \mid S}\to\mathrm{PF}_{n \mid T}$. Note first that no prime parking function can have $n$ in its image, since all $n$ preferences lie in $[n-1].$ If $\pi$ is an $S$-restricted prime parking function, it follows that $f \circ \pi$ is by definition a function $[n] \to T$. Since $\pi$ is prime, more than $i$ cars prefer a spot in the first $i$ for each $i$. For $f \circ \pi$, since $f(1) = 1$, this means that at least $2$ cars prefer one of the first $2$ spots (both prefer the first spot). For $i > 2$, all the cars $j$ with $\pi(j) \le i - 1$ now prefer spots in the first $i$. Since there are $k > i - 1$ and thus, $k \ge i$ of these, there are at least $i$ cars preferring spots in the first $i$. That is, $f_{*} \pi$ is a parking function.
-
-	These equalities work in reverse too. For any $T$-restricted parking function $\psi$, $f^{-1} \circ \psi$ is a function $[n] \to S$. Note that $2\not\in T,$ which is required for $f^{-1}$ to be well-defined. Again $\psi$ must have $2$ cars prefer the first spot. For every other $i$th spot ($i > 1$), there are at least $i + 1$ cars $j$ such that $\psi(j) \le i + 1$ and thus, more than $i$ cars such that $(f^{-1} \circ \psi)(j) \le i$. Thus $f_{*}$ and $f_{*}^{-1}$ are both well-defined. Composing these functions in either direction gives the identity, so that $f_{*}$ is the desired bijection.
+    The function $f\colon S\backslash\{n\}\to T$ is invertible, inducing for any parking function $\psi\in\mathrm{PF}_{n\mid S}$ a map $f^{-1}\circ\psi\colon[n]\to S\backslash[n]\subset S.$ Since $2\not\in T,$ there are at least $2$ cars $j$ such that $\psi(j)=1$ and so $(f^{-1}\circ\psi)(j)=1.$ For every $1<i<n,$ there are at least $i+1$ cars $j$ such that $\psi(j)\le i+1$ and thus, more than $i$ cars such that $(f^{-1}\circ\psi)(j)\le i.$ Therefore, $f^{-1}\circ\psi\in\mathrm{PPF}_{n\mid S}.$ Since $f_*:\mathrm{PPF}_{n\mid S}\to\mathrm{PF}_{n\mid T}$ is invertible, $\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.$
 \end{proof}
 
 \section{Initial segment restrictions} %\todo[jayden]{For coherence reasons I think we should write this introduction the other way around. I think we should introduce the variant first, then explain that it is best thought of as an $[s]$-restricted parking function} done I think
 
-One variant on classical parking functions occurs when when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the defect of the function: that is, the number of cars which are unable to park.
+One variant on classical parking functions occurs when when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the \textit{defect} of the function: that is, the number of cars which are unable to park.
 
-These minimum-defect parking functions are closely related to a particular class of preference-restricted parking functions:
+\begin{definition}
+    Given any function $f:[n]\to [s],$ performing the parking procedure using $f$ as a preference function yields a partial function $\sigma:[n]\nrightarrow [s]$ representing the parking outcome. of the defect of $f$ is defined to be the number of elements of $[n]$ with no output under $\sigma.$
+\end{definition}
+
+Minimum-defect parking functions are closely related to a particular class of preference-restricted parking functions:
 
 \begin{theorem}
-    Given $1\le s\le n,$ the number of ways for $n$ cars to park in $s$ spots, with the minimum possible defect of $n-s,$ is equal to $\# \mathrm{PF}_{n \mid [s]},$ where $[s]=\{1,2,\dots,s\}.$
+    Given $1\le s\le n,$ the number of functions $f:[n]\to [s]$ such that under the parking procedure, the defect takes its minimum possible value of $n-s,$ is equal to $\# \mathrm{PF}_{n \mid [s]},$ where $[s]=\{1,2,\dots,s\}.$
 \end{theorem}
 
 \begin{proof}
@@ -198,7 +249,7 @@ One question we can ask: how many $[s]$-restricted parking functions are there? 
     as desired.
 \end{proof}
 
-This expression is one half of a sum given by Abel's binomial theorem, as noted by \cite{cameron-johannsen-prellberg-schweitzer-2008} and expanded upon below. We present a combinatorial proof corresponding to the other half of that sum, which (as far as we can tell) is novel:
+This expression is one half of a sum given by Abel's binomial theorem, as noted by \cite{cameron-johannsen-prellberg-schweitzer-2008} and expanded upon below. We present a novel combinatorial proof corresponding to the other half of that sum.
 
 \begin{restatable}{theorem}{resPFcount2}
     \label{thm:resPFcount2}
@@ -211,17 +262,155 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 
 	We consider 2-colored parking functions --- that is, parking functions with cars assigned one of two colors --- with a particular restriction upon them.  Suppose we choose a subset of size $i \ge s$ of our cars to be colored indigo. These cars are to form a parking function on the first $i$ parking spots (though the parking outcome may not result in them actually parking there). The remaining $n - i$ cars are colored red and can prefer any of the $i + 1 - s$ ``forbidden'' spots in  $[i + 1] \setminus [s]$.
     
-\begin{figure}
+%\begin{figure}
+%\begin{center}
+%\begin{tikzpicture}[scale=0.3]
+%	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
+%\end{tikzpicture} $\quad \longleftrightarrow \quad$
+%\begin{tikzpicture}[scale=0.3]
+%	\mzncar[(18,0)]{blue}{blue} \mzncar[(21,0)]{red}{red} \mzncar[(24,0)]{blue}{blue} \mzncar[(27,0)]{blue}{blue} \mzncar[(30,0)]{blue}{blue}
+%\end{tikzpicture}
+%\end{center}
+%\caption{For $n=5$, $s = 2$, two colorings of $\pi = (1,3,2,2,4)$ with $i = 3$ and $i = 4$ are connected through the sign-reversing involution by recoloring the car with the largest preference. Note that both colorings satisfy the annotated constraints of the proof below.}
+%\end{figure}
+
+\begin{figure}[h]
 \begin{center}
-\begin{tikzpicture}[scale=0.3]
-	\mzncar[(0,0)]{blue}{blue} \mzncar[(3,0)]{red}{red} \mzncar[(6,0)]{blue}{blue} \mzncar[(9,0)]{blue}{blue} \mzncar[(12,0)]{red}{red}
-\end{tikzpicture} $\quad \longleftrightarrow \quad$
-\begin{tikzpicture}[scale=0.3]
-	\mzncar[(18,0)]{blue}{blue} \mzncar[(21,0)]{red}{red} \mzncar[(24,0)]{blue}{blue} \mzncar[(27,0)]{blue}{blue} \mzncar[(30,0)]{blue}{blue}
+\begin{tikzpicture}[scale=0.28]
+    \def\gap{5};
+    \def\mid{2};
+    \def\carsep{4.5};
+    \def\vertsep{1.5};
+    \definecolor{blue}{RGB}{65, 15, 160}
+    \definecolor{red}{RGB}{200, 5, 5}
+    
+    \begin{scope}
+    \filldraw[fill = blue, fill opacity = .08, draw=none] (-.25,3) rectangle (\carsep*3-.25, \gap+\vertsep*6);
+    \draw[text = blue](\carsep, \gap+\vertsep*5) node {$(1,2,2) \in PF_3$};
+    \filldraw[fill = blue, fill opacity = .6, draw=none] (-.25,\gap+\vertsep*6 + .15) rectangle (\carsep*3-.25, \gap+\vertsep*6);
+    \draw[text = blue](\carsep + \mid, \gap+\vertsep*6.7) node {$[i]$};
+
+    \filldraw[fill = red, fill opacity = .08, draw=none] (\carsep*2-.25,3) rectangle (\carsep*4-.25, \gap+\vertsep*6.5);
+    \filldraw[fill = red, fill opacity = .5, draw=none] (\carsep*2-.25,\gap+\vertsep*6.5 + .15) rectangle (\carsep*4-.25, \gap+\vertsep*6.5);
+    \draw[text = red](\carsep*3, \gap+\vertsep*7.2) node {$[i+1]\backslash[s]$};
+    % \draw[text = red](3*\carsep, \gap+\vertsep*7) node {$3,4 \in [4]\backslash[2]$};
+    
+    \draw[dashed,blue] (-.4, \gap + \vertsep*0) -- ++(\mid+\carsep*0,0); 
+    \draw[dashed,red ] (-.4, \gap + \vertsep*1) -- ++(\mid+\carsep*2,0); 
+    \draw[dashed,blue] (-.4, \gap + \vertsep*2) -- ++(\mid+\carsep*1,0); 
+    \draw[dashed,blue] (-.4, \gap + \vertsep*3) -- ++(\mid+\carsep*1,0); 
+    \draw[dashed,red ] (-.4, \gap + \vertsep*4) -- ++(\mid+\carsep*3,0); 
+
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*0, \gap+\vertsep*0) -- (\mid+\carsep*0 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, red]  (\mid+\carsep*2, \gap+\vertsep*1) -- (\mid+\carsep*2 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*1, \gap+\vertsep*2) -- (\mid+\carsep*1 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*3, \gap+\vertsep*3) -- (\mid+\carsep*3 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, red]  (\mid+\carsep*4, \gap+\vertsep*4) -- (\mid+\carsep*4 ,3);
+
+    \draw[very thick, blue] (\mid+\carsep*1, \gap + \vertsep*3) -- ++(\carsep*2,0);
+    \draw[very thick, red]  (\mid+\carsep*3, \gap + \vertsep*4) -- ++(\carsep*1,0);
+    
+    \tikpref[(2+\carsep*0, \gap + \vertsep*0)]{blue}{$1$} 
+    \tikpref[(2+\carsep*2, \gap + \vertsep*1)]{red} {$2$} 
+    \tikpref[(2+\carsep*1, \gap + \vertsep*2)]{blue}{$3$} 
+    \tikpref[(2+\carsep*1, \gap + \vertsep*3)]{blue}{$4$} 
+    \tikpref[(2+\carsep*3, \gap + \vertsep*4)]{red} {$5$}
+
+    \mzncar[(\carsep*0,0)]{blue}{$1$} 
+    \mzncar[(\carsep*1,0)]{blue}{$3$} 
+    \mzncar[(\carsep*2,0)]{red}{$2$} 
+    \mzncar[(\carsep*3,0)]{blue}{$4$} 
+    \mzncar[(\carsep*4,0)]{red}{$5$}
+
+    \draw[fill = black, fill opacity = .2, draw = none, rounded corners = .5 ex] (-.5,0) rectangle (\carsep*5, -2);
+    
+    \tikspot[(\carsep*0,0)]{$1$}
+    \tikspot[(\carsep*1,0)]{$2$}
+    \tikspot[(\carsep*2,0)]{$3$}
+    \tikspot[(\carsep*3,0)]{$4$}
+    \tikspot[(\carsep*4,0)]{$5$}
+
+    \draw (-.25,\gap + \vertsep*0) node[left,blue]{\small$\pi(1) = 1$};
+    \draw (-.25,\gap + \vertsep*1) node[left,red ]{\small$\pi(2) = 3$};
+    \draw (-.25,\gap + \vertsep*2) node[left,blue]{\small$\pi(3) = 2$};
+    \draw (-.25,\gap + \vertsep*3) node[left,blue]{\small$\pi(4) = 2$};
+    \draw (-.25,\gap + \vertsep*4) node[left,red ]{\small$\pi(5) = 4$};
+
+    % \draw (\carsep*1 + \mid, -2.25) node {$s$};
+    % \draw (\carsep*2 + \mid, -2.25) node {$s+1$};
+    % \draw (\carsep*2 + \mid, -3.25) node {$i$};
+    % \draw (\carsep*3 + \mid, -3.25) node {$i+1$};
+
+    \draw (\carsep*2 + \mid, -3.5) node {Parking procedure for $\pi = (\textcolor{blue}{1}, \textcolor{red}{3}, \textcolor{blue}{2}, \textcolor{blue}{2}, \textcolor{red}{4})$.};
+    \end{scope}
+
+    \draw[<->, very thick] (\carsep*5+1.5-.5, 0) -- (30 - 1.5, 0);
+
+    \begin{scope}[shift = {(30,0)}]
+    \filldraw[fill = blue, fill opacity = .08, draw=none] (-.25,3) rectangle (\carsep*4-.25, \gap+\vertsep*6);
+    \draw[text = blue](\carsep + \mid, \gap+\vertsep*5) node {$(1,2,2,4) \in PF_4$};
+    \filldraw[fill = blue, fill opacity = .6, draw=none] (-.25,\gap+\vertsep*6 + .15) rectangle (\carsep*4-.25, \gap+\vertsep*6);
+    \draw[text = blue](\carsep + \mid, \gap+\vertsep*6.7) node {$[i]$};
+
+    \filldraw[fill = red, fill opacity = .08, draw=none] (\carsep*2-.25,3) rectangle (\carsep*5-.25, \gap+\vertsep*6.5);
+    \filldraw[fill = red, fill opacity = .5, draw=none] (\carsep*2-.25,\gap+\vertsep*6.5 + .15) rectangle (\carsep*5-.25, \gap+\vertsep*6.5);
+    \draw[text = red](\carsep*3+\mid, \gap+\vertsep*7.2) node {$[i+1]\backslash[s]$};
+    % \draw[text = red](3*\carsep, \gap+\vertsep*7) node {$3,4 \in [4]\backslash[2]$};
+    
+    \draw[dashed,blue] (-0.4, \gap + \vertsep*0) -- ++(\mid+\carsep*0,0); 
+    \draw[dashed,red ] (-0.4, \gap + \vertsep*1) -- ++(\mid+\carsep*2,0); 
+    \draw[dashed,blue] (-0.4, \gap + \vertsep*2) -- ++(\mid+\carsep*1,0); 
+    \draw[dashed,blue] (-0.4, \gap + \vertsep*3) -- ++(\mid+\carsep*1,0); 
+    \draw[dashed,blue] (-0.4, \gap + \vertsep*4) -- ++(\mid+\carsep*3,0); 
+
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*0, \gap+\vertsep*0) -- (\mid+\carsep*0 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, red]  (\mid+\carsep*2, \gap+\vertsep*1) -- (\mid+\carsep*2 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*1, \gap+\vertsep*2) -- (\mid+\carsep*1 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue] (\mid+\carsep*3, \gap+\vertsep*3) -- (\mid+\carsep*3 ,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, blue]  (\mid+\carsep*4, \gap+\vertsep*4) -- (\mid+\carsep*4 ,3);
+
+    \draw[very thick, blue] (\mid+\carsep*1, \gap + \vertsep*3) -- ++(\carsep*2,0);
+    \draw[very thick, blue]  (\mid+\carsep*3, \gap + \vertsep*4) -- ++(\carsep*1,0);
+    
+    \tikpref[(2+\carsep*0, \gap + \vertsep*0)]{blue}{$1$} 
+    \tikpref[(2+\carsep*2, \gap + \vertsep*1)]{red} {$2$} 
+    \tikpref[(2+\carsep*1, \gap + \vertsep*2)]{blue}{$3$} 
+    \tikpref[(2+\carsep*1, \gap + \vertsep*3)]{blue}{$4$} 
+    \tikpref[(2+\carsep*3, \gap + \vertsep*4)]{blue} {$5$}
+
+    \mzncar[(\carsep*0,0)]{blue}{$1$} 
+    \mzncar[(\carsep*1,0)]{blue}{$3$} 
+    \mzncar[(\carsep*2,0)]{red}{$2$} 
+    \mzncar[(\carsep*3,0)]{blue}{$4$} 
+    \mzncar[(\carsep*4,0)]{blue}{$5$}
+
+    \draw[fill = black, fill opacity = .2, draw = none, rounded corners = .5 ex] (-.5,0) rectangle (\carsep*5, -2);
+    
+    \tikspot[(\carsep*0,0)]{$1$}
+    \tikspot[(\carsep*1,0)]{$2$}
+    \tikspot[(\carsep*2,0)]{$3$}
+    \tikspot[(\carsep*3,0)]{$4$}
+    \tikspot[(\carsep*4,0)]{$5$}
+
+    \draw (-.25,\gap + \vertsep*0) node[left,blue]{\small$\pi(1) = 1$};
+    \draw (-.25,\gap + \vertsep*1) node[left,red ]{\small$\pi(2) = 3$};
+    \draw (-.25,\gap + \vertsep*2) node[left,blue]{\small$\pi(3) = 2$};
+    \draw (-.25,\gap + \vertsep*3) node[left,blue]{\small$\pi(4) = 2$};
+    \draw (-.25,\gap + \vertsep*4) node[left,blue]{\small$\pi(5) = 4$};
+
+    % \draw (\carsep*1 + \mid, -2.25) node {$s$};
+    % \draw (\carsep*2 + \mid, -2.25) node {$s+1$};
+    % \draw (\carsep*3 + \mid, -3.25) node {$i$};
+    % \draw (\carsep*4 + \mid, -3.25) node {$i+1$};
+
+    \draw (\carsep*2 + \mid, -3.5) node {Parking procedure for $\pi = (\textcolor{blue}{1}, \textcolor{red}{3}, \textcolor{blue}{2}, \textcolor{blue}{2}, \textcolor{blue}{4})$.};
+    \end{scope}
 \end{tikzpicture}
+\caption{For $n = 5, s = 2$, two colorings of $(1,3,2,2,4)$ with $i = 3$ and $i = 4$ are connected through the sign reversing involution by recoloring the car with the largest preference. Note that both colorings satisfy the annotated constraints of the proof below.}
 \end{center}
-\caption{For $n=5$, $s = 2$, two colorings of $\pi = (1,3,2,2,4)$ with $i = 3$ and $i = 4$ are connected by recoloring car 5. Note that both satisfy the constraints of the proof below.}
+\label{fig:recoloring}
 \end{figure}
+
     
     These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards.
     
@@ -269,6 +458,8 @@ We can enumerate restricted prime parking functions in much the same manner as w
 	\]
     as desired.
 \end{proof}
+
+Also similarly to normal parking functions, we can enumerate preference-restricted prime parking functions in an alternative way which appears at first to give a different result.
 
 \begin{theorem}
     \label{thm:resPPFcount2}
@@ -424,12 +615,110 @@ In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parkin
 
 We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. By adding $k$ spots to make our street a circular one with $gs$ spots, we can use the circular symmetry of the new setup to enumerate parking functions, in the same vein as Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}).
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width = 0.45 \textwidth]{figures/modPFs}
-	\includegraphics[width = 0.45 \textwidth]{figures/modPFs2}
-	\caption{Blake and Konheim's row parking function where cars 1, 4, 5, and 7 prefer the first row, cars 2 and 3 prefer the second row and car 6 prefers the last row can be understood as a restricted parking function $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$. This is an example of the case $g = s = 3$, $k = 2$.}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs}
+%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs2}
+%	\caption{Blake and Konheim's row parking function where cars 1, 4, 5, and 7 prefer the first row, cars 2 and 3 prefer the second row and car 6 prefers the last row can be understood as a restricted parking function $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$. This is an example of the case $g = s = 3$, $k = 2$.}
+%\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=0.28]
+    \def\gap{5};
+    \def\mid{2};
+    \def\carsep{4.5};
+    \def\vertsep{2};
+    \def\rowsep{1.5};
+    \definecolor{amber}{rgb}{1.0, 0.75, 0.0}
+    \definecolor{darkblue}{RGB}{37, 51, 186}
+    \definecolor{darkgreen}{RGB}{37, 186, 98}
+    \def\rowac{amber!70!black};
+    \def\rowbc{darkgreen};
+    \def\rowcc{darkblue};
+
+    % Rows
+    \draw[fill=\rowac,fill opacity=.2,draw=none] (-.5,-2) rectangle (\carsep*3, \gap+\vertsep*7);
+    \draw[fill=\rowac,fill opacity=.8,draw=none] (-.5,\gap+\vertsep*7+.25) rectangle (\carsep*3, \gap+\vertsep*7);
+    \draw (\carsep + \mid, \gap+\vertsep*7+.25) node[above, text = \rowac]{\textbf{Row 1}};
+    \draw[fill=\rowbc,fill opacity=.2,draw=none] (\carsep*3+\rowsep-.5,-2) rectangle (\carsep*6 + \rowsep, \gap+\vertsep*7);
+    \draw[fill=\rowbc,fill opacity=.8,draw=none] (\carsep*3+\rowsep-.5,\gap+\vertsep*7+.25) rectangle (\carsep*6 + \rowsep, \gap+\vertsep*7);
+    \draw (\carsep*4 + \rowsep + \mid, \gap+\vertsep*7+.25) node[above, text = \rowbc]{\textbf{Row 2}};
+    \draw[fill=\rowcc,fill opacity=.2,draw=none] (\carsep*6+\rowsep*2-.5,-2) rectangle (\carsep*7+\rowsep*2, \gap+\vertsep*7);
+    \draw[fill=\rowcc,fill opacity=.8,draw=none] (\carsep*6+\rowsep*2-.5,\gap+\vertsep*7+.25) rectangle (\carsep*7+\rowsep*2, \gap+\vertsep*7);
+    \draw (\carsep*6 + 2*\rowsep + \mid, \gap+\vertsep*7+.25) node[above, text = \rowcc]{\textbf{Row 3}};
+    
+    % Downward arrows
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowac] (\mid+\carsep*0+\rowsep*0, \gap+\vertsep*0) -- (\mid+\carsep*0+\rowsep*0,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowac] (\mid+\carsep*1+\rowsep*0, \gap+\vertsep*3) -- (\mid+\carsep*1+\rowsep*0,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowac] (\mid+\carsep*2+\rowsep*0, \gap+\vertsep*4) -- (\mid+\carsep*2+\rowsep*0,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowbc] (\mid+\carsep*3+\rowsep*1, \gap+\vertsep*1) -- (\mid+\carsep*3+\rowsep*1,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowbc] (\mid+\carsep*4+\rowsep*1, \gap+\vertsep*2) -- (\mid+\carsep*4+\rowsep*1,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowac] (\mid+\carsep*5+\rowsep*1, \gap+\vertsep*5) -- (\mid+\carsep*5+\rowsep*1,3);
+    \draw[-{Latex[length=2mm,width=3mm]}, very thick, \rowcc] (\mid+\carsep*6+\rowsep*2, \gap+\vertsep*6) -- (\mid+\carsep*6+\rowsep*2,3);
+
+    % horizontal lines
+    \draw[very thick, \rowac] (2+\carsep*0+\rowsep*0, \gap + \vertsep*0) -- ++(\carsep*0,0);
+    \draw[very thick, \rowbc] (2+\carsep*3+\rowsep*1, \gap + \vertsep*1) -- ++(\carsep*0,0);
+    \draw[very thick, \rowbc] (2+\carsep*3+\rowsep*1, \gap + \vertsep*2) -- ++(\carsep*1,0);
+    \draw[very thick, \rowac] (2+\carsep*0+\rowsep*0, \gap + \vertsep*3) -- ++(\carsep*1,0);
+    \draw[very thick, \rowac] (2+\carsep*0+\rowsep*0, \gap + \vertsep*4) -- ++(\carsep*2,0);
+    \draw[very thick, \rowac] (2+\carsep*0+\rowsep*0, \gap + \vertsep*5) -- ++(\carsep*5+\rowsep,0);
+    \draw[very thick, \rowcc] (2+\carsep*6+\rowsep*2, \gap + \vertsep*6) -- ++(\carsep*0,0);
+
+    % Dashed lines
+    \draw[dashed] (-.7, \gap + \vertsep*0) -- ++(\mid+\carsep*0+\rowsep*0,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*1) -- ++(\mid+\carsep*3+\rowsep*1,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*2) -- ++(\mid+\carsep*3+\rowsep*1,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*3) -- ++(\mid+\carsep*0+\rowsep*0,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*4) -- ++(\mid+\carsep*0+\rowsep*0,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*5) -- ++(\mid+\carsep*0+\rowsep*0,0); 
+    \draw[dashed] (-.7, \gap + \vertsep*6) -- ++(\mid+\carsep*6+\rowsep*2,0); 
+
+    % car preference circles
+    \tikpref[(2+\carsep*0+\rowsep*0, \gap + \vertsep*0)]{\rowac}{$1$} 
+    \tikpref[(2+\carsep*3+\rowsep*1, \gap + \vertsep*1)]{\rowbc}{$2$} 
+    \tikpref[(2+\carsep*3+\rowsep*1, \gap + \vertsep*2)]{\rowbc}{$3$} 
+    \tikpref[(2+\carsep*0+\rowsep*0, \gap + \vertsep*3)]{\rowac}{$4$} 
+    \tikpref[(2+\carsep*0+\rowsep*0, \gap + \vertsep*4)]{\rowac}{$5$}
+    \tikpref[(2+\carsep*0+\rowsep*0, \gap + \vertsep*5)]{\rowac}{$6$}
+    \tikpref[(2+\carsep*6+\rowsep*2, \gap + \vertsep*6)]{\rowcc}{$7$}
+
+    % parked cars
+    \mzncar[(\carsep*0+\rowsep*0,0)]{\rowac}{$1$} 
+    \mzncar[(\carsep*1+\rowsep*0,0)]{\rowac}{$4$} 
+    \mzncar[(\carsep*2+\rowsep*0,0)]{\rowac}{$5$} 
+    \mzncar[(\carsep*3+\rowsep*1,0)]{\rowbc}{$2$} 
+    \mzncar[(\carsep*4+\rowsep*1,0)]{\rowbc}{$3$}
+    \mzncar[(\carsep*5+\rowsep*1,0)]{\rowac}{$6$}
+    \mzncar[(\carsep*6+\rowsep*2,0)]{\rowcc}{$7$}
+
+    % street
+    \draw[fill=black,fill opacity=.2,draw = none,rounded corners=.5 ex] (-.5,0) rectangle (\carsep*7 + \rowsep*2, -2);
+    
+    % spots
+    \tikspotc[(\carsep*0 + \rowsep*0,0)]{$1$}{\rowac!25!black}
+    \tikspotc[(\carsep*1 + \rowsep*0,0)]{$2$}{\rowac!25!black}
+    \tikspotc[(\carsep*2 + \rowsep*0,0)]{$3$}{\rowac!25!black}
+    \tikspotc[(\carsep*3 + \rowsep*1,0)]{$4$}{\rowbc!25!black}
+    \tikspotc[(\carsep*4 + \rowsep*1,0)]{$5$}{\rowbc!25!black}
+    \tikspotc[(\carsep*5 + \rowsep*1,0)]{$6$}{\rowbc!25!black}
+    \tikspotc[(\carsep*6 + \rowsep*2,0)]{$7$}{\rowcc!25!black}
+
+    \draw (-.75,\gap + \vertsep*0) node[left]{$\pi(1)$ : \textcolor{black}{spot $1$}, \textcolor{\rowac}{row $1$}};
+    \draw (-.75,\gap + \vertsep*1) node[left]{$\pi(2)$ : \textcolor{black}{spot $4$}, \textcolor{\rowbc}{row $2$}};
+    \draw (-.75,\gap + \vertsep*2) node[left]{$\pi(3)$ : \textcolor{black}{spot $4$}, \textcolor{\rowbc}{row $2$}};
+    \draw (-.75,\gap + \vertsep*3) node[left]{$\pi(4)$ : \textcolor{black}{spot $1$}, \textcolor{\rowac}{row $1$}};
+    \draw (-.75,\gap + \vertsep*4) node[left]{$\pi(5)$ : \textcolor{black}{spot $1$}, \textcolor{\rowac}{row $1$}};
+    \draw (-.75,\gap + \vertsep*5) node[left]{$\pi(6)$ : \textcolor{black}{spot $1$}, \textcolor{\rowac}{row $1$}};
+    \draw (-.75,\gap + \vertsep*6) node[left]{$\pi(7)$ : \textcolor{black}{spot $7$}, \textcolor{\rowcc}{row $3$}};
+
+    % \draw (\carsep*2 + \mid, -3.5) node {Parking procedure for $\pi = (\textcolor{blue}{1}, \textcolor{red}{3}, \textcolor{blue}{2}, \textcolor{blue}{2}, \textcolor{red}{4})$.};
+\end{tikzpicture}
+    \caption{A row parking function can be understood as a restricted parking function through their identical parking procedures. As a row parking function, cars prefer rows $(1,2,2,1,1,3,1)$, with row capacities $(3,3,1)$. As a restricted parking function, $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$. This is an example of the case $g = s = 3$, $k = 2$.}
+    \label{fig:row-parking}
 \end{figure}
+
 
 \begin{restatable}{theorem}{modPFcount}
 	\label{thm:modPFcount}
@@ -457,16 +746,130 @@ Note that here, for convenience, $S$ is not a subset of the various $m$ that are
 
     The $k$ empty spots on the street will be distributed in $n$ contiguous segments for some $1\le n\le k.$ These unfilled segments will all be immediately prior to spots that can be preferred; all other scenarios force cars to pass unfilled spots without parking in them.
 
-    \begin{figure}[H]
-    	\centering
-	\includegraphics[width = 0.45 \textwidth]{figures/modPFs3}
-	\includegraphics[width = 0.45 \textwidth]{figures/modPFs4}
-	\caption{For $g = s = 3$ and $k = 2$, the two empty spots could be the last two spots $g \sigma + 1, g \sigma + 2$ in a ``row'', or the last spots $g \sigma_{1} + 2$ and $g \sigma_{2} + 2$ in two different ``rows''.}
-    \end{figure}
+%    \begin{figure}[H]
+%    	\centering
+%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs3}
+%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs4}
+%	\caption{For $g = s = 3$ and $k = 2$, the two empty spots could be the last two spots $g \sigma + 1, g \sigma + 2$ in a ``row'', or the last spots $g \sigma_{1} + 2$ and $g \sigma_{2} + 2$ in two different ``rows''.}
+%    \end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=0.28]
+        % parameters for spots and lot
+        \def\lotor{7}
+        \def\outerr{(\lotor - .5)};
+        \def\innerr{(\lotor - 1.7)};
+        \def\anglediff{30};
+        \definecolor{carcolor}{RGB}{37, 51, 186}
+        \newcommand{\circlespot}[2][40]{
+            \begin{scope}[rotate around = {#1:(0,0)}]
+                \draw[fill = black, rounded corners = 0.5ex] 
+                        ({-\outerr*sin(\anglediff/2)},{\outerr*cos(\anglediff/2)}) 
+                        arc (90+\anglediff/2:90-\anglediff/2:{\outerr})
+                        -- ({\innerr*sin(\anglediff/2)},{\innerr*cos(\anglediff/2)}) arc (90-\anglediff/2:90+\anglediff/2:{\innerr}) -- cycle;
+                \draw (0, {\outerr*.5+\innerr*.5}) node[text = white, rotate = #1]{#2};
+            \end{scope}
+        }
+
+        % left half of diagram: missing cars together
+        \begin{scope}     
+        % parking Lot
+        \draw[fill = black, fill opacity = .2, draw = none] (0,0) circle[radius = \lotor];        
+        \draw[fill = white, draw = none] (0,0) circle[radius = \lotor-2.2];
+        \draw[fill = none, dotted, thick] (0,0) circle[radius = \lotor + 3.5];
+
+        % dotted lines
+        \draw[dotted, thick] (0,0) -- ({(\lotor+3.5)*sin(    -20)}, {(\lotor+3.5)*cos(    -20)}); 
+        \draw[dotted, thick] (0,0) -- ({(\lotor+3.5)*sin(40*3-20)}, {(\lotor+3.5)*cos(40*3-20)}); 
+        \draw[   very thick] (0,0) -- ({(\lotor+4.5)*sin(40*6-20)}, {(\lotor+4.5)*cos(40*6-20)}); 
+        \draw[->,very thick] ({(\lotor+4.5)*sin(40*6-20)}, {(\lotor+4.5)*cos(40*6-20)}) arc ({40*6-10}:{40*6-30}:{\lotor+4.5}); 
+        \draw[fill = white, dotted, thick] (0,0) circle[radius = \lotor-2.7];
+
+        % arrows
+        \draw[->, thick] (0,0) -- (0,\lotor-3);                        
+        \draw[->, thick] (0,0) -- ({(\lotor-3)*sin(40*3)}, {(\lotor-3)*cos(40*3)}); 
+        \draw[->, thick] (0,0) -- ({(\lotor-3)*sin(40*6)}, {(\lotor-3)*cos(40*6)}); 
+        \draw[fill = white, thin, align = center] (0,0) circle[radius = 2.5] node{\small Spots\\$g\sigma_i+1$};
+        
+        % parking spaces
+        \circlespot[-40*0]{1}
+        \circlespot[-40*1]{2}
+        \circlespot[-40*2]{3}
+        \circlespot[-40*3]{4}
+        \circlespot[-40*4]{5}
+        \circlespot[-40*5]{6}
+        \circlespot[-40*6]{7}
+        \circlespot[-40*7]{8}
+        \circlespot[-40*8]{9}
+
+        % cars
+        \begin{scope}[rotate around = {-40*0:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{2}{-40*0} \end{scope}
+        \begin{scope}[rotate around = {-40*1:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{3}{-40*1} \end{scope}
+        \begin{scope}[rotate around = {-40*2:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{6}{-40*2} \end{scope}
+        \begin{scope}[rotate around = {-40*3:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{7}{-40*3} \end{scope}
+      % \begin{scope}[rotate around = {-40*4:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{0}{-40*4} \end{scope}
+      % \begin{scope}[rotate around = {-40*5:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{0}{-40*5} \end{scope}
+        \begin{scope}[rotate around = {-40*6:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{1}{-40*6} \end{scope}
+        \begin{scope}[rotate around = {-40*7:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{4}{-40*7} \end{scope}
+        \begin{scope}[rotate around = {-40*8:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{5}{-40*8} \end{scope}
+
+        % text
+        \draw[align = center] (0,-\lotor-6) node {Circular preference list: $(7,1,1,7,7,7,4)$.\\Linear result: $(1,4,4,1,1,7,1)\in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$.};
+        \end{scope}
+
+        % right half of diagram: missing cars apart
+        \begin{scope}[shift = {(\lotor*2 + 13, 0)}]    
+        % parking Lot
+        \draw[fill = black, fill opacity = .2, draw = none] (0,0) circle[radius = \lotor];        
+        \draw[fill = white, draw = none] (0,0) circle[radius = \lotor-2.2];
+        \draw[fill = none, dotted, thick] (0,0) circle[radius = \lotor + 3.5];
+
+        % dotted lines
+        \draw[dotted, thick] (0,0) -- ({(\lotor+3.5)*sin(    -20)}, {(\lotor+3.5)*cos(    -20)}); 
+        \draw[dotted, thick] (0,0) -- ({(\lotor+3.5)*sin(40*3-20)}, {(\lotor+3.5)*cos(40*3-20)}); 
+        \draw[dotted, thick] (0,0) -- ({(\lotor+3.5)*sin(40*6-20)}, {(\lotor+3.5)*cos(40*6-20)}); 
+        \draw[fill = white, dotted, thick] (0,0) circle[radius = \lotor-2.7];
+
+        % arrows
+        \draw[->, thick] (0,0) -- (0,\lotor-3);                        
+        \draw[->, thick] (0,0) -- ({(\lotor-3)*sin(40*3)}, {(\lotor-3)*cos(40*3)}); 
+        \draw[->, thick] (0,0) -- ({(\lotor-3)*sin(40*6)}, {(\lotor-3)*cos(40*6)}); 
+        \draw[fill = white, thin, align = center] (0,0) circle[radius = 2.5] node{\small Spots\\$g\sigma_i+1$};
+        
+        % parking spaces
+        \circlespot[-40*0]{1}
+        \circlespot[-40*1]{2}
+        \circlespot[-40*2]{3}
+        \circlespot[-40*3]{4}
+        \circlespot[-40*4]{5}
+        \circlespot[-40*5]{6}
+        \circlespot[-40*6]{7}
+        \circlespot[-40*7]{8}
+        \circlespot[-40*8]{9}
+
+        % cars
+        \begin{scope}[rotate around = {-40*0:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{1}{-40*0} \end{scope}
+        \begin{scope}[rotate around = {-40*1:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{3}{-40*1} \end{scope}
+    %   \begin{scope}[rotate around = {-40*2:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{1}{-40*2} \end{scope}
+        \begin{scope}[rotate around = {-40*3:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{2}{-40*3} \end{scope}
+        \begin{scope}[rotate around = {-40*4:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{4}{-40*4} \end{scope}
+        \begin{scope}[rotate around = {-40*5:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{6}{-40*5} \end{scope}
+        \begin{scope}[rotate around = {-40*6:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{5}{-40*6} \end{scope}
+        \begin{scope}[rotate around = {-40*7:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{7}{-40*7} \end{scope}
+    %   \begin{scope}[rotate around = {-40*8:(0,0)}] \mzncarrot[(-2,\lotor)]{carcolor}{1}{-40*8} \end{scope}
+
+        \draw[align = center] (0,-\lotor-6) node {Circular preference list: $(1,4,1,4,7,4,4)$.\\No resulting parking function.};
+        \end{scope}
+    \end{tikzpicture}
+    
+    \caption{For $g = s = 3$ and $k = 2$, the two empty spots could be the last two spots $g\sigma + 2$ and $g\sigma + 3$ in a ``row'', or the last two spots $g\sigma_1 + 3$ and $g\sigma_2 + 3$ in two different ``rows''. Radial arrows indicate spots $g\sigma_i + 1$ which may be in the initial circular preference list.}
+    \label{fig:circular}
+\end{figure}
 
     Our gaps will be of size $\lambda_1,\lambda_2,\ldots,\lambda_n,$ all positive and summing up to $k$; we denote this as $\lambda\vDash k,|\lambda|=n.$ These unfilled segments can each be paired with the filled segments immediately prior to them; by virtue of the locations of unfilled segments, these pairs will each have total length a multiple of $g.$ Call these $g\mu_1,g\mu_2,\ldots,g\mu_n$; since the sum of all of these is $gs,$ we have $\mu\vDash s,|\mu|=n.$
 
-    For each such partition of this type, each filled segment will have $g\mu_i-\lambda_i$; choosing which cars will have preferences in each segment can be done in $\binom{gs - k}{g \mu_1 - \lambda_1,g \mu_2 - \lambda_2,\ldots,g \mu_n - \lambda_n}=\binom{gs - k}{g \mu - \lambda}$ ways.
+    For each such partition of this type, each filled segment will have $g\mu_i-\lambda_i$ cars; choosing which cars will have preferences in each segment can be done in $\binom{gs - k}{g \mu_1 - \lambda_1,g \mu_2 - \lambda_2,\ldots,g \mu_n - \lambda_n}=\binom{gs - k}{g \mu - \lambda}$ ways.
     
     Within each segment, we have $g\mu_i-\lambda_i$ cars which can only prefer spots which are $1$ mod $g$ and must park in the first $g\mu_i-\lambda_i$ spots without gaps. This is precisely a parking function with modular restrictions, and can be done in $\# \mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ ways.
 
