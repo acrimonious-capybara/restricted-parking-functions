@@ -223,13 +223,11 @@ One variant on classical parking functions occurs when when the number of cars d
 Minimum-defect parking functions are closely related to a particular class of preference-restricted parking functions:
 
 \begin{theorem}
-    Given $1\le s\le n,$ the number of functions $f:[n]\to [s]$ such that under the parking procedure, the defect takes its minimum possible value of $n-s,$ is equal to $\# \mathrm{PF}_{n \mid [s]},$ where $[s]=\{1,2,\dots,s\}.$
+    Given $1\le s\le n,$ the number of functions $f:[n]\to [s]$ such that the defect takes its minimum possible value of $n-s$ is equal to $\# \mathrm{PF}_{n \mid [s]},$ where $[s]=\{1,2,\dots,s\}.$
 \end{theorem}
 
 \begin{proof}
-    We have in both situations a set of functions describing the preferences of $n$ cars and taking values in $[s]$; we'd like to prove that they coincide. To do so, add to the end of our street of $s$ spots $n-s$ extra spots which catch the overflow. Our case with minimum defect will occur only when the overflow segment is exactly full: that is, if all cars can park in one of the $s+(n-s)=n$ spots we've constructed.
-
-    But this is exactly analogous to our parking procedure! We have $n$ cars parking in the first $s$ of $n$ spots, and a parking function only occurs when all cars can park. We are counting the same procedure in two different ways --- thus the equality.
+    Consider $f:[n]\to[s]$ as a function $f:[n]\to[n]$ and note that the last $n-s$ spots will be filled under the parking procedure, as ``overflow'' from the first $s$ spots. A car exiting the first $s$ spots will be entirely unable to park if and and only if the last $n-s$ spots are already filled. Therefore, the defect is exactly $n-s$ if and only if $f:[n]\to[n]$ is in $\mathrm{PF}_n$ and thus in $\mathrm{PF}_{n\mid S}.$
 \end{proof}
 
 One question we can ask: how many $[s]$-restricted parking functions are there? This is answered by \cite{cameron-johannsen-prellberg-schweitzer-2008} through a combinatorial proof, reproduced here in the language of $[s]$-restricted parking functions:
@@ -237,17 +235,13 @@ One question we can ask: how many $[s]$-restricted parking functions are there? 
 \begin{restatable}{theorem}{resPFcount1}
     \label{thm:resPFcount1}
     Let $1\le s\le n.$ Then the number of $[s]$-restricted parking functions on $n$ cars is
-    \[s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.\]
+    \[\#\mathrm{PF}_{n\mid [s]}=s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i}.\]
 \end{restatable}
 
 \begin{proof}
-    There are $s^{n}$ possible preference lists in $[s]^{n}$, when not considering the constraint of being a parking function. If $\pi \in [s]^{n}$ is not a parking function, then there must be an unoccupied spot somewhere among the $n$ spots; all such unoccupied spots lie in $[s],$ since least $n - s$ cars come to the last $n - s$ spots by the minimum-defect argument above, filling all spots except for (potentially) the first $s$.
+    We count all non-parking functions $[n]\to[s]$ by the location of the first unoccupied spot. There are $s^{n}$ functions $[n]\to[s],$ which we view as preference lists. If $\pi\in[s]^n$ is not a parking function, then there must be an unoccupied spot somewhere among the $n$ spots; all such unoccupied spots lie in $[s],$ since the last $n-s$ spots are always filled by the minimum-defect argument above.
 
-	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{n}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $n - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{n - i}$ ways. This makes for $\binom{n}{i} (i + 1)^{i - 1}(s - i - 1)^{n - i}$ preference lists in $[s]^{n}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives
-	\[
-		\# \mathrm{PF}_{n \mid [s]} = s^{n} - \sum_{i = 0}^{s - 1} \binom{n}{i} (i + 1)^{i - 1} (s - i - 1)^{n - i},
-	\]
-    as desired.
+	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{n}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $n - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{n - i}$ ways. This makes for $\binom{n}{i} (i + 1)^{i - 1}(s - i - 1)^{n - i}$ preference lists in $[s]^{n}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives the desired equality.
 \end{proof}
 
 This expression is one half of a sum given by Abel's binomial theorem, as noted by \cite{cameron-johannsen-prellberg-schweitzer-2008} and expanded upon below. We present a novel combinatorial proof corresponding to the other half of that sum.
