@@ -9,11 +9,6 @@
 \usepackage[varbb]{newpxmath}
 \usepackage{float}
 
-\usepackage{transparent}
-\usepackage{tikz}
-
-\usetikzlibrary {arrows.meta}
-
 % wider margins just for now, so that todonotes are easily visible
 \usepackage[margin = 1 in]{geometry}
 \usepackage{microtype}
@@ -39,6 +34,16 @@ colorlinks,
 linkcolor = blue,
 urlcolor = blue,
 citecolor = blue}
+
+% add your own todostyle!
+\usepackage[textsize = footnotesize]{todonotes}
+\todostyle{jayden}{color = pink}
+\todostyle{jasper}{color = lime}
+\todostyle{alan}{color = purple}
+
+\usepackage{transparent}
+\usepackage{tikz}
+\usetikzlibrary {arrows.meta}
 
 % car
 %\newcommand{\mzncar}[3][(0,0)]{
@@ -92,12 +97,6 @@ citecolor = blue}
     \end{scope}
 }
 
-% add your own todostyle!
-\usepackage{todonotes}
-\todostyle{jayden}{color = pink}
-\todostyle{jasper}{color = lime}
-\todostyle{alan}{color = purple}
-
 \title{Preference-restricted parking functions}
 
 \author[Bown]{Jasper Bown}
@@ -150,25 +149,27 @@ Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park alo
 
 These cars attempt to park along the one-way street as follows. Starting with the 1st car, each car successively enters the street and goes to its preferred spot. If that spot is empty, the car parks there; otherwise it proceeds down the street and parks in the first empty spot available. If it reaches the $n$th spot and finds nowhere to park, it leaves without parking.
 
-Some choices of $\pi$ lead to all $n$ cars parking; for example, any bijection $\pi:[n]\to[n]$ lets each car park in its preferred spot, while if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never fill, so that not all cars can park in the remaining $n-1$ spots.
+Some choices of $\pi$ lead to all $n$ cars parking; for example, any bijection $\pi:[n]\to[n]$ lets each car park in its preferred spot, while if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never be parked in and not all cars can park in the remaining $n-1$ spots.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$  which allow all cars to park. These have been well-studied; we suggest \cite{yan-survey-2015} as a comprehensive introduction to their properties. For instance, they have been enumerated precisely; there are $(n + 1)^{n - 1}$ parking functions on $n$ cars. Parking functions are characterized by the following \emph{Catalan condition}: a function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement} $\pi^{\uparrow},$ where the outputs are reordered in such as way that $\pi^\uparrow(i)\le \pi^\uparrow(j)$ if and only if $i\le j.$ The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi^\uparrow(i) \le i$ for all $i \in [n]$.
+The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$  which allow all cars to park. These have been well-studied; we suggest \cite{yan-survey-2015} as a comprehensive introduction to their properties. For instance, they have been enumerated and characterised precisely. There are $(n + 1)^{n - 1}$ parking functions on $n$ car and they are exactly the functions $[n] \to [n]$ satisfying the following \emph{Catalan condition}. A function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. 
 
-There are many, many possible variants of the problem of enumerating and analyzing parking functions, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight in particular:
+This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement}. It is a rearrangement $\pi^{\uparrow} = \pi \circ \sigma$ (for some permutation $\sigma$) such that $\pi^\uparrow(i)\le \pi^\uparrow(j)$ if and only if $i\le j.$ The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi^\uparrow(i) \le i$ for all $i \in [n]$. The corresponding list $(\pi^{\uparrow}_{1}(1), \dots, \pi^{\uparrow}(n))$ is non-decreasing, and for this reason are called \emph{non-decreasing parking functions}. This language will be useful in proofs.
+
+There are many, many possible variants of the problem of enumerating and analyzing parking functions, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight:
 \begin{enumerate}
-	\item Prime parking functions --- parking functions for which one cannot partition their preferences into parking functions on smaller intervals, or alternatively functions which satisfy a stricter Catalan condition. See \cite{meyles-2023} for an excellent overview of their properties.
- 	\item What if there are fewer cars than spots? How can we minimize the number of cars unable to park? (This is a special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
-	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets, and our cars are data; or perhaps, as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
+	\item What if the inequality in the Catalan condition is required to be strict? One obtains the building blocks of parking functions. These are \emph{prime parking functions}, of independent interest. See \cite{meyles-2023} for an excellent overview of their properties.
+ 	\item What if there are fewer cars than spots? Which functions minimize the number of cars unable to park? (This is a special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
+	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets and our cars are data, or as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
 \end{enumerate}
-We will show that each of these can be placed in natural bijection with our new notion of \emph{$S$-restricted parking functions} with specific choices of $S \subseteq [n]$.
+We will show that each of these can be placed in natural bijection with our new notion of \emph{$S$-restricted parking functions} for specific choices of $S \subseteq [n]$.
 
 \begin{definition}
-    Given a subset of allowed preferences $S \subseteq [n]$, an \textit{$S$-restricted parking function} on $n$ cars is a function $\pi : [n] \to S$ which is also a parking function.
+    Given a subset of allowed preferences $S \subseteq [n]$, an \emph{$S$-restricted parking function} on $n$ cars is a function $\pi : [n] \to S$ which is also a parking function. 
 
     We denote the set of $S$-restricted parking functions by $\mathrm{PF}_{n \mid S}$ and their number by $\# \mathrm{PF}_{n \mid S}$.
 \end{definition}
 
-These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions (of which we will prove they are the special case $\mathbf{u} = ( \# [1] \cap S , \dots, \# [n] \cap S)$) and the combinatorial intuition of the original parking functions.
+These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions (as defined in \cite{yan-survey-2015} or \cref{sec:connections}) and the combinatorial intuition of the original parking functions.
 
 \section{Prime parking functions} \label{primesection}
 
@@ -890,7 +891,7 @@ In practice, the formula it yields is computationally intractable for large $g, 
 	where $S$ is the set of the first $s$ natural numbers $j$ with $j \equiv 1 \pmod g$.
 \end{restatable}
 
-\section{Connections and further avenues}
+\section{Connections and further avenues} \label{sec:connections}
 
 We conclude with a brief exploration of particularly interesting connections and leads for the enterprising reader to explore further.
 
