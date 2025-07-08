@@ -121,7 +121,6 @@ citecolor = blue}
 
 
 \begin{document}
-	
 
 \begin{abstract}
      A parking function is a function $\pi:[n]\to [n]$ whose $i$th-smallest output is at most $i,$ corresponding to a parking procedure for $n$ cars on a one-way street. We refine this concept by introducing preference-restricted parking functions, which are parking functions with codomain restricted to some $S\subseteq[n]$. Particular choices of $S$ yield new combinatorial interpretations of previous results about variant parking procedures, and new results too. In particular we consider prime parking functions, parking procedures with fewer spots than cars, and parking functions where each spot has space for multiple cars. We also use restricted parking functions to reprove Abel's binomial theorem.
@@ -143,7 +142,7 @@ citecolor = blue}
 
 \pagebreak
 
-\section{Introduction}
+\section{Introduction} \label{sec:intro}
 
 Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park along a one-way street with a total of $n$ spots. Each car has a preferred spot, as described by a \emph{preference function} $\pi:[n]\to[n],$ where the $i$th car prefers the $\pi(i)$th spot. Equivalently, this function can be written as a \emph{preference list} $(\pi(1), \dots, \pi(n))$ of length $n$. We will use $\pi$ to describe a list or function interchangeably since certain definitions are simpler in one or the other formalism.
 
@@ -558,18 +557,20 @@ First, there is an action of the symmetric group on $\mathrm{PF}_{n}$ by shuffli
 
 Second, there is a surjection $\mathrm{PF}_{n} \twoheadrightarrow \mathfrak{S}_{n}$ that sends every parking function to its parking outcome. Every parking outcome must be a bijection $[n] \to [n]$ from spots to cars, which is a permutation; every permutation can be achieved by a parking function that is the same permutation. In \cite{pinsky-2024}, Pinsky determines the size of the pre-image of a permutation $\sigma \in \mathfrak{S}_{n}$ under this map, and analyses asymptotics as $n \to \infty$.
 
-Both of these facts have analogues for $[s]$-restricted parking functions.
+Both of these facts have analogues for $[s]$-restricted parking functions. 
 
 \begin{theorem}
-	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ --- the $(n, s - 1)$th entry in Catalan's triangle, also known as the Narayana number $N(n, s - 1)$ \cite[A001263]{oeis}.
+	Under the described action of $\mathfrak{S}_{n}$ on $\mathrm{PF}_{n \mid [s]}$, the number of orbits is $C(n, s - 1)$ --- the $(n, s - 1)$th entry in Catalan's triangle. \cite[A009766]{oeis}
 \end{theorem} 
 
+Note that as a corollary, the number of non-decreasing parking functions such that $s$ is the maximal spot preferred is $C(n, s - 1) - C(n, s - 2) = C(n - 1, s - 1)$. In symbols, $\# \{ \pi \in \mathrm{PF}_{n} \mid \max \pi(j) = s, j \in [n] \} = C(n - 1, s - 1)$. This result is stated or proved in other sources. The OEIS entry for Catalan's triangle reads ``$T(n, k)$ is the number of non-decreasing parking functions of length $n + 1$ with maximum element $k + 1$''. Cai and Yan state the result without proof \cite{cai-yan-2019}. Cai and Yan also suggest bijections with different classes of Dyck paths and lattice paths, classes of forests, and other classes of non-decreasing parking functions. In the preprint \cite{cruz-harris-et-al-2024} the no-peak no-tie parking functions are shown to be in bijection with these parking functions and enumerated. The proof of below is independent of the proof in \cite{cruz-harris-et-al-2024}, and like all things we have shown so far with preference-restricted parking functions, provides novel combinatorial insight.
+
 \begin{proof}
-	It will suffice to count one specific representative of each orbit. We can count those representatives such that $\pi$ is order-preserving, called the \emph{non-decreasing $[s]$-restricted parking functions} because they give $\pi(1) \le \dots \le \pi(n)$. These are exactly those parking functions $\pi$ equal to their non-decreasing rearrangements $\pi^{\uparrow}$ (defined earlier in the introduction). Let $\operatorname{PF}_{n \mid [s]}^{\uparrow}$ be the subset of non-decreasing $[s]$-restricted parking functions.
+	It will suffice to count one specific representative of each orbit. We can count those representatives such that $\pi$ is order-preserving, called the \emph{non-decreasing $[s]$-restricted parking functions} because they give $\pi(1) \le \dots \le \pi(n)$. These are exactly those parking functions $\pi$ equal to their non-decreasing rearrangements $\pi^{\uparrow}$ (defined in \cref{sec:intro}). Let $\operatorname{PF}_{n \mid [s]}^{\uparrow}$ be the subset of non-decreasing $[s]$-restricted parking functions.
 
-	Consider any $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since the required inequality is exactly the same --- $\pi(i) \le \min \{ i, s \}$. If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$.
+	Consider any non-decreasing parking function $\pi \in \mathrm{PF}_{n \mid [s]}^{\uparrow}$. If the last car prefers the $s$th spot (if $\pi(n) = s$), then the remaining cars must form a non-decreasing parking function on $n - 1$ cars since they satisfy the required Catalan inequality $\pi(i) \le \min \{ i, s \}$. $\pi$ is determined by this choice in $\mathrm{PF}_{n - 1 \mid [s]}^{\uparrow}$ If the last car does not prefer the $s$th spot (if $\pi(n) < s$), then $\pi$ is just a parking function on $n$ cars restricted to $[s - 1]$ since $\pi(1) \le \dots \pi(n) \le s - 1 < s$. Again, $\pi$ is determined by the choice in $\mathrm{PF}_{n \mid [s - 1]}^{\uparrow}$.
 
-	Any $[s]$-restricted parking function on $n - 1$ cars can be made an $[s]$-restricted parking function on $n$ cars by the last car preferring spot $s$, and any $[s - 1]$-restricted parking function on $n$ cars is obviously also an $[s]$-restricted parking function. Since the two possibilities are mutually exclusive, we have the recurrence relation
+	Any $[s]$-restricted parking function on $n - 1$ cars can be extended to an $[s]$-restricted parking function on $n$ cars by defining $\pi(n) = s$, and any $[s - 1]$-restricted parking function on $n$ cars is obviously also an $[s]$-restricted parking function. Since the two possibilities are mutually exclusive, we have the recurrence relation
 	\[
 		\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = \# \operatorname{PF}_{n - 1 \mid [s]}^{\uparrow} + \# \operatorname{PF}_{n \mid [s - 1]}^{\uparrow} .
 	\]
@@ -581,10 +582,7 @@ Both of these facts have analogues for $[s]$-restricted parking functions.
 
 	If the restriction is to $S = [1]$ there is only $1$ parking function $(1, \dots, 1) \in \operatorname{PF}_{n \mid [1]}^{\uparrow}$. Thus $\# \operatorname{PF}_{n \mid [1]}^{\uparrow} = 1 = C(n, 1 - 1)$ for all $n \in \mathbb{N}$. Finally, we already know $\# \operatorname{PF}_{n \mid [n]}^{\uparrow}  = C_{n}$, the $n$th Catalan number. The Catalan triangle has $C(n, n - 1) = C_{n}$, and thus, we have $\# \operatorname{PF}_{n \mid [n]}^{\uparrow} = C(n, n - 1)$. These initial conditions are also found in \cite{bailey-1996}.
 
-	With the same initial conditions on the diagonal and vertical and the same recurrence relation (giving a number in terms of those above and to its left) for both of the sequences, they must be the same. That is,
-	\[
-		 \# \operatorname{PF}_{n \mid [s]}^{\uparrow} = C(n, s - 1).
-	\]
+	With the same initial conditions on the diagonal and vertical and the same recurrence relation (giving a number in terms of those above and to its left) for both of the sequences, they must be the same. Thus, the number of $\mathfrak S_{n}$ orbits is $\# \operatorname{PF}_{n \mid [s]}^{\uparrow} = C(n, s - 1)$.
 \end{proof}
 
 
