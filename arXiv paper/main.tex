@@ -231,7 +231,7 @@ It turns out that the problem of minimizing defect for functions assigning prefe
 \begin{proof}
 	Suppose $\pi$ is an $[s]$-restricted parking function. Then $\pi : [n] \to [n]$ defines a unique function $\psi : [n] \to [s]$ with $\psi(i) = \pi(i)$ for each $i$. We know that performing the parking procedure with preferences defined by $\pi$, and thus also by $\psi$, leads to $s$ cars parking in the first $s$ spots. Thus, under the parking procedure for $\psi$, $s$ cars park in the first $s$ spots and exactly $n - s$ cars are unable to park.
 
-	Suppose $\psi : [n] \to [s]$ has defect $n - s$. $\psi$ defines a unique function $\pi : [n] \to [n]$ by composing with the inclusion $[s] \to [n]$. We claim that $\pi$ satisfies the Catalan condition, and thus, $\pi \in \mathrm{PF}_{n \mid [s]}$. Since $\pi(i) = \psi(i)$ by its definition, this is sufficient to show that composing with the inclusion is the inverse to considering  $\pi \in \mathrm{PF}_{n \mid [s]}$ as a defect-minimising function $[n] \to [s]$, and completes the proof of the bijection.
+	Suppose $\psi : [n] \to [s]$ has defect $n - s$. $\psi$ defines a unique function $\pi : [n] \to [n]$ by composing with the inclusion $[s] \to [n]$. We claim that $\pi$ satisfies the Catalan condition, and thus, $\pi \in \mathrm{PF}_{n \mid [s]}$. Since $\pi(i) = \psi(i)$ by its definition, this is sufficient to show that composing with the inclusion is the inverse to considering  $\pi \in \mathrm{PF}_{n \mid [s]}$ as a defect-minimizing function $[n] \to [s]$, and completes the proof of the bijection.
 
 	Since all of the first $s$ spots are filled, at least $i$ cars prefer the first $i$ spots for all $i \le s$ (this can be seen explicitly by the fact that $\pi$ ``contains a parking function'' when restricted to the $T$ cars parking in the first $s$ spots). Since all cars park in the first $[s]$ spots, for each $i > s$ there are $n$ (and thus, at least $i$) cars preferring to park in the first $i$ spots.
 \end{proof}
@@ -413,7 +413,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 \end{figure}
 
     
-    These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onwards.
+    These preferences always form a parking function --- the Catalan condition is satisfied up to spot $i$ by the indigo cars since they form a parking function, and then the red cars all prefer one of the first $i + 1$ spots, satisfying the condition from $i+1$ onward.
     
     We count these parking functions positively when there are an even number of red cars and negatively otherwise. This count is
 	\[
@@ -431,7 +431,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
     
     Since $m \in [i]$ was the maximum preference, all red cars' preferences will be in $[i].$ No old red cars will be in $[s],$ since all were contained in $[i+1]\backslash [s]$ The new red car is the only thing to worry about: all red cars will have preferences in $[i]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
 
-	This is our exception --- we cannot recolor to have a new red car if even the maximum preference is in $[s]$. This corresponds to the the $[s]$-restricted parking functions of length $n$. They are only counted once --- positively, as a subset of the term with 0 red cars. Any other pair of 2-colored parking functions is counted positively once and negatively once in our sum, for an even and odd number of red cars respectively. Thus, the sum counts only $\#\mathrm{PF}_{n \mid [s]}$.
+	This is our exception --- we cannot recolor to have a new red car if even the maximum preference is in $[s]$. This corresponds to the $[s]$-restricted parking functions of length $n$. They are only counted once --- positively, as a subset of the term with 0 red cars. Any other pair of 2-colored parking functions is counted positively once and negatively once in our sum, for an even and odd number of red cars respectively. Thus, the sum counts only $\#\mathrm{PF}_{n \mid [s]}$.
 \end{proof}
 
 There is an analogous result for prime parking functions as well! Recall that these are functions $\pi:[n]\to[n]$ that satisfy an extra-strong Catalan condition, that at least $i$ cars have preferences in $[i-1]$ for all $1<i\le n.$ These are a subset of all parking functions, and their total count is $(n-1)^{n-1}$. They are discussed further in \cref{primesection}. We can enumerate restricted prime parking functions in much the same manner as we did normal restricted parking functions:
@@ -473,7 +473,7 @@ Also similarly to normal parking functions, we can enumerate preference-restrict
     
     Since the red cars with car $x$ formed a subset of $[i] \setminus [s]$, without car $x$ they also form a subset of the larger $[i + 1] \setminus [s]$. Thus all conditions are satisfied and our involution works in one direction.
 
-	If car $x$ is painted indigo, then $m\in [i-1]$ for the indigo cars to form a prime parking function ith $i$ cars. Thus, we can reconstruct the same parking function with car $x$ repainted red. The remaining indigo cars will still form a prime parking function on $i - 1$ cars --- the $j$th smallest preference will still be less than $j$ after removing the maximum preference.
+	If car $x$ is painted indigo, then $m\in [i-1]$ for the indigo cars to form a prime parking function on $i$ cars. Thus, we can reconstruct the same parking function with car $x$ repainted red. The remaining indigo cars will still form a prime parking function on $i - 1$ cars --- the $j$th smallest preference will still be less than $j$ after removing the maximum preference.
     
     Since $m\in [i-1]$ was the maximum preference, all red cars will be in $[i-1]$. No old red cars will be in $[s],$ since all were contained in $[i]\backslash [s].$ The new red car is the only thing to worry about: all red cars will have preferences in $[i-1]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
 
@@ -509,7 +509,7 @@ which is Abel's theorem for $x=1,$ $y=s-n-1.$ Similarly, from \cref{thm:resPPFco
 \end{align*}
 which is Abel's theorem for $x=-1,$ $y=s-n+1$. It's rather surprising that we'd find this-- there's no clear reason why these two sums should merge, especially considering that one half of the sum is alternating and the other isn't!
 
-These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function: %\todo[jayden]{apparently there's also a Pollak-style argument for this (Stanley hints at it in some slides that I can't find)}
+These are merely special cases, but we can actually recover the complete form of the identity from this! To do so, we'll need a result from \cite{yan-survey-2015}, giving a generating function for the number of preferences for the first spot in a parking function:
 
 \begin{lemma}
     The sum over all length-$n$ parking functions $\pi$ of $x^{|\pi^{-1}(\{1\})|}$ is $x(x+n)^{n-1}$ for any $n\in\mathbb{Z}_{>0}.$
@@ -605,13 +605,6 @@ Note that as a corollary, the number of non-decreasing parking functions such th
 In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a street, where instead of a parking spots each fitting a single car, we consider rows which can each fit $g\ge 1$ cars, except for the last row, which potentially fits fewer. Here, cars have preferences for rows; they attempt to park in the first empty spot of their preferred row, and then each subsequent row until they find one that is not full. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- functions describing preferences that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} Corollary 2.1). The same setup is described engagingly in \cite{carlson-harris-2020}.
 
 We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. By adding $k$ spots to make our street a circular one with $gs$ spots, we can use the circular symmetry of the new setup to enumerate parking functions, in the same vein as Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}).
-
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs}
-%	\includegraphics[width = 0.45 \textwidth]{figures/modPFs2}
-%	\caption{Blake and Konheim's row parking function where cars 1, 4, 5, and 7 prefer the first row, cars 2 and 3 prefer the second row and car 6 prefers the last row can be understood as a restricted parking function $\pi = (1, 4, 4, 1, 1, 7, 1) \in \mathrm{PF}_{7 \mid \{ 1, 4, 7 \}}$. This is an example of the case $g = s = 3$, $k = 2$.}
-%\end{figure}
 
 \begin{figure}[h]
     \centering
@@ -864,7 +857,7 @@ Note that here, for convenience, $S$ is not a subset of the various $m$ that are
     
     Within each segment, we have $g\mu_i-\lambda_i$ cars which can only prefer spots which are $1$ mod $g$ and must park in the first $g\mu_i-\lambda_i$ spots without gaps. This is precisely a parking function with modular restrictions, and can be done in $\# \mathrm{PF}_{gs - k \mid S \cap [gs - k]}$ ways.
 
-    Finally, we must choose how our parking functions are placed within the circle itself. There are $s$ ways to place the first possible preference in the first restricted parking function, and all placements are forced from there onwards; however, for any given $n$ we are overcounting by a factor of $n,$ since all cyclic permutations of a given $\lambda$ and $\mu$ are equivalent, but all are counted. Thus we multiply by $\frac{s}{n},$ for a total of 
+    Finally, we must choose how our parking functions are placed within the circle itself. There are $s$ ways to place the first possible preference in the first restricted parking function, and all placements are forced from there onward; however, for any given $n$ we are over-counting by a factor of $n$, since all cyclic permutations of a given $\lambda$ and $\mu$ are equivalent, but all are counted. Thus we multiply by $\frac{s}{n}$, for a total of 
     \[
 	    s^{gs - k} = \sum_{n = 1}^{k} \frac{s}{n} \sum_{\substack{\lambda \vDash k \\ \lvert\lambda\rvert = n}} \sum_{\substack{\mu \vDash s \\\lvert \mu \rvert = n}} \binom{gs - k}{g \mu - \lambda} \prod_{i = 1}^{n} \# \mathrm{PF}_{g \mu_{i} - \lambda_{i} \mid S \cap [g \mu_{i} - \lambda_{i}]}.
     \]
@@ -887,7 +880,7 @@ We conclude with a brief exploration of particularly interesting connections and
 
 \subsection{$\mathbf{u}$-parking functions}
 
-$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{yan-survey-2015} as functions whose $i$th-smallest output is at most $u_i.$ %\todo[alan]{find a good citation here}
+$S$-restricted parking functions are closely related to a certain class of vector (or $\mathbf{u}$-)parking functions, associated to vectors $\mathbf{u}=(u_1,u_2,u_3,\ldots,u_n)$ and defined by \cite{yan-survey-2015} as functions whose $i$th-smallest output is at most $u_i$. 
 
 By the following claim, any set of $S$-restricted parking functions is ``naturally" in bijection with a corresponding set of $\mathbf{u}$-parking functions:
 
