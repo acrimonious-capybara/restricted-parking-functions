@@ -174,8 +174,8 @@ These reinterpretations yield new combinatorial insights, simpler proofs, more c
 
 Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions: not only are there always enough cars to fill the first $i$ spots for any $1\le i\le n,$ there are always more than enough cars to fill such spots, so that the parking procedure constantly involves overflow. See \cite{armon-2024} for a further discussion of these functions. We construct a correspondence between prime parking functions and $S$-restricted parking functions, given $S=[n]\backslash\{2\},$ and extend this correspondence to prime parking functions with restricted preferences as well.
 
-\begin{definition}[Prime parking functions]
-	A \textit{prime parking function} on $n$ cars is a function $\pi : [n] \to [n],$ such that for all $i\in[n-1]$ the size of $\pi^{-1}([i])$ is greater than $i$. Equivalently, it is a function whose order-preserving rearrangement satisfies $ \pi^{\uparrow}(i) < i$ for each $1<i\le n$. 
+\begin{definition}
+	A \emph{prime parking function} on $n$ cars is a function $\pi : [n] \to [n],$ such that for all $i\in[n-1]$ the size of $\pi^{-1}([i])$ is greater than $i$. Equivalently, it is a function whose order-preserving rearrangement satisfies $ \pi^{\uparrow}(i) < i$ for each $1<i\le n$. 
 
 	We denote the set of all prime parking functions on $n$ cars by $\mathrm{PPF}_{n}$ and their number by $\# \mathrm{P P F}_{n}$.
 \end{definition}
@@ -185,7 +185,7 @@ A prime parking function, then, describes the preferences of $n$ cars on a stree
 By analogy to normal $S$-restricted parking functions, we may consider $S$-restricted prime parking functions as well:
 
 \begin{definition}
-    An $S$-restricted prime parking function on $n$ cars is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PPF}_{n\mid S}.$
+    An \emph{$S$-restricted prime parking function} on $n$ cars is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PPF}_{n\mid S}.$
 \end{definition}
 
 Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. The bijection we present follows by reassigning preferences in a  certain manner to turn a restricted parking function into a prime parking function.
