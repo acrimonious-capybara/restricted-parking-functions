@@ -218,25 +218,25 @@ This is a corollary of \cref{thm:resPrimeIsRes}, which represents $S$-restricted
     The function $f\colon S\backslash\{n\}\to T$ is invertible, inducing for any parking function $\psi\in\mathrm{PF}_{n\mid S}$ a map $f^{-1}\circ\psi\colon[n]\to S\backslash[n]\subset S.$ Since $2\not\in T,$ there are at least $2$ cars $j$ such that $\psi(j)=1$ and so $(f^{-1}\circ\psi)(j)=1.$ For every $1<i<n,$ there are at least $i+1$ cars $j$ such that $\psi(j)\le i+1$ and thus, more than $i$ cars such that $(f^{-1}\circ\psi)(j)\le i.$ Therefore, $f^{-1}\circ\psi\in\mathrm{PPF}_{n\mid S}.$ Since $f_*:\mathrm{PPF}_{n\mid S}\to\mathrm{PF}_{n\mid T}$ is invertible, $\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.$
 \end{proof}
 
-\section{Initial segment restrictions} %\todo[jayden]{For coherence reasons I think we should write this introduction the other way around. I think we should introduce the variant first, then explain that it is best thought of as an $[s]$-restricted parking function} done I think
+\section{Initial segment restrictions}
 
-One variant on classical parking functions occurs when when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots; not all cars will be able to park, but we can try to minimize the \textit{defect} of the function: that is, the number of cars which are unable to park.
+One variant on classical parking functions occurs when when the number of cars differs from the number of spots to park in. \cite{cameron-johannsen-prellberg-schweitzer-2008} studies this idea in some depth. One particularly interesting case occurs when there are more cars than parking spots. Not all cars will be able to park, but we can try to minimize the \textit{defect} of the function --- the number of cars which are unable to park.
 
-\begin{definition}
-    Given any function $f:[n]\to [s],$ performing the parking procedure using $f$ as a preference function yields a partial function $\sigma:[n]\nrightarrow [s]$ representing the parking outcome. of the defect of $f$ is defined to be the number of elements of $[n]$ with no output under $\sigma.$
-\end{definition}
-
-Minimum-defect parking functions are closely related to a particular class of preference-restricted parking functions:
+It turns out that the problem of minimizing defect for functions assigning preferences of $n$ cars in $s$ spots is equivalent to finding $S$-restricted parking functions for a particular $S \subseteq [n]$.
 
 \begin{theorem}
-    Given $1\le s\le n,$ the number of functions $f:[n]\to [s]$ such that the defect takes its minimum possible value of $n-s$ is equal to $\# \mathrm{PF}_{n \mid [s]},$ where $[s]=\{1,2,\dots,s\}.$
+    Given $1\le s\le n$, the preference functions $\psi : [n] \to [s]$ with the minimum possible defect $n - s$ are in bijection with the $[s]$-restricted parking functions $\mathrm{PF}_{n \mid [s]}$ (where $[s] = \{ 1, 2, \dots, s \}$).
 \end{theorem}
 
 \begin{proof}
-    Consider $f:[n]\to[s]$ as a function $f:[n]\to[n]$ and note that the last $n-s$ spots will be filled under the parking procedure, as ``overflow'' from the first $s$ spots. A car exiting the first $s$ spots will be entirely unable to park if and and only if the last $n-s$ spots are already filled. Therefore, the defect is exactly $n-s$ if and only if $f:[n]\to[n]$ is in $\mathrm{PF}_n$ and thus in $\mathrm{PF}_{n\mid S}.$
+	Suppose $\pi$ is an $[s]$-restricted parking function. Then $\pi : [n] \to [n]$ defines a unique function $\psi : [n] \to [s]$ with $\psi(i) = \pi(i)$ for each $i$. We know that performing the parking procedure with preferences defined by $\pi$, and thus also by $\psi$, leads to $s$ cars parking in the first $s$ spots. Thus, under the parking procedure for $\psi$, $s$ cars park in the first $s$ spots and exactly $n - s$ cars are unable to park.
+
+	Suppose $\psi : [n] \to [s]$ has defect $n - s$. $\psi$ defines a unique function $\pi : [n] \to [n]$ by composing with the inclusion $[s] \to [n]$. We claim that $\pi$ satisfies the Catalan condition, and thus, $\pi \in \mathrm{PF}_{n \mid [s]}$. Since $\pi(i) = \psi(i)$ by its definition, this is sufficient to show that composing with the inclusion is the inverse to considering  $\pi \in \mathrm{PF}_{n \mid [s]}$ as a defect-minimising function $[n] \to [s]$, and completes the proof of the bijection.
+
+	Since all of the first $s$ spots are filled, at least $i$ cars prefer the first $i$ spots for all $i \le s$ (this can be seen explicitly by the fact that $\pi$ ``contains a parking function'' when restricted to the $T$ cars parking in the first $s$ spots). Since all cars park in the first $[s]$ spots, for each $i > s$ there are $n$ (and thus, at least $i$) cars preferring to park in the first $i$ spots.
 \end{proof}
 
-One question we can ask: how many $[s]$-restricted parking functions are there? This is answered by \cite{cameron-johannsen-prellberg-schweitzer-2008} through a combinatorial proof, reproduced here in the language of $[s]$-restricted parking functions:
+We ask ``how many $[s]$-restricted parking functions are there?'' This (and a more general question) is answered in \cite{cameron-johannsen-prellberg-schweitzer-2008} combinatorially. We reproduce the proof here as it is clearer in the specific case of $[s]$-restricted parking functions.
 
 \begin{restatable}{theorem}{resPFcount1}
     \label{thm:resPFcount1}
@@ -250,7 +250,7 @@ One question we can ask: how many $[s]$-restricted parking functions are there? 
 	Let $i$ be the number of spots before the first unoccupied spot. Then there must be $i$ cars that form a parking function on those first $i$ spots. Choose those $i$ cars in one of $\binom{n}{i}$ ways, and one of the $(i + 1)^{i - 1}$ parking functions of length $i$. None of the remaining $n - i$ cars can prefer any of the first $i + 1$ spots; otherwise at least $i+1$ cars have preferences in the first $i+1$ spots, so at least one of them will be forced to proceed to spot $i+1$. However, they all can prefer any of the remaining $s - i - 1$ spots in one of $(s - i - 1)^{n - i}$ ways. This makes for $\binom{n}{i} (i + 1)^{i - 1}(s - i - 1)^{n - i}$ preference lists in $[s]^{n}$ so that the first unoccupied spot is $i + 1$. Subtracting the sum over all possible $i$ from the number of total preference lists gives the desired equality.
 \end{proof}
 
-This expression is one half of a sum given by identity called Abel's binomial theorem, as noted by \cite{cameron-johannsen-prellberg-schweitzer-2008} and expanded upon below. We present a novel combinatorial proof corresponding to the other half of that sum.
+This expression is one half of a sum given by Abel's binomial theorem, as noted in \cite{cameron-johannsen-prellberg-schweitzer-2008} (we will expand on Abel's binomial theorem after the next result). They suggest there should be a different count corresponding to the other half of the sum. We present a novel combinatorial proof of this count.
 
 \begin{restatable}{theorem}{resPFcount2}
     \label{thm:resPFcount2}
