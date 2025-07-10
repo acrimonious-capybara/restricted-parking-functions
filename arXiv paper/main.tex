@@ -16,7 +16,7 @@
 
 % theorem setup
 \usepackage{amsthm, thmtools, thm-restate}
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -166,7 +166,7 @@ We will characterize and enumerate these by placing each in natural bijection wi
 
 These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions (as defined in \cite{yan-survey-2015} or \cref{sec:connections}) and the combinatorial intuition of the original parking functions.
 
-\subsection*{An aside on the Catalan condition}
+\subsection{An aside on the Catalan condition}
 
 The Catalan condition can also be written in the language of order-preserving parking functions. This will be useful in proofs.
 
@@ -484,7 +484,7 @@ Also similarly to normal parking functions, we can enumerate preference-restrict
 	Once again, then, we have a single exception to the involution: prime parking functions where all preferences are in $[s]$ are counted once while everything else cancels. Thus our alternating sum counts $\mathrm{PPF}_{n \mid [s]}$.
 \end{proof}
 
-\subsection*{Abel's binomial theorem}
+\subsection{Abel's binomial theorem}
 
 In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each --- one by excluding all of the restricted preference lists that aren't the desired type of parking function, another by taking all parking functions and allowing those with forbidden preferences to cancel. The expressions we get from these two approaches are very similar; this isn't a coincidence!
 
@@ -551,7 +551,7 @@ Note that this result essentially comes from looking at the ``number-of-1s" stat
 
 \end{proof}
 
-\subsection*{The symmetric group and initial restrictions}
+\subsection{The symmetric group and initial restrictions}
 
 Regular parking functions (on $n$ cars) have certain structure beyond just whether they are parking functions or not. For example, whether a given $\pi : [n] \to [n]$ is a parking function depends only on the size of each of the pre-images $\pi^{-1}([i])$. It doesn't matter which cars prefer spots in each $[i]$. However, the parking function itself also comes with the data of its \emph{parking outcome}, the permutation sending each parking space to the car parked in it, which clearly does depend on which cars prefer which spots. This structure involves the symmetric group $\mathfrak{S}_{n}$ in two different ways.
 
