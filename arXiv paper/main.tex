@@ -144,23 +144,19 @@ citecolor = blue}
 
 \section{Introduction} \label{sec:intro}
 
-Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park along a one-way street with a total of $n$ spots. Each car has a preferred spot, as described by a \emph{preference function} $\pi:[n]\to[n],$ where the $i$th car prefers the $\pi(i)$th spot. Equivalently, this function can be written as a \emph{preference list} $(\pi(1), \dots, \pi(n))$ of length $n$. We will use $\pi$ to describe a list or function interchangeably since certain definitions are simpler in one or the other formalism.
+Take $n$ cars for some $n\in\mathbb{N},$ all of which are attempting to park along a one-way street with a total of $n$ spots. Each car has a preferred spot, described by a \emph{preference function} $\pi:[n]\to[n]$, or equivalently, a \emph{preference list} $(\pi(1), \dots, \pi(n))$ of length $n$, where the $i$th car prefers the $\pi(i)$th spot. The cars attempt to park along the one-way street as follows. Starting with the first car, each car successively enters the street and goes to its preferred spot. If that spot is empty, the car parks there; otherwise it proceeds down the street and parks in the first empty spot available. If it reaches the $n$th spot and finds nowhere to park, it leaves without parking.
 
-These cars attempt to park along the one-way street as follows. Starting with the 1st car, each car successively enters the street and goes to its preferred spot. If that spot is empty, the car parks there; otherwise it proceeds down the street and parks in the first empty spot available. If it reaches the $n$th spot and finds nowhere to park, it leaves without parking.
+Some choices of $\pi$ lead to all $n$ cars parking. For example, any bijection $\pi:[n]\to[n]$ lets each car park in its preferred spot. Also, if every car prefers the first spot (if $\pi$ is constant at $1$) each $i$th car parks in the $i$th spot. However, not all functions $\pi$ allow all cars to park. If no car prefers the first spot, then the first spot will never be parked in and not all $n$ cars can park in the remaining $n-1$ spots. The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$  which allow all cars to park.
 
-Some choices of $\pi$ lead to all $n$ cars parking; for example, any bijection $\pi:[n]\to[n]$ lets each car park in its preferred spot, and if every car prefers the first spot, the street fills up from beginning to end. However, not all choices of $\pi$ will lead to this result; for example, if no car prefers spot 1, then the first spot will never be parked in and not all cars can park in the remaining $n-1$ spots.
+Parking functions are well-studied; we suggest \cite{yan-survey-2015} as a comprehensive introduction to their properties. For instance, they have been enumerated and characterized precisely. There are $(n + 1)^{n - 1}$ parking functions on $n$ cars. They are exactly the functions $[n] \to [n]$ satisfying the following \emph{Catalan condition}. A function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. This property can be used to define parking functions.
 
-The \emph{parking functions} on $n$ cars are those $\pi : [n] \to [n]$  which allow all cars to park. Parking functions are well-studied; we suggest \cite{yan-survey-2015} as a comprehensive introduction to their properties. For instance, they have been enumerated and characterized precisely. There are $(n + 1)^{n - 1}$ parking functions on $n$ car. They are exactly the functions $[n] \to [n]$ satisfying the following \emph{Catalan condition}. A function $\pi : [n] \to [n]$ is a parking function if and only if $\#\pi^{-1}([i]) \ge i$ for each $i \in [n]$. That is, a function is a parking function if at least $i$ cars prefer to park in one of the first $i$ spots. 
-
-This can also be written in the language of order-preserving parking functions. For each parking function, there is a unique \emph{order-preserving rearrangement}. It is a rearrangement $\pi^{\uparrow} = \pi \circ \sigma$ (for some permutation $\sigma$) such that $\pi^\uparrow(i)\le \pi^\uparrow(j)$ if and only if $i\le j$. The corresponding list $(\pi^{\uparrow}_{1}(1), \dots, \pi^{\uparrow}(n))$ is non-decreasing, and for this reason $\pi^{\uparrow}$s are called \emph{non-decreasing parking functions}. The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi^\uparrow(i) \le i$ for all $i \in [n]$. The equivalent conditions are called Catalan because the non-decreasing parking functions are counted by Catalan numbers and are in bijection with Catalan objects like Dyck paths. This language will be useful in proofs.
-
-There are many, many possible variants of the problem of enumerating and analyzing parking functions, some of which have gained traction in recent years; the interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that one cannot easily apply the body of theory which has been developed so far. We highlight:
+There are many, many possible variants of the problem of enumerating and analyzing parking functions, some of which have gained traction in recent years. The interested reader is encouraged to peruse \cite{carlson-harris-2020} for an engaging overview of such variants. In many cases, these variants seem sufficiently different from classical parking functions that the developed body of theory cannot be applied immediately. We might ask:
 \begin{enumerate}
 	\item What if the inequality in the Catalan condition is required to be strict? One obtains the building blocks of parking functions. These are \emph{prime parking functions}, of independent interest. See \cite{meyles-2023} for an excellent overview of their properties.
  	\item What if there are fewer cars than spots? Which functions minimize the number of cars unable to park? (This is a special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets and our cars are data, or as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
 \end{enumerate}
-We will show that each of these can be placed in natural bijection with our new notion of \emph{$S$-restricted parking functions} for specific choices of $S \subseteq [n]$.
+We will characterize and enumerate these by placing each in natural bijection with our new notion of \emph{$S$-restricted parking functions} for a specific choices of $S \subseteq [n]$.
 
 \begin{definition}
     Given a subset of allowed preferences $S \subseteq [n]$, an \emph{$S$-restricted parking function} on $n$ cars is a function $\pi : [n] \to S$ which is also a parking function. 
@@ -169,6 +165,14 @@ We will show that each of these can be placed in natural bijection with our new 
 \end{definition}
 
 These reinterpretations yield new combinatorial insights, simpler proofs, more complete theories of parking procedures, and connections to deep results in combinatorics. In some sense, $S$-restricted parking functions provide a paradigm for solving parking questions that strikes the balance between the generality of $\mathbf{u}$-parking functions (as defined in \cite{yan-survey-2015} or \cref{sec:connections}) and the combinatorial intuition of the original parking functions.
+
+\subsection*{An aside on the Catalan condition}
+
+The Catalan condition can also be written in the language of order-preserving parking functions. This will be useful in proofs.
+
+For each parking function, there is a unique \emph{order-preserving rearrangement}. It is a rearrangement $\pi^{\uparrow} = \pi \circ \sigma$ (for some permutation $\sigma$) such that $\pi^\uparrow(i)\le \pi^\uparrow(j)$ if and only if $i\le j$. The corresponding list $(\pi^{\uparrow}(1), \dots, \pi^{\uparrow}(n))$ is non-decreasing, and for this reason $\pi^{\uparrow}$ is called a \emph{non-decreasing parking function}. 
+
+The Catalan condition can equivalently be stated: $\pi$ is a parking function if and only if $\pi^\uparrow(i) \le i$ for all $i \in [n]$. The equivalent conditions are called Catalan because the non-decreasing parking functions are counted by Catalan numbers and are in bijection with Catalan objects like Dyck paths.
 
 \section{Prime parking functions} \label{primesection}
 
