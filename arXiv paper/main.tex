@@ -634,9 +634,9 @@ Note, as a corollary, the number of non-decreasing parking functions such that $
  
 \section{Modular restrictions \label{modularsection}}
 
-In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a street, where instead of a parking spots each fitting a single car, we consider rows which can each fit $g\ge 1$ cars, except for the last row, which potentially fits fewer. Here, cars have preferences for rows; they attempt to park in the first empty spot of their preferred row, and then each subsequent row until they find one that is not full. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- functions describing preferences that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} Corollary 2.1). The same setup is described engagingly in \cite{carlson-harris-2020}.
+In \cite{blake-konheim-1977}, Blake and Konheim consider a variant of the parking problem applicable to hash buckets. In the language of cars and parking spots (they think about balls and buckets) they consider the problem of parking cars in a street, where instead of a parking spots each fitting a single car, there are rows which can each fit $g\ge 1$ cars, except for the last row, which potentially fits fewer. Here, cars have preferences for rows; they attempt to park in the first empty spot of their preferred row, and then each subsequent row until they find one that is not full. Using machinery from complex analysis and generating functions, Blake and Konheim obtain an enumeration of the ``parking functions'' --- functions describing preferences that allow every car to park --- under this modified parking procedure (\cite{blake-konheim-1977} Corollary 2.1). The same setup is described engagingly in \cite{carlson-harris-2020}.
 
-We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. The parking behavior of the cars is exactly equivalent but now the problem is a restricted parking function. By adding $k$ spots to make our street a circular one with $gs$ spots, we can use the circular symmetry of the new setup to enumerate parking functions, in the same vein as Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}).
+We obtain the same enumeration by elementary means that provide an explicit generalization to the case of $gs - k$ spots as well. Instead of considering $gs - 1$ parking spots organized in $s$ rows of $g$ parking spots each (with $g - 1$ in the last row), we imagine placing these rows one after each other to form a long one-way street and only permit cars to prefer the first spot in each row. This parking procedure is exactly equivalent but can be understood as a restricted parking function. By adding $k$ spots to make our street a circular one with $gs$ spots, we can use the circular symmetry of the new setup to enumerate parking functions, in the same vein as Pollak's enumeration of parking functions (recounted by Riordan in \cite{riordan-1969}).
 
 \begin{figure}[h]
     \centering
@@ -755,7 +755,7 @@ This is really the first case of a more general recursive result for parking fun
 	where $S$ is the set of all natural numbers $j$ with $j \equiv 1 \pmod g$ and $\lambda \vDash k$ indicates that $\lambda$ is a composition of $k$ with length $|\lambda|.$
 \end{restatable}
 
-Note that here, for convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
+Note that here, for notational convenience, $S$ is not a subset of the various $m$ that are the lengths of the parking functions. Rather, $[m] \cap S$ is the relevant subset. 
 
 \begin{proof}
     Consider $gs-k$ cars parking along a circular street with $gs$ spots; similarly to the proof of \cref{thm:modPFcount}, we only permit cars to prefer the $s$ distinct spots $1,g+1,2g+1,\ldots$ around the street. There are $s^{gs-k}$ total ways to choose these preferences, and every such choice will lead to all cars parking.
@@ -896,7 +896,7 @@ Note that here, for convenience, $S$ is not a subset of the various $m$ that are
     The formula above arises from pulling out the desirable $n = 1$ term.
 \end{proof}
 
-In practice, the formula it yields is computationally intractable for large $g, s, k$. However, it can be useful to show special cases of small $k$ as in \cref{thm:modPFcount} and below ---
+In practice, the formula is computationally intractable for large $g, s, k$. However, it can be useful to show special cases of small $k$ as in \cref{thm:modPFcount} and below.
 
 \begin{restatable}{example}{modPFcount2}
 	The number of parking functions of length $gs - 2$ cars with gap $g$ between possible preferred spots is
