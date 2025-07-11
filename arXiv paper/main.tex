@@ -176,7 +176,7 @@ The Catalan condition can equivalently be stated: $\pi$ is a parking function if
 
 \section{Prime parking functions} \label{primesection}
 
-Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter condition than parking functions: not only are there always enough cars to fill the first $i$ spots for any $1\le i\le n,$ there are always more than enough cars to fill such spots, so that the parking procedure constantly involves overflow. See \cite{armon-2024} for a further discussion of these functions. We construct a correspondence between prime parking functions and $S$-restricted parking functions, given $S=[n]\backslash\{2\},$ and extend this correspondence to prime parking functions with restricted preferences as well.
+Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter Catalan condition than parking functions. See \cite{armon-2024} for a further discussion of these functions. 
 
 \begin{definition}
 	A \emph{prime parking function} on $n$ cars is a function $\pi : [n] \to [n],$ such that for all $i\in[n-1]$ the size of $\pi^{-1}([i])$ is greater than $i$. Equivalently, it is a function whose order-preserving rearrangement satisfies $ \pi^{\uparrow}(i) < i$ for each $1<i\le n$. 
@@ -184,22 +184,24 @@ Prime parking functions are an important class of parking functions. In analogy 
 	We denote the set of all prime parking functions on $n$ cars by $\mathrm{PPF}_{n}$ and their number by $\# \mathrm{P P F}_{n}$.
 \end{definition}
 
-A prime parking function, then, describes the preferences of $n$ cars on a street with $n$ cars such that for all $i\in[n-1],$ more than $i$ cars prefer the first $i$ spots. Essentially this means that there will be ``overflow'' at every point.
+A prime parking function, then, describes the preferences of $n$ cars on a street with $n$ cars such that for all $i < n$, more than $i$ cars prefer one of the first $i$ spots. This means that for each parking spot (except the last), there is a car that attempts to park in the spot after it is occupied.
 
 By analogy to normal $S$-restricted parking functions, we may consider $S$-restricted prime parking functions as well:
 
 \begin{definition}
-    An \emph{$S$-restricted prime parking function} on $n$ cars is a parking function on $n$ cars where all preferences lie in $S.$ We denote the number of parking functions of this type as $\# \mathrm{PPF}_{n\mid S}.$
+    An \emph{$S$-restricted prime parking function} on $n$ cars is a prime parking function on $n$ cars with image in $S$.
+
+    We denote the set of all $S$-restricted prime parking functions on $n$ cars by $\mathrm{PPF}_{n \mid S}$ and their number by $\# \mathrm{P P F}_{n \mid S}$.
 \end{definition}
 
-Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. The bijection we present follows by reassigning preferences in a  certain manner to turn a restricted parking function into a prime parking function.
+Prime parking functions themselves have a characterization in terms of $S$-restricted parking functions: prime parking functions are in bijection with parking functions where no car prefers the second spot. This bijection is given by moving the preference of each ``extra car'' preferring one of the first $i$ spots one spot over.
 
 \begin{restatable}{theorem}{primeIsRes}
     \label{thm:primeIsRes}
 	There is a bijection between prime parking functions and $[n] \setminus \{ 2 \}$-restricted parking functions (on $n$ cars). 
 \end{restatable}
 
-This is a corollary of \cref{thm:resPrimeIsRes}, which represents $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. We proceed by a bijection that adds $1$ to all preferences greater than $1$.
+This is a corollary of \cref{thm:resPrimeIsRes}, which represents $S$-restricted prime parking functions as $T$-restricted parking functions for some related subset $T$. It is given by the same kind of bijection described above.
 
 \begin{restatable}{theorem}{resPrimeIsRes}
     \label{thm:resPrimeIsRes}
@@ -209,17 +211,22 @@ This is a corollary of \cref{thm:resPrimeIsRes}, which represents $S$-restricted
 	\]
 	That is,
 	\[
-		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T},
+		\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.
 	\]
-    where $\# \mathrm{PPF}_{n \mid S}$ denotes the number of prime parking functions with all preferences in $S.$
 \end{restatable}
 
 \begin{proof}
-	Consider the bijection $f \colon S \setminus \{ n \} \to T$ that adds 1 to all $i \in S\backslash \{n\}$ greater than 1. That is, $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim this pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f_{*}\colon\mathrm{PPF}_{n \mid S}\to\mathrm{PF}_{n \mid T}$ defined by $\pi \mapsto f \circ \pi$. $f_*$ maps functions $[n]\to S$ to functions $[n]\to T$ in a well-defined manner, for no prime parking function can have $n$ in its image, since all $n$ preferences lie in $[n-1].$
-    
-    Since $f(1)=1$ and $\pi$ is prime and thus at least two cars prefer spot $1,$ the corresponding cars in $f\circ\pi$ prefer spot 1, and so at least $1$ car prefers the first spot and at least $2$ cars prefer one of the first two spots in $f\circ\pi$. For $i>2,$ $\pi(j)\le i-1$ implies $(f\circ\pi)(j)\le i$; since $\pi$ is prime, at least $i$ cars satisfy $\pi(j)\le i-1,$ so $(f\circ\pi)(j)\le i$ for these $i$ cars, satisfying the Catalan condition. Therefore, $f\circ\pi\in\mathrm{PF}_{n\mid T}.$
+	Consider the bijection $f \colon S \setminus \{ n \} \to T$ by $f(1) = 1$ and $f(x) = x + 1$ otherwise. We claim $f$ pushes forward to a bijection from $S$-restricted prime parking functions to $T$-restricted parking functions by $f_{*}\colon\mathrm{PPF}_{n \mid S}\to\mathrm{PF}_{n \mid T}$ defined by $\pi \mapsto f_{*} \pi = f \circ \pi$.
 
-    The function $f\colon S\backslash\{n\}\to T$ is invertible, inducing for any parking function $\psi\in\mathrm{PF}_{n\mid S}$ a map $f^{-1}\circ\psi\colon[n]\to S\backslash\{n\}\subset S.$ Since $2\not\in T,$ there are at least $2$ cars $j$ such that $\psi(j)=1$ and so $(f^{-1}\circ\psi)(j)=1.$ For every $1<i<n,$ there are at least $i+1$ cars $j$ such that $\psi(j)\le i+1$ and thus, more than $i$ cars such that $(f^{-1}\circ\psi)(j)\le i.$ Therefore, $f^{-1}\circ\psi\in\mathrm{PPF}_{n\mid S}.$ Since $f_*:\mathrm{PPF}_{n\mid S}\to\mathrm{PF}_{n\mid T}$ is invertible, $\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}.$
+	The pushforward $f_*$ is a well-defined map from functions $\mathrm{PPF}_{n \mid S}$ to functions $[n]\to T$. In particular, no prime parking function $\pi$ can have $n$ in its image (since $\pi$ is prime, at least $n > n - 1$ cars prefer to park in the first $n - 1$ spots). Thus, $\pi$ has image contained in $S \setminus \{ n \}$, and $f_{*} \pi$ then must have image in $f(S \setminus \{ n \}) = T$. 
+
+	Now we show that every $f_{*} \pi$ is a parking function. Since $\pi$ is prime, there are two cars ``$j$'' such that $\pi(j) = 1$. Since $f(1) = 1$, the same two cars have $f^{*} \pi(j) = 1$. Thus, the Catalan condition is satisfied for $i = 1$ (and $i = 2$). Now suppose $i \ge 2$. Since $\pi$ is prime, at least $i$-many cars ``$j$'' satisfy $\pi(j) \le i - 1$. Since $f(x) \le x + 1$, these same $i$-many cars have $f_{*} \pi(j)\le i$. That is, the Catalan condition is satisfied for all $i$ and $f_{*} \pi$ is a parking function. It has image in $T$, so $f_{*} \pi \in \mathrm{PF}_{n\mid T}$.
+
+	The function $f\colon S\backslash\{n\}\to T$ is invertible, inducing an inverse map to the pushforward. In particular we claim there is a map $f^{*} : \mathrm{PF}_{n \mid T} \to \mathrm{PPF}_{n \mid S}$ by $\psi \mapsto f^{*} \psi = f^{-1} \circ \psi$ and that $f^{*}$ is the inverse to $f_{*}$. $f^{*}$ is a well-defined map sending $\mathrm{PF}_{n \mid T}$ to functions $[n] \to S$ for the same reason that $f_{*}$ is well-defined. Specifically, $\psi \in \mathrm{PF}_{n \mid T}$ has image in $T$, so $f^{*} \psi$ has image in $f^{-1}(T) = S \setminus \{ n \}$. 
+
+	It remains to show that $f^{*} \psi$ is a prime parking function. The argument is similar to that by which $f_{*} \pi$ was shown to be a parking function. Note that $f^{-1}(1) = 1$ and $f^{-1}(x) = x - 1$ for $x \neq 1$. Since $2 \not \in T$ (to satisfy the Catalan condition when $i = 2$) there are at least two cars ``$j$'' such that $\psi(j) = 1$ and so $f^{*} \psi(j) = 1$. For every $1 < i < n$, there are at least $(i + 1)$-many cars ``$j$'' such that $\psi(j) \le i + 1$ and thus, more than $i$-many cars such that $f^{*}\psi(j) \le i$. Therefore, the strict Catalan condition is satisfied for all $i$ and $f^{*} \psi \in \mathrm{PPF}_{n\mid S}$.
+
+	Now we can compose $f_{*}$ and $f^{*}$ to see that $f^{*}(f_{*} \pi) = f^{-1} \circ f \circ \pi = \pi$ and similarly, $f_{*}(f^{*} \psi) = f \circ f^{-1} \circ \psi = \psi$. Thus, $f_*:\mathrm{PPF}_{n\mid S}\to\mathrm{PF}_{n\mid T}$ is a bijection and $\# \mathrm{PPF}_{n \mid S} = \# \mathrm{PF}_{n \mid T}$.
 \end{proof}
 
 \section{Initial segment restrictions}
