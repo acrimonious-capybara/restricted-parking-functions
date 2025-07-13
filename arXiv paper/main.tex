@@ -423,7 +423,7 @@ This expression is one half of a sum given by Abel's binomial theorem, as noted 
 
 	If car $x$ was indigo, then $m \in [i]$ (since the $i$ indigo cars form a parking function). Consider the same parking function with car $x$ painted red. The remaining indigo cars will still form a parking function on $i - 1$ cars: the $j$th smallest preference will still be at most $j$ after removing the maximum preference, so the Catalan condition is still satisfied.
     
-    Since $m \in [i]$ was the maximum preference, all red cars' preferences will be in $[i].$ No old red cars will be in $[s],$ since all were contained in $[i+1]\backslash [s]$ The new red car is the only thing to worry about: all red cars will have preferences in $[i]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
+    Since $m \in [i]$ was the maximum preference, all red cars' preferences will be in $[i].$ No old red cars will be in $[s],$ since all were contained in $[i+1]\backslash [s].$ The new red car is the only thing to worry about: all red cars will have preferences in $[i]\backslash [s],$ and therefore all conditions will be satisfied for the involution, unless $m\in [s].$
 
 	This is our exception --- we cannot recolor to have a new red car if even the maximum preference is in $[s]$. This corresponds to the $[s]$-restricted parking functions of length $n$. They are only counted once --- positively, as a subset of the term with 0 red cars. Any other pair of 2-colored parking functions is counted positively once and negatively once in our sum, for an even and odd number of red cars respectively. Thus, the sum counts only $\#\mathrm{PF}_{n \mid [s]}$.
 \end{proof}
@@ -461,9 +461,9 @@ Also similarly to classical parking functions, we can enumerate $[s]$-restricted
     
     We will now count 2-colored prime parking functions. The $i$ indigo cars are to form a prime parking function on $[i]$; the remaining $n - i$ cars are colored red and can prefer any of the $i - s$ forbidden spots in  $[i] \setminus [s]$. These preferences always form a prime parking function --- the extra-strong Catalan condition is satisfied up to spot $i-1$ by the indigo cars since they form a prime parking function, and then the red cars all prefer one of the first $i$ spots, satisfying the condition from $i$ onwards. We count these parking functions positively with an even number of red cars and negatively otherwise. This count is
 	\[
-		\sum_{i = s}^{n} \binom{n}{i} (i - 1)^{i - 1} (i - s)^{n - i} (-1)^{n - i},
+		\sum_{i = s}^{n} \binom{n}{i} (i - 1)^{i - 1} (i - s)^{n - i} (-1)^{n - i};
 	\]
-	equal to the sum above.
+	this is equal to the sum above, noting that the $i=s$ term becomes 0.
 
 	We use the same involution as before: recolor car $x,$ the first car that has the maximum preference $m.$ Note that $m > s$ as long as there are some red cars, since the red cars all prefer spots greater than $s$.
 
