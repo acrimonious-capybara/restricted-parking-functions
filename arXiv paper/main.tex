@@ -9,7 +9,6 @@
 \usepackage[varbb]{newpxmath}
 \usepackage{float}
 
-% wider margins just for now, so that todonotes are easily visible
 \usepackage[margin = 1 in]{geometry}
 \usepackage{microtype}
 
@@ -99,8 +98,8 @@ citecolor = blue}
 \title{Preference-restricted parking functions}
 
 \author[Bown]{Jasper Bown}
-\address[J. Bown]{Harvey Mudd College, United States}
-\email{abown@g.hmc.edu}
+\address[J. Bown]{University of Minnesota --- Twin Cities, United States}
+\email{bown0009@umn.edu}
 
 \author[Kagey]{Peter Kagey}
 \address[P. Kagey]{California State Polytechnic University, Pomona}
@@ -161,7 +160,7 @@ The Catalan condition can equivalently be stated: $\pi$ is a parking function if
 
 \section{Prime parking functions} \label{primesection}
 
-Prime parking functions are an important class of parking functions. In analogy with primes, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter Catalan condition than parking functions. See \cite{armon-2024} for a further discussion of these functions. 
+Prime parking functions are an important restricted class of parking functions. In analogy with prime numbers, they are the indecomposable parts from which all parking functions are built. They are often defined as satisfying a stricter Catalan condition than parking functions:
 
 \begin{definition}
 	A \emph{prime parking function} on $n$ cars is a function $\pi : [n] \to [n],$ such that for all $i\in[n-1]$ the size of $\pi^{-1}([i])$ is greater than $i$. Equivalently, it is a function whose order-preserving rearrangement satisfies $ \pi^{\uparrow}(i) < i$ for each $1<i\le n$. 
@@ -170,6 +169,8 @@ Prime parking functions are an important class of parking functions. In analogy 
 \end{definition}
 
 A prime parking function, then, describes the preferences of $n$ cars on a street with $n$ cars such that for all $i < n$, more than $i$ cars prefer one of the first $i$ spots. This means that for each parking spot (except the last), there is a car that attempts to park in the spot after it is occupied.
+
+Prime parking functions were first introduced by Gessel in private correspondences mentioned both in Stanley’s Enumerative combinatorics \cite{stanley-fomin-1999} and in Kalikow’s thesis \cite{kalikow-1999}. Recently, prime parking functions have served as a useful tool to study unit interval parking functions \cite{meyles-2023} and have been generalized to different kinds of parking functions \cite{armon-2024}.
 
 By analogy to normal $S$-restricted parking functions, we may consider $S$-restricted prime parking functions as well:
 
@@ -230,7 +231,7 @@ One variant on classical parking functions is when the number of cars differs fr
 	Since all of the first $s$ spots are filled, at least $i$ cars prefer the first $i$ spots for all $i \le s$ (this can be seen explicitly by the fact that $\pi$ ``contains a parking function'' when restricted to the $T$ cars parking in the first $s$ spots). Since all cars park in the first $[s]$ spots, for each $i > s$ there are $n$ (and thus, at least $i$) cars preferring to park in the first $i$ spots.
 \end{proof}
 
-We ask ``how many $[s]$-restricted parking functions are there?'' This (and a more general question) is answered in \cite{cameron-johannsen-prellberg-schweitzer-2008} combinatorially. We reproduce the proof here as it is clearer in the specific case of $[s]$-restricted parking functions.
+We can ask ``how many $[s]$-restricted parking functions are there?'' This is answered in \cite{cameron-johannsen-prellberg-schweitzer-2008} through a generating function argument (Definition 5, Theorem 6). They also provide an alternate combinatorial proof which leads to a recursive expression rather than an explicit one. With a modification, we present a combinatorial argument which gives an explicit expression for the number of $[s]$-restricted parking functions.
 
 \begin{restatable}{theorem}{resPFcount1}
     \label{thm:resPFcount1}
@@ -922,7 +923,7 @@ In considering permutation-invariant parking functions, \cite{chen-2023} comes a
 
 The Shi hyperplane arrangement in $n$ dimensions consists of the hyperplanes $x_i-x_j=0$ and $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$. Famously, it has $(n+1)^{n-1}$ regions, which are in bijection with parking functions through maps given by \cite{athanasiadis-linusson-1999} among others. \cite{bennett-2024} constructs a subset of this arrangement assigned to any labeled graph $G$ on $n$ vertices called the $G$-Shi arrangement. The $G$-Shi arrangement consists of hyperplanes $x_i-x_j=0$ and $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G$. In particular $C_n$-Shi arrangement consists of the hyperplanes $x_i-x_{i+1}=0,1$ for $i\in[n-1]$ along with the hyperplanes $x_1-x_n=0,1$. The fact that this connects to preference-restricted parking functions seems more than coincidence!
 
-It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. The Linial arrangement (as described by e.g. \cite{stanley-2007}) consists of the hyperplanes $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j.$ One could define a $G$-Linial arrangement in much the same way, consisting of the hyperplanes $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G$. In the case of $G=C_n$, this yields $2^n-1$ regions, as all ``possible" regions exist (except for $x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$). This is exactly the number of $[2]$-restricted parking functions of length $n$. Cleverer constructions may yield interesting results.
+It seems worth considering this construction for other subgraphs, or even for other hyperplane arrangements. The Linial arrangement (as described by e.g. \cite{stanley-hyperplanes-2007}) consists of the hyperplanes $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j.$ One could define a $G$-Linial arrangement in much the same way, consisting of the hyperplanes $x_i-x_j=1$ for all $i,j\in[n]$ where $i<j$ and the edge $ij$ is in $G$. In the case of $G=C_n$, this yields $2^n-1$ regions, as all ``possible" regions exist (except for $x_i-x_{i+1}>1$ for $i\in[n-1],$ $x_1-x_n<1$). This is exactly the number of $[2]$-restricted parking functions of length $n$. Cleverer constructions may yield interesting results.
 
 \subsection{Parking polytopes}
 
