@@ -67,7 +67,7 @@
 
 \authortext{2}{California State Polytechnic University, Pomona, California USA \email{pkagey@cpp.edu}}
 
-\authortext{3}{Harvey Mudd College, Claremont, California, USA (\email{orrison@hmc.edu}, \email{akappler@g.hmc.edu}, \email{jthadani@hmc.edu})}
+\authortext{3}{Harvey Mudd College, Claremont, California, USA (\email{akappler@g.hmc.edu}, \email{orrison@hmc.edu}, \email{jthadani@hmc.edu})}
 
 \begin{document}
 
@@ -91,7 +91,7 @@ There are many, many possible variants of the problem of enumerating and analyzi
  	\item What if there are fewer cars than spots? Which functions minimize the number of cars unable to park? (This is a special case of the variants considered in \cite{cameron-johannsen-prellberg-schweitzer-2008}.)
 	\item What if each parking spot can accommodate more than one car? (Perhaps, as in \cite{blake-konheim-1977}, our parking spots are hash buckets and our cars are data, or as in \cite{carlson-harris-2020}, our parking spots are clown cars between which different clowns have different preferences.)
 \end{enumerate}
-We will characterize and enumerate these by placing each in natural bijection with our new notion of \emph{$S$-restricted parking functions} for a specific choices of $S \subseteq [n]$.
+We will characterize and enumerate these by placing each in natural bijection with our new notion of \emph{$S$-restricted parking functions} for specific choices of $S \subseteq [n]$.
 
 \begin{definition}
     Given a subset of allowed preferences $S \subseteq [n]$, an \emph{$S$-restricted parking function} on $n$ cars is a function $\pi : [n] \to S$ which is also a parking function. 
@@ -380,7 +380,7 @@ We can ask ``how many $[s]$-restricted parking functions are there?'' This is an
 
 \subsection{\texorpdfstring{$[s]$-r}{R}estricted prime parking functions}
 
-There is an analogous result for prime parking functions as well. Recall that prime parking functions $\pi:[n]\to[n]$ satisfy an extra-strong Catalan condition --- that more than $i$ cars prefer one of the first in $i$ spots for each $i \le n$. We will use the fact that their total count is $(n-1)^{n-1}$. Again, we refer the reader to \cite{armon-2024} for a more detailed discussion.
+There is an analogous result for prime parking functions as well. Recall that prime parking functions $\pi:[n]\to[n]$ satisfy an extra-strong Catalan condition --- that more than $i$ cars prefer one of the first $i$ spots for each $i \le n$. We will use the fact that their total count is $(n-1)^{n-1}$. Again, we refer the reader to \cite{armon-2024} for a more detailed discussion.
 
 We can enumerate $[s]$-restricted prime parking functions (defined in \cref{primesection} as those prime parking functions that are also $[s]$-restricted) in much the same manner as we did normal restricted parking functions:
 
