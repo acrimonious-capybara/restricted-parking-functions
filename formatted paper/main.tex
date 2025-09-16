@@ -1,58 +1,13 @@
-% arXiv-friendly version of the paper
-\documentclass[12 pt]{amsart}
+\documentclass[12pt]{article}
+\def\cleverefoptions{capitalise}
+\usepackage[amsmath, cleveref]{e-jc}
 
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
+\usepackage{thm-restate}
 
-\usepackage[largesc]{newpxtext}
-\usepackage[varbb]{newpxmath}
 \usepackage{float}
-
-\usepackage[margin = 1 in]{geometry}
-\usepackage{microtype}
-
-% theorem setup
-\usepackage{amsthm, thmtools, thm-restate}
-\newtheorem{theorem}{Theorem}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\theoremstyle{definition} % definition style
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{example}[theorem]{Example}
-\theoremstyle{remark} % remark style
-\newtheorem{remark}[theorem]{Remark}
-
-\usepackage{hyperref}
-\usepackage[capitalise]{cleveref}
-\hypersetup{ % make links pretty and not boxed
-colorlinks,
-linkcolor = blue,
-urlcolor = blue,
-citecolor = blue}
-
-% add your own todostyle!
-\usepackage[textsize = footnotesize, disable]{todonotes}
-\todostyle{jayden}{color = pink}
-\todostyle{jasper}{color = lime}
-\todostyle{alan}{color = purple}
-
 \usepackage{transparent}
 \usepackage{tikz}
-\usetikzlibrary {arrows.meta}
-
-% car
-%\newcommand{\mzncar}[3][(0,0)]{
-%\begin{scope}[shift={#1}]
-%\shade[top color=#2, bottom color=#3, shading angle=90, draw=white, rounded corners=0.7ex, very thick] (0.75,.25) -- ++(0,0.5) -- ++(0.5,0.15) -- ++(1.5,0) -- ++(0.5,0) -- ++(0,-0.65) -- (0.75,.25) -- cycle;
-%\draw[thick, rounded corners=0.2ex, fill=white, thick] (1.25,0.85) -- ++(0.5,0.35) -- ++(0.8,0) -- ++(0.3,-0.35) -- (1.25,0.85);
-%\draw[thick] (2.1,0.85) -- (2.1,1.2);
-%\draw[fill=gray!80,thin] (1.375,.25) circle[radius=.2];
-%\draw[fill=gray!80,thin] (2.76,.25) circle[radius=.2];
-%\end{scope}
-%}
+\usetikzlibrary{arrows.meta}
 
 \newcommand{\mzncarrot}[4][(0,0)]{
     \begin{scope}[shift={#1}]
@@ -95,36 +50,32 @@ citecolor = blue}
     \end{scope}
 }
 
+\dateline{August 2025}{}{}
+
+%enumerative combinatorics
+\MSC{05A19}
+
+\Copyright{The authors.}
+
+% placeholder
 \title{Preference-restricted parking functions}
 
-\author[Bown]{Jasper Bown}
-\address[J. Bown]{University of Minnesota --- Twin Cities, United States}
-\email{bown0009@umn.edu}
+% add your author details
+\author{Jasper Bown \authornote{1} \and Peter Kagey \authornote{2} \and Alan Kappler \authornote{3} \and Michael E. Orrison \authornote{3} \and Jayden Thadani \authornote{3}}
 
-\author[Kagey]{Peter Kagey}
-\address[P. Kagey]{California State Polytechnic University, Pomona}
-\email{pkagey@cpp.edu}
+\authortext{1}{University of Minnesota, Twin Cities, Minnesota, USA \email{bown0009@umn.edu}}
 
-\author[Kappler]{Alan Kappler}
-\address[A. Kappler]{Harvey Mudd College, United States}
-\email{akappler@g.hmc.edu}
+\authortext{2}{California State Polytechnic University, Pomona, California USA \email{pkagey@cpp.edu}}
 
-\author[Orrison]{Michael E.~Orrison}
-\address[M.~Orrison]{Harvey Mudd College, United States}
-\email{orrison@hmc.edu}
-
-\author[Thadani]{Jayden Thadani}
-\address[J. Thadani]{Harvey Mudd College, United States}
-\email{jthadani@hmc.edu}
-
+\authortext{3}{Harvey Mudd College, Claremont, California, USA (\email{akappler@g.hmc.edu}, \email{orrison@hmc.edu}, \email{jthadani@hmc.edu})}
 
 \begin{document}
+
+\maketitle
 
 \begin{abstract}
      A parking function is a function $\pi:[n]\to [n]$ whose $i$th-smallest output is at most $i,$ corresponding to a parking procedure for $n$ cars on a one-way street. We refine this concept by introducing preference-restricted parking functions, which are parking functions with codomain restricted to some $S\subseteq[n]$. Particular choices of $S$ yield new combinatorial interpretations of previous results about variant parking procedures, and new results too. In particular we consider prime parking functions, parking procedures with fewer spots than cars, and parking functions where each spot has space for multiple cars. We also use restricted parking functions to give a new proof of Abel's binomial theorem.
 \end{abstract}
-
-\maketitle
 
 \section{Introduction} \label{sec:intro}
 
@@ -481,7 +432,7 @@ Also similarly to classical parking functions, we can enumerate $[s]$-restricted
 
 In enumerating $[s]$-restricted parking functions and their prime variants, we demonstrated two different counts for each. One was obtained by excluding all of the restricted preference lists that aren't parking functions and another by canceling all parking functions with forbidden preferences. The expressions we get from these two approaches are very similar. This isn't a coincidence! These pairs of counts are actually halves of Abel's binomial theorem.
 
-Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests (see \cite{shapiro-1991} and \cite{pitman-2002} for more on these connections, or \cite{francon-1974} for another direct combinatorial proof). The identity has many equivalent statements. One common form similar to those in \cite{shapiro-1991} and \cite{zucker-2024} is
+Abel's binomial theorem is a generalization of the standard binomial theorem, with deep roots in the theory of reluctant functions and forests (see \cite{shapiro-1991} and \cite{pitman-2002} for more on these connections). The identity has many equivalent statements. One common form similar to those in \cite{shapiro-1991} and \cite{zucker-2024} is
 \[
 	(X + Y)^{n} = \sum_{k = 0}^{n} \binom{n}{k} X (X + kZ)^{k - 1} (Y - k Z)^{n - k}
 \]
@@ -929,7 +880,8 @@ In \cite{andres-others-2023}, the convex hull $\mathfrak{X}$ of weakly increasin
 
 Our $[s]$-restricted parking functions correspond to $\mathbf{x}$-parking functions in the case $\mathbf{x} = (\underbrace{1, \dots, 1}_{s \text{ times}}, 0, \dots, 0)$. If the results of \cite{andres-others-2023} can be generalized to work with this $\mathbf{x}$, then we would have new ways to count integer points in the corresponding Pitman-Stanley polytope using our formulas for weakly increasing $[s]$-restricted parking functions. Given the Pitman-Stanley polytope's central importance, this introduces the possibility of connections to all kinds of geometric combinatorics.
 
+\bibliographystyle{hplain}
 \bibliography{references}
-\bibliographystyle{alpha}
 
 \end{document}
+
